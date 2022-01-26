@@ -1,0 +1,28 @@
+@import "../tools/sassMagic";
+@import "../acss/mp";
+
+@include b('HaForm') {
+
+  .el-form-item__label {
+    font-size: 12px;
+    padding-right: 5px;
+  }
+
+  .el-checkbox,
+  .el-radio {
+    margin-right: 15px;
+  }
+  .el-checkbox__label,
+  .el-radio__label {
+    font-size: 12px;
+  }
+
+  .el-date-editor,
+  .el-select {
+    width: 100%;
+  }
+
+  .el-input-number {
+    width: calc(100% - 1px);
+  }
+}

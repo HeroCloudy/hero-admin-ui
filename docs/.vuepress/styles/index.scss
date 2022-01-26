@@ -1,0 +1,20 @@
+:root{
+  --sidebar-width: 220px;
+  --content-width: 85%;
+  --code-ln-wrapper-width: 50px;
+  --c-brand: red;
+  --c-brand-light: pink;
+  --c-text-accent: red;
+}
+
+.theme-default-content pre, .theme-default-content pre[class*=language-] {
+  padding: 1rem;
+}
+
+div[class*=language-].line-numbers-mode .line-numbers {
+  padding-top: 1rem;
+}
+
+#app {
+  overflow-y: auto !important;
+}

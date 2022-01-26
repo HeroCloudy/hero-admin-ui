@@ -1,0 +1,59 @@
+@import "../tools/sassMagic";
+@import "../acss/mp";
+@import "../base/var";
+
+@include b('HaTable') {
+
+  width: 100%;
+  box-sizing: border-box;
+
+  @include e(top) {
+    @extend .f;
+    //font-size: 14px;
+    //margin: 5px 0;
+
+    @include m(opt) {
+      @extend .f-1;
+
+      .el-button+*{
+        margin-right: 10px !important;
+      }
+    }
+
+    @include m(setting) {
+      .el-button {
+        margin-left: 10px;
+      }
+    }
+  }
+
+  .el-button+.el-dropdown,
+  .el-button+.el-button {
+    margin-left: 10px;
+  }
+
+  .header-row {
+    th {
+      background-color: rgba($color: $primary-color, $alpha: .8) !important;
+      color: white !important;
+    }
+  }
+
+  @include e(pager) {
+    margin: 15px 0;
+    text-align: right;
+
+    .el-pagination.is-background {
+      .el-pager li:not(.disabled).active {
+        background-color: rgba($color: $primary-color, $alpha: .8);
+
+        &:hover {
+          color: $primary-color;
+        }
+      }
+      .el-pager li:hover {
+        color: rgba($color: $primary-color, $alpha: .8);
+      }
+    }
+  }
+}

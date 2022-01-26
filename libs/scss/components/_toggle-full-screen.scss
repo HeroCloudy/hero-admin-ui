@@ -1,0 +1,14 @@
+@import "../tools/sassMagic";
+@import "../acss/mp";
+@import "../base/var";
+
+@include b('HaToggleFullScreen') {
+  cursor: pointer;
+  padding: 5px;
+  display: inline-block;
+
+  &:hover {
+    background-color: rgba($color: $primary-color, $alpha: 0.6);
+    color:white
+  }
+}

@@ -1,0 +1,9 @@
+@import "../tools/sassMagic";
+@import "../acss/mp";
+
+@include b('HaLayout') {
+
+  .left {
+    transition: width .5s;
+  }
+}

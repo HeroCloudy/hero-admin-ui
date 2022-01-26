@@ -1,19 +1,59 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
-import Home from '../views/Home.vue'
 
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
-    name: 'Home',
-    component: Home
+    name: 'index',
+    component: () => import('@/views/index.vue'),
+    children: []
   },
   {
-    path: '/about',
-    name: 'About',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
+    path: '/demo',
+    name: 'demo',
+    component: () => import('@/views/demo.vue')
+  },
+  {
+    path: '/user',
+    component: () => import('@/views/index.vue'),
+    redirect: '/user/manage',
+    meta: {
+      title: 'user',
+      icon: 'icon-user'
+    },
+    children: [
+      {
+        path: '/user/manage',
+        component: () => import('@/views/user-manage/index.vue'),
+        meta: {
+          title: 'userManage',
+          icon: 'icon-personnel-manage'
+        }
+      },
+      {
+        path: '/user/role',
+        component: () => import('@/views/role-list/index.vue'),
+        meta: {
+          title: 'roleList',
+          icon: 'icon-role'
+        }
+      },
+      {
+        path: '/user/permission',
+        component: () => import('@/views/permission-list/index.vue'),
+        meta: {
+          title: 'permissionList',
+          icon: 'permission'
+        }
+      },
+      {
+        path: '/user/info/:id',
+        name: 'userInfo',
+        component: () => import('@/views/user-info/index.vue'),
+        meta: {
+          title: 'userInfo'
+        }
+      }
+    ]
   }
 ]
 

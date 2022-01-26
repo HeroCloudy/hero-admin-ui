@@ -1,0 +1,28 @@
+@import "../tools/sassMagic";
+@import "../acss/mp";
+@import "../base/var";
+
+@include b('HaToggleSideBar') {
+  cursor: pointer;
+  padding: 5px;
+  display: inline-block;
+  transition: all 0.5s;
+
+  &:hover {
+    background-color: rgba($color: $primary-color, $alpha: 0.6);
+    color: white;
+  }
+
+  @include m('is-collapse') {
+    cursor: pointer;
+    transform:rotate(90deg);
+    padding: 5px;
+    display: inline-block;
+    transition: all 0.5s;
+
+    &:hover {
+      background-color: rgba($color: $primary-color, $alpha: 0.6);
+      color: white;
+    }
+  }
+}

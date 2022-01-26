@@ -1,0 +1,10 @@
+@import "../tools/sassMagic";
+@import "../acss/mp";
+
+@include b('SsDemo') {
+  color: gray;
+
+  @include e('description') {
+    color: blueviolet;
+  }
+}

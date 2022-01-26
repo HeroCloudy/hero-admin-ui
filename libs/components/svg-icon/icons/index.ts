@@ -1,0 +1,7 @@
+import './icon-screen-normal.svg'
+import './icon-screen-full.svg'
+import './icon-menu-btn.svg'
+import './icon-personnel-manage.svg'
+import './icon-role.svg'
+import './icon-user.svg'
+import './icon-search.svg'

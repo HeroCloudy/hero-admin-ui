@@ -1,0 +1,10 @@
+@import "../tools/sassMagic";
+@import "../acss/mp";
+
+@include b('HaSvgIcon') {
+  width: 1em;
+  height: 1em;
+  vertical-align: -0.15em;
+  fill: currentColor;
+  overflow: hidden;
+}

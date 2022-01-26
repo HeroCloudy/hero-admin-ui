@@ -1,0 +1,14 @@
+@import "../tools/sassMagic";
+@import "../acss/mp";
+
+@include b('HaSideBar') {
+  height: 100%;
+  overflow: hidden;
+  @extend .f-c;
+
+  @include m(menu) {
+    @extend .f-1;
+    overflow: hidden;
+    background-color: #0c8599;
+  }
+}

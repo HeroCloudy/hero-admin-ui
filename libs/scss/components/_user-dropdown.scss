@@ -1,0 +1,14 @@
+@import "../tools/sassMagic";
+@import "../acss/mp";
+
+@include b('HaUserDropdown') {
+
+  .avatar-wrapper {
+    cursor: pointer;
+
+    .el-avatar {
+      --el-avatar-background-color: none;
+      margin-right: 12px;
+    }
+  }
+}

@@ -1,0 +1,10 @@
+@import "../tools/sassMagic";
+@import "../acss/mp";
+
+@include b('HaSearchCard') {
+
+  @include e(opt) {
+    width: 100%;
+    text-align: right;
+  }
+}

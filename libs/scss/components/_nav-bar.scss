@@ -1,0 +1,63 @@
+@import "../tools/sassMagic";
+@import "../acss/mp";
+@import "../base/var";
+
+@include b('HaNavBar') {
+
+  background-color: rgba($color: $primary-color, $alpha: 0.9);
+  height: 100%;
+  color: white;
+  overflow: hidden;
+  box-sizing: border-box;
+  @extend .f;
+  align-items: center;
+
+  @include m(left) {
+    width: 350px;
+    @extend .f;
+    align-items: center;
+
+    .toggle-btn {
+      margin: 0 20px;
+    }
+  }
+
+  @include m(menu-list) {
+    @extend .f-1;
+    @extend .f;
+    justify-content: flex-start;
+
+    .menu-item {
+      font-size: 14px;
+      height: 100%;
+      box-sizing: border-box;
+      margin: 0 3px;
+      padding: 10px 14px;
+      border-radius: 3px;
+      cursor: pointer;
+
+      &:hover {
+        background-color: rgba($color: $primary-color, $alpha: 0.7);
+      }
+    }
+
+    .active {
+      background-color: rgba($color: $primary-color, $alpha: 0.9);
+    }
+  }
+
+  @include m(opt-list) {
+    @extend .f;
+    margin-right: 20px;
+
+    .full-name {
+      margin-left: 20px;
+      font-size: 14px;
+      padding: 5px 0;
+    }
+
+    > * {
+      margin-left: 20px;
+    }
+  }
+}
