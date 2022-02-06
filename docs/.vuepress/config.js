@@ -1,5 +1,6 @@
 const path = require('path')
-const basePath = '/docs/'
+// const basePath = '/docs/'
+const basePath = '/'
 const vueJsx = require('@vitejs/plugin-vue-jsx').default
 // import viteSvgIcons from 'vite-plugin-svg-icons';
 const viteSvgIcons = require('vite-plugin-svg-icons').default
