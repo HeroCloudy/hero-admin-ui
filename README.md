@@ -7,6 +7,9 @@ hero-admin-ui 是一个基于 `vue3` + `TypeScript` + `tsx` + `JSON Schema` + `E
 `hero-admin-ui` 在`Element Plus`基础上进行深度封装，提供了多种多样的组件。使用 `hero-admin-ui`，可以快速实现的企业级中后台管理系统 `前端` 的功能，
 让前端开发人员聚焦于业务之上，统一界面风格，开箱即用。 表单和列表使用 `JSON Schema` 方式进行配置展示，避免大量 HTML 标签代码。
 
+- 组件库文档地址： [https://herocloudy.github.io/hero-admin-ui/](https://herocloudy.github.io/hero-admin-ui/)
+- 组件库demo演示： [待完善]
+
 ## Hero admin ui 组件库
 
 Hero admin ui 提供的组件包括三大类：
