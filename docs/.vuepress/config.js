@@ -36,7 +36,7 @@ module.exports = {
       }
     ],
     repoLabel: 'GitHub',
-    repo: 'https://www.baidu.com',
+    repo: 'https://github.com/HeroCloudy/hero-admin-ui',
     lastUpdated: true,
     sidebar: {
       '/components/': [{
