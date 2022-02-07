@@ -1,3 +1,4 @@
+import HaResultCard from './result-card'
 import HaTableCard from './table-card'
 import HaDescriptions from './descriptions'
 import HaTable from './table'
@@ -41,5 +42,6 @@ export default [
   HaSearchCard,
   HaTable,
   HaDescriptions,
-  HaTableCard
+  HaTableCard,
+  HaResultCard
 ] // end

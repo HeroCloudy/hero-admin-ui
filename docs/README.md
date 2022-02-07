@@ -15,28 +15,9 @@ actions:
   link: /components/
   type: secondary
 features:
-- title: 简洁至上
-  details: 以 Markdown 为中心的项目结构，以最少的配置帮助你专注于写作。
-- title: Vue 驱动
-  details: 享受 Vue 的开发体验，可以在 Markdown 中使用 Vue 组件，又可以使用 Vue 来开发自定义主题。
-- title: 高性能
-  details: VuePress 会为每个页面预渲染生成静态的 HTML，同时，每个页面被加载的时候，将作为 SPA 运行。
-
----
-# aaa
-
-<el-button type="primary">按钮</el-button>
-
-# aaa
-# aaa
-# aaa
-# aaa
-# aaa
-# aaa
-# aaa
-# aaa
-# aaa
-# aaa
-# aaa
-# aaa
-# aaa
+- title: Vue3 + TypeScript
+  details: 基于 Vue3 和 TypeScript，强类型约束，规范输入输出类型。
+- title: JSON Schema
+  details: 通过 JSON Schema 配置展示表单和列表，避免各种复杂标签嵌套。
+- title: 开箱即用
+  details: 提供丰富的高级组件，开箱即用，让开发人员专注于业务开发。

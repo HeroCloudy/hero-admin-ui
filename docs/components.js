@@ -20,5 +20,6 @@ module.exports = [
   '/components/search-card.md',
   '/components/table.md',
   '/components/descriptions.md',
-  '/components/table-card.md'
+  '/components/table-card.md',
+  '/components/result-card.md'
 ]
