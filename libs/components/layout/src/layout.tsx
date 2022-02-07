@@ -1,4 +1,4 @@
-import { computed, defineComponent, onMounted, onUnmounted, provide, ref } from 'vue'
+import { computed, defineComponent, onMounted, onUnmounted, PropType, provide, ref } from 'vue'
 import {
   defaultLayoutType,
   defaultLeftWidth,
@@ -59,7 +59,12 @@ export default defineComponent({
     isShowTabBar: {
       type: Boolean,
       required: false,
-      default: true
+      default: false
+    },
+    tagList: {
+      type: Array as PropType<any>,
+      required: false,
+      default: () => ([])
     }
   } as const,
   setup (props, { slots }) {
@@ -90,29 +95,10 @@ export default defineComponent({
       isExpandRef: innerIsExpand
     })
 
-    const tagList = ref([
-      {
-        title: '用户管理',
-        path: '/user/manage'
-      },
-      {
-        title: '首页',
-        path: '/'
-      },
-      {
-        title: '角色管理',
-        path: '/user/role'
-      },
-      {
-        title: '权限管理',
-        path: '/user/permission'
-      }
-    ])
-
     const buildMain = () => {
       return (
         <div class='full-screen f-c'>
-          { props.isShowTabBar ? <ha-tab-bar tagList={tagList.value}></ha-tab-bar> : null}
+          { props.isShowTabBar ? <ha-tab-bar tagList={props.tagList}></ha-tab-bar> : null}
           <div class='f-1 oy-h'>
             {slots.main ? <ha-page>{slots.main()}</ha-page> : <router-view/>}
           </div>
