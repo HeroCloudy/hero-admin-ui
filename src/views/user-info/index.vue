@@ -7,12 +7,13 @@
  * 2022/1/17 9:56 PM   dscloudy    Create File.
  -->
 <template>
-  <div>
-    用户信息
-  </div>
+  <ha-page>
+   <h1>User Info</h1>
+  </ha-page>
 </template>
 
 <script lang="ts" setup>
+
 </script>
 
 <style scoped lang="scss">

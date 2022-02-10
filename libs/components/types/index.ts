@@ -49,11 +49,19 @@ export type UiSchemaItem = {
   [UI_HIDDEN]?: boolean;
   [UI_DISABLED]?: boolean;
   [UI_WIDTH]?: number;
-  [UI_OPTIONS]?: { [key: string]: any };
+  [UI_OPTIONS]?: { [key: string]: string | number | boolean | undefined };
   [UI_WIDGET]?: UiWidgets | string;
   [UI_COLUMN]?: number;
 }
 
 export type UiSchema = {
   [key: string]: UiSchemaItem
+}
+
+/**
+ * 页面页签Item类型
+ */
+export type TabItem = {
+  path: string;
+  title: string;
 }

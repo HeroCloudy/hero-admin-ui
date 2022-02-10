@@ -1,8 +1,10 @@
 # layout 布局
 
-企业级中后台常见下面四种布局方式。
+企业级中后台常见下面四种布局类型。
+
 ![](./.layout_images/布局类型示意图.png)
-ha-layout 布局组件支持上述四种布局方式，通过 `type` 属性指定使用什么类型的布局方式。
+
+ha-layout 布局组件支持上述四种布局类型，通过 `type` 属性指定使用什么类型进行页面布局。
 
 ## 基本使用
 
@@ -29,7 +31,15 @@ layout/layout1
 | left-width | 左侧宽度 |  String | - | 200px |
 | left-width-mini | 左侧收缩后宽度 |  String | - | 80px |
 | is-expand | 左侧是否展开 |  Boolean | true / false | true |
-| is-show-page-tab | 是否显示页签 | Boolean | true / false | True |
+| is-show-tab-bar | 是否显示页签 | Boolean | true / false | false |
+| tab-list | 页签列表 | TabItem 数组 | - | [] |
+
+#### TabItem 页面页签Tab
+
+| 参数 | 说明 | 类型 | 可选值 | 默认值 |
+|  ----  | ----  | ----  | ----  | ----  |
+| path | 路由路径 | String | -  | - |
+| title | 名称 | String | -  | - |
 
 
 ### Methods 方法

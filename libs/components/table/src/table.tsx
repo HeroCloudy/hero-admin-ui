@@ -68,7 +68,7 @@ export default defineComponent({
     const renderIndex = () => (
       <ElTableColumn
         type="index"
-        width="50"
+        width="60"
         label="序号"
         align="center"
         fixed="left"
@@ -331,6 +331,8 @@ export default defineComponent({
             ref={tableRef}
             data={innerData.value}
             fit={true}
+            stripe={true}
+            border={true}
             {...attrs}
             headerRowClassName={'header-row'}
             onCellClick={onCellClick}

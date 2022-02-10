@@ -8,18 +8,58 @@
  -->
 <template>
   <ha-page>
-    <div>hello world begin</div>
-    <h1 v-for="i in 30" :key="i">用户管理 {{i}}</h1>
-    <div>Hello world end</div>
+    <ha-search-card :schema="searchSchema"
+                    :uiSchema="searchUiSchema"
+                    :model="searchModel"
+    ></ha-search-card>
 
-    <template #opt>
-      <el-button type="primary">保存</el-button>
-      <el-button>返回</el-button>
-    </template>
+    <ha-result-card :schema="resultSchema" :stripe="true" :border="true"
+                    :ui-schema="resultUiSchema"
+                    :data="resultList"
+                    :is-pseudo-paging="true"
+                    :page-size="5"
+                    :show-index="true"
+                    selection-type="checkbox"
+    ></ha-result-card>
   </ha-page>
 </template>
 
 <script lang="ts" setup>
+import { userSchema } from './user-schema'
+import { ref } from 'vue'
+
+const searchSchema = ref(userSchema)
+const searchUiSchema = ref({})
+const searchModel = ref({
+  account: '',
+  name: '',
+  email: '',
+  mobile: '',
+  gender: '',
+  lastLoginTime: [],
+  createdTime: [],
+  org: '',
+  position: ''
+})
+
+const resultSchema = ref(userSchema)
+const resultUiSchema = ref({})
+const resultList = ref<any>([])
+
+for (let i = 0; i < 33; i++) {
+  resultList.value.push({
+    account: 'acc_' + i,
+    name: '张三' + i,
+    email: 'zhangsan_' + i + '@126.com',
+    mobile: '',
+    gender: i % 3 === 0 ? 'M' : 'F',
+    lastLoginTime: '2022-02-12',
+    createdTime: '2022-02-12',
+    org: 'test org',
+    position: 'test position'
+  })
+}
+
 </script>
 
 <style scoped lang="scss">

@@ -1,8 +1,16 @@
+![hero admin ui](./docs/.vuepress/public/images/logo-hau.png)
+
 # hero-admin-ui
 
-hero-admin-ui 是一个基于 `vue3` + `TypeScript` + `tsx` + `JSON Schema` + `Element Plus` 实现的 `PC 管理端` 的组件库。
+## What
 
-![hero admin ui](./docs/.vuepress/public/images/logo.png)
+`hero-admin-ui` 是一个基于 `vue3` 和 `Element Plus` 实现的 `PC 管理端` 的组件库。
+
+`hero-admin-ui` 采用的技术栈为：
+- `vue3.2`
+- `TypeScript`
+- `TSX`
+- `JSON Schema`
 
 `hero-admin-ui` 在`Element Plus`基础上进行深度封装，提供了多种多样的组件。使用 `hero-admin-ui`，可以快速实现的企业级中后台管理系统 `前端` 的功能，
 让前端开发人员聚焦于业务之上，统一界面风格，开箱即用。 表单和列表使用 `JSON Schema` 方式进行配置展示，避免大量 HTML 标签代码。
@@ -10,7 +18,21 @@ hero-admin-ui 是一个基于 `vue3` + `TypeScript` + `tsx` + `JSON Schema` + `E
 - 组件库文档地址： [https://herocloudy.github.io/hero-admin-ui/](https://herocloudy.github.io/hero-admin-ui/)
 - 组件库demo演示： [待完善]
 
-## Hero admin ui 组件库
+
+## Why
+
+Vue3 + TypeScript 
+> 基于 Vue3 和 TypeScript，强类型约束，规范输入输出类型。
+
+JSON Schema
+> 通过 JSON Schema 配置展示表单和列表，避免各种复杂标签嵌套。
+
+开箱即用
+> 提供丰富的高级组件，开箱即用，让开发人员专注于业务开发
+
+
+
+## Feature
 
 Hero admin ui 提供的组件包括三大类：
 - 基础通用组件

@@ -6,7 +6,7 @@ sidebar: false
 lastUpdated: true
 date: 2021-01-03
 home: true
-heroImage: /images/logo.png
+heroImage: /images/logo-hau.png
 actions:
 - text: 快速开始
   link: /quick-start.html

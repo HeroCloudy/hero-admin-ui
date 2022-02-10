@@ -7,7 +7,9 @@
  * 2022/1/26 12:58 PM   dscloudy    Create File.
  -->
 <template>
-  <ha-layout type="tlr">
+  <ha-layout type="tlr"
+             :is-show-tab-bar="true"
+             :tab-list="tabList">
     <template #top>
       <ha-nav-bar app-name="HERO 低代码"
                   logo="/logo.png"
@@ -35,6 +37,7 @@
 import { NavItem } from '../../libs/components/nav-bar/src/nav-bar'
 import { UserDropdownItem } from '../../libs/components/user-dropdown/src/user-dropdown'
 import { ref } from 'vue'
+import { TabItem } from '../../types'
 
 const navList: NavItem[] = [
   { code: 'index', name: '首页' },
@@ -49,6 +52,13 @@ const userItems: UserDropdownItem[] = [
 ]
 
 const userImage = ref('http://localhost:9090/docs/images/logo.png')
+
+const tabList: TabItem[] = [
+  { path: '/', title: '首页' },
+  { path: '/user/manage', title: '用户管理' },
+  { path: '/user/role', title: '角色管理' },
+  { path: '/user/permission', title: '权限管理' }
+]
 
 </script>
 

@@ -7,6 +7,10 @@
   width: 100%;
   box-sizing: border-box;
 
+  .el-scrollbar__wrap {
+    padding: 0 !important;
+  }
+
   @include e(top) {
     @extend .f;
     //font-size: 14px;
@@ -15,7 +19,7 @@
     @include m(opt) {
       @extend .f-1;
 
-      .el-button+*{
+      .el-button + * {
         margin-right: 10px !important;
       }
     }
@@ -27,8 +31,8 @@
     }
   }
 
-  .el-button+.el-dropdown,
-  .el-button+.el-button {
+  .el-button + .el-dropdown,
+  .el-button + .el-button {
     margin-left: 10px;
   }
 
@@ -51,6 +55,7 @@
           color: $primary-color;
         }
       }
+
       .el-pager li:hover {
         color: rgba($color: $primary-color, $alpha: .8);
       }

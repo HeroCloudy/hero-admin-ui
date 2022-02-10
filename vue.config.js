@@ -4,10 +4,10 @@ const resolve = dir => path.join(__dirname, dir)
 
 module.exports = {
   configureWebpack: {
-    externals: {
+    externals: process.env.NODE_ENV === 'production' ? {
       'vue-router': 'vue-router',
       'element-plus': 'element-plus'
-    }
+    } : {}
   },
   chainWebpack: config => {
     const svgRule = config.module.rule('svg')

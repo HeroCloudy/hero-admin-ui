@@ -9,6 +9,7 @@ import {
   LayoutValuesKey
 } from './constants'
 import emitter, { EVENT_EXPAND_MENU } from '../../utils/emitter'
+import { TabItem } from '../../types'
 
 const NAME = 'HaLayout'
 
@@ -26,16 +27,16 @@ export default defineComponent({
         return Object.keys(LayoutType).map(k => LayoutType[k]).includes(value)
       }
     },
-    collapsible: {
-      type: Boolean,
-      required: false,
-      default: true
-    },
-    isFixed: {
-      type: Boolean,
-      required: false,
-      default: true
-    },
+    // collapsible: {
+    //   type: Boolean,
+    //   required: false,
+    //   default: true
+    // },
+    // isFixed: {
+    //   type: Boolean,
+    //   required: false,
+    //   default: true
+    // },
     topHeight: {
       type: String,
       required: false,
@@ -61,8 +62,8 @@ export default defineComponent({
       required: false,
       default: false
     },
-    tagList: {
-      type: Array as PropType<any>,
+    tabList: {
+      type: Array as PropType<TabItem[]>,
       required: false,
       default: () => ([])
     }
@@ -98,7 +99,7 @@ export default defineComponent({
     const buildMain = () => {
       return (
         <div class='full-screen f-c'>
-          { props.isShowTabBar ? <ha-tab-bar tagList={props.tagList}></ha-tab-bar> : null}
+          { props.isShowTabBar ? <ha-tab-bar tagList={props.tabList}></ha-tab-bar> : null}
           <div class='f-1 oy-h'>
             {slots.main ? <ha-page>{slots.main()}</ha-page> : <router-view/>}
           </div>

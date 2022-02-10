@@ -54,7 +54,7 @@ export default defineComponent({
 
     return () => (
       <div class={NAME}>
-        <el-form ref="formRef" model={form} labelWidth="auto" size="small">
+        <el-form ref="formRef" model={form} labelWidth="auto" size="default">
           <el-row gutter={5}>
             {renderForm()}
           </el-row>

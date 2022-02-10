@@ -1,6 +1,6 @@
 <template>
   <div>
-    <ha-table :schema="demoSchema" :stripe="true" :border="true"
+    <ha-table :schema="demoSchema"
               :ui-schema="uiSchema"
               :data="demoData"
               show-pagination="always"
