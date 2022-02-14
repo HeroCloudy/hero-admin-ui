@@ -111,7 +111,7 @@ export default defineComponent({
 
     return () => (
       <div class={NAME}>
-        <ha-card shadow="hover">
+        <ha-card shadow="hover" title='搜索条件'>
           <ha-form
             schema={innerSchema.value}
             uiSchema={innerUiSchema.value}

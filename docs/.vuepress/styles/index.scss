@@ -1,10 +1,10 @@
 :root{
-  --sidebar-width: 220px;
+  --sidebar-width: 320px;
   --content-width: 85%;
-  --code-ln-wrapper-width: 50px;
-  --c-brand: red;
-  --c-brand-light: pink;
-  --c-text-accent: red;
+  --code-ln-wrapper-width: 10px;
+  --c-brand: #488019;
+  --c-brand-light: #64b620;
+  --c-text-accent: #488019;
 }
 
 .theme-default-content pre, .theme-default-content pre[class*=language-] {

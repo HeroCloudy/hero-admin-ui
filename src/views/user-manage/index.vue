@@ -20,6 +20,8 @@
                     :page-size="5"
                     :show-index="true"
                     selection-type="checkbox"
+                    :row-buttons="rowButtons"
+                    @row-buttons-click="onRowButtonsClick"
     ></ha-result-card>
   </ha-page>
 </template>
@@ -43,7 +45,14 @@ const searchModel = ref({
 })
 
 const resultSchema = ref(userSchema)
-const resultUiSchema = ref({})
+const resultUiSchema = ref({
+  account: {
+    'ui:width': 200
+  },
+  email: {
+    'ui:width': 200
+  }
+})
 const resultList = ref<any>([])
 
 for (let i = 0; i < 33; i++) {
@@ -51,13 +60,33 @@ for (let i = 0; i < 33; i++) {
     account: 'acc_' + i,
     name: '张三' + i,
     email: 'zhangsan_' + i + '@126.com',
-    mobile: '',
+    mobile: '13333331222',
     gender: i % 3 === 0 ? 'M' : 'F',
     lastLoginTime: '2022-02-12',
     createdTime: '2022-02-12',
     org: 'test org',
     position: 'test position'
   })
+}
+
+const keyModify = Symbol('btn_modify')
+const keyDelete = Symbol('btn_delete')
+const keyView = Symbol('btn_view')
+const rowButtons = () => {
+  return [
+    { key: keyModify, label: '修改' },
+    { key: keyDelete, label: '删除' },
+    { key: keyView, label: '查看' }
+  ]
+}
+const onRowButtonsClick = (key: symbol, scope: any) => {
+  if (key === keyModify) {
+    console.log('修改', scope.row.name)
+  } else if (key === keyDelete) {
+    console.log('删除', scope.row.name)
+  } else if (key === keyView) {
+    console.log('查看', scope.row.name)
+  }
 }
 
 </script>
