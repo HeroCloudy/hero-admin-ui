@@ -34,10 +34,9 @@
 </template>
 
 <script lang="ts" setup>
-import { NavItem } from '../../libs/components/nav-bar/src/nav-bar'
-import { UserDropdownItem } from '../../libs/components/user-dropdown/src/user-dropdown'
 import { ref } from 'vue'
 import { TabItem } from '../../types'
+import { NavItem, UserDropdownItem } from '../../libs/components/types/component-types/base'
 
 const navList: NavItem[] = [
   { code: 'index', name: '首页' },

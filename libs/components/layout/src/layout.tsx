@@ -8,7 +8,7 @@ import {
   LayoutValues,
   LayoutValuesKey
 } from './constants'
-import emitter, { EVENT_EXPAND_MENU } from '../../utils/emitter'
+import emitter, { EVENT_EXPAND_SIDE_BAR } from '../../utils/emitter'
 import { TabItem } from '../../types'
 
 const NAME = 'HaLayout'
@@ -27,16 +27,6 @@ export default defineComponent({
         return Object.keys(LayoutType).map(k => LayoutType[k]).includes(value)
       }
     },
-    // collapsible: {
-    //   type: Boolean,
-    //   required: false,
-    //   default: true
-    // },
-    // isFixed: {
-    //   type: Boolean,
-    //   required: false,
-    //   default: true
-    // },
     topHeight: {
       type: String,
       required: false,
@@ -77,11 +67,11 @@ export default defineComponent({
     }
 
     onMounted(() => {
-      emitter.on(EVENT_EXPAND_MENU, expandCallBack)
+      emitter.on(EVENT_EXPAND_SIDE_BAR, expandCallBack)
     })
 
     onUnmounted(() => {
-      emitter.off(EVENT_EXPAND_MENU, expandCallBack)
+      emitter.off(EVENT_EXPAND_SIDE_BAR, expandCallBack)
     })
 
     const innerType = computed(() => props.type)

@@ -2,19 +2,14 @@ import { computed, defineComponent, PropType, ref } from 'vue'
 import { useLayoutValues } from '../../hooks/use-layout-values'
 import { useRenderSiteInfo } from '../../hooks/use-render-site-info'
 import { LayoutType } from '../../layout/src/constants'
-import emitter, { EVENT_EXPAND_MENU } from '../../utils/emitter'
-import { UserDropdownItem } from '../../user-dropdown/src/user-dropdown'
+import emitter, { EVENT_EXPAND_SIDE_BAR } from '../../utils/emitter'
+import { NavItem, UserDropdownItem } from '../../types/component-types/base'
 
 const NAME = 'HaNavBar'
 
-export interface NavItem {
-  code: string;
-  name: string;
-}
-
 export default defineComponent({
   name: NAME,
-  emits: ['exit-click', 'nav-click'],
+  emits: ['exit-click', 'nav-click', 'toggle-sidebar'],
   props: {
     logo: {
       type: String,
@@ -41,7 +36,7 @@ export default defineComponent({
       required: false,
       default: true
     },
-    fullName: {
+    userName: {
       type: String,
       required: false,
       default: ''
@@ -76,7 +71,7 @@ export default defineComponent({
       required: false,
       default: null
     },
-    userItems: {
+    userDropdownItems: {
       type: Array as PropType<UserDropdownItem[]>,
       required: false,
       default: () => ([])
@@ -92,11 +87,12 @@ export default defineComponent({
       return useRenderSiteInfo(logoRef.value, appNameRef.value, layoutValues.layoutTypeRef.value, isExpandRef.value, 'top')
     }
 
-    const onToggleMenuExpand = (isExpand: boolean) => {
+    const onToggleSideBarExpand = (isExpand: boolean) => {
       isExpandRef.value = isExpand
+      context.emit('toggle-sidebar', isExpand)
     }
 
-    emitter.on(EVENT_EXPAND_MENU, onToggleMenuExpand)
+    emitter.on(EVENT_EXPAND_SIDE_BAR, onToggleSideBarExpand)
 
     const renderToggleBtn = () => {
       if (!props.isShowToggleSideBar) {
@@ -107,7 +103,8 @@ export default defineComponent({
       }
       return (
         <div class='toggle-btn'>
-          <ha-toggle-side-bar is-expand={layoutValues.isExpandRef.value} onToggleMenuExpand={onToggleMenuExpand} />
+          <ha-toggle-side-bar
+            is-expand={layoutValues.isExpandRef.value} />
         </div>
       )
     }
@@ -160,11 +157,11 @@ export default defineComponent({
             { props.isShowHeaderSearch ? <ha-header-search/> : null}
             {/* 渲染切换全屏按钮 */}
             {props.isShowToggleFullScreen ? <ha-toggle-full-screen/> : null}
-            {/* 渲染用户下拉菜单 */}
-            {props.isShowUserDropdown ? <ha-user-dropdown user-image={props.userImage} items={props.userItems}></ha-user-dropdown> : null}
             {/* 渲染用户名 */}
-            {props.fullName ? <span class='full-name'>当前用户： {props.fullName} </span> : null}
-            {props.isShowExitBtn ? <el-button type="text" style="margin-left: 20px;" onClick={onExit}>退出</el-button> : null}
+            {props.userName ? <div class='full-name'>{props.userName} </div> : null}
+            {/* 渲染用户下拉菜单 */}
+            {props.isShowUserDropdown ? <ha-user-dropdown user-image={props.userImage} items={props.userDropdownItems}></ha-user-dropdown> : null}
+            {props.isShowExitBtn ? <el-button type="text" class='exit-btn' onClick={onExit}>退出</el-button> : null}
           </div>
         </div>
       )

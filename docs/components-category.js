@@ -1,14 +1,14 @@
 module.exports = {
   baseCommon: [
     '/components/layout.md',
+    '/components/breadcrumb.md',
+    '/components/user-dropdown.md',
     '/components/icon-list.md',
     '/components/svg-icon.md',
     '/components/toggle-full-screen.md',
     '/components/toggle-side-bar.md',
-    '/components/user-dropdown.md',
     '/components/app-logo.md',
     '/components/header-search.md',
-    '/components/breadcrumb.md',
     '/components/page.md',
     '/components/card.md',
     '/components/form.md',

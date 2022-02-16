@@ -6,7 +6,7 @@
 
 <script lang="ts" setup>
 import { ref } from 'vue'
-import { UserDropdownItem } from '../../../libs/components/user-dropdown/src/user-dropdown'
+import { UserDropdownItem } from '../../../libs/components/types/component-types/base'
 
 const items: UserDropdownItem[] = [
   { title: '修改资料', click: () => { console.log('点击 修改资料') } },
@@ -14,7 +14,7 @@ const items: UserDropdownItem[] = [
   { title: '退出登录', click: () => { console.log('点击 退出登录') }, isDivided: true }
 ]
 
-const userImage = ref('http://localhost:9090/docs/images/logo.png')
+const userImage = ref('https://raw.githubusercontent.com/HeroCloudy/hero-admin-ui/HEAD/docs/.vuepress/public/images/logo.png')
 </script>
 
 <style scoped lang="scss">

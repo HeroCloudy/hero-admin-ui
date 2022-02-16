@@ -1,13 +1,8 @@
 const path = require('path')
-// const basePath = '/docs/'
-const basePath = '/hero-admin-ui/'
 const vueJsx = require('@vitejs/plugin-vue-jsx').default
-// import viteSvgIcons from 'vite-plugin-svg-icons';
 const viteSvgIcons = require('vite-plugin-svg-icons').default
 
-// console.log('--------------', process.cwd())
-// console.log('--------------', __dirname)
-
+const basePath = '/hero-admin-ui/'
 const allComponents = require('../components-category')
 
 module.exports = {

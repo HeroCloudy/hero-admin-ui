@@ -1,6 +1,8 @@
-# breadcrumb xx
+# breadcrumb 面包屑
 
-xx 组件
+面包屑组件基于`element-plus`中的`el-breadcrumb`组件，封装了路由，展示的名字为路由配置中的`meta.title`属性。
+
+该组件直接使用即可。
 
 ## 基本使用
 

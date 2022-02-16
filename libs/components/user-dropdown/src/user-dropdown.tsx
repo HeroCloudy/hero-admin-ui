@@ -1,12 +1,7 @@
 import { defineComponent, PropType } from 'vue'
+import { UserDropdownItem } from '../../types/component-types/base'
 
 const NAME = 'HaUserDropdown'
-
-export interface UserDropdownItem {
-  title: string;
-  click: () => void;
-  isDivided?: boolean;
-}
 
 export default defineComponent({
   name: NAME,
@@ -22,8 +17,7 @@ export default defineComponent({
       default: () => ([])
     }
   },
-  setup (props, context) {
-    console.log(props, context)
+  setup (props) {
     const innerSlots = {
       default: () => (
         <div class="avatar-wrapper">

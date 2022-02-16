@@ -9,16 +9,33 @@
   margin-left: 8px;
 
   .no-redirect {
-    color: #97a8be;
+    color: #cccccc;
     cursor: text;
   }
 
   .redirect {
-    color: #e1e1e1;
+    color: #ffffff;
     font-weight: 600;
   }
 
   .redirect:hover {
     color: white;
   }
+
+}
+
+
+.breadcrumb-enter-active,
+.breadcrumb-leave-active {
+  transition: all 0.5s;
+}
+
+.breadcrumb-enter-from,
+.breadcrumb-leave-active {
+  opacity: 0;
+  transform: translateX(20px);
+}
+
+.breadcrumb-leave-active {
+  position: absolute;
 }

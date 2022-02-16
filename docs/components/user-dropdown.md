@@ -1,8 +1,12 @@
 # user-dropdown 头像下拉
 
-布局顶部右侧用户头像下拉选
+点击用户头像显示的下拉选，通常位于界面布局的顶部右侧，如下图所示：
+
+![示例](./.user-dropdown_images/user-dropdown.png)
 
 ## 基本使用
+
+`userImage` 属性可配置用户头像的 URL。下拉选选项通过 `items` 属性进行配置。
 
 ::: demo
 user-dropdown/user-dropdown1

@@ -4,7 +4,7 @@ import { useRenderSiteInfo } from '../../hooks/use-render-site-info'
 import { useRoute, useRouter } from 'vue-router'
 import { filterRouters, generateMenus } from '../../utils/route-utils'
 import SideBarItem from './side-bar-item.vue'
-import emitter, { EVENT_EXPAND_MENU } from '../../utils/emitter'
+import emitter, { EVENT_EXPAND_SIDE_BAR } from '../../utils/emitter'
 
 const NAME = 'HaSideBar'
 
@@ -48,11 +48,11 @@ export default defineComponent({
     }
 
     onMounted(() => {
-      emitter.on(EVENT_EXPAND_MENU, expandCallBack)
+      emitter.on(EVENT_EXPAND_SIDE_BAR, expandCallBack)
     })
 
     onUnmounted(() => {
-      emitter.off(EVENT_EXPAND_MENU, expandCallBack)
+      emitter.off(EVENT_EXPAND_SIDE_BAR, expandCallBack)
     })
 
     const renderMenu = () => {

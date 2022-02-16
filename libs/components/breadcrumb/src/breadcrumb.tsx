@@ -1,13 +1,11 @@
-import { defineComponent, ref, watch } from 'vue'
+import { defineComponent, ref, watch, TransitionGroup } from 'vue'
 import { RouteLocationMatched, useRoute, useRouter } from 'vue-router'
 
 const NAME = 'HaBreadcrumb'
 
 export default defineComponent({
   name: NAME,
-  setup (props, context) {
-    console.log(props, context)
-
+  setup () {
     const breadcrumbData = ref<RouteLocationMatched[]>([])
     const route = useRoute()
     const getBreadcrumbData = () => {
@@ -25,25 +23,27 @@ export default defineComponent({
       e.stopPropagation()
     }
 
+    // const { TransitionGroup } = Vue
+
     return () => (
       <div class={NAME}>
         <el-breadcrumb class="breadcrumb" separator="/">
-          <transition-group name="breadcrumb">
+          <TransitionGroup tag='span' name="breadcrumb">
             {
               breadcrumbData.value.map((item: any, index: number) => {
                 // 最后一项，不可点击
                 if (index === breadcrumbData.value.length - 1) {
-                  return <el-breadcrumb-item >
+                  return <el-breadcrumb-item key={index}>
                     <span class="no-redirect">{item.meta.title}</span>
                   </el-breadcrumb-item>
                 }
                 // 其他项可点击
-                return <el-breadcrumb-item>
+                return <el-breadcrumb-item key={index}>
                   <a class="redirect" onClick={(e: any) => onLinkClick(e, item)}>{item.meta.title}</a>
                 </el-breadcrumb-item>
               })
             }
-          </transition-group>
+          </TransitionGroup>
         </el-breadcrumb>
       </div>
     )

@@ -1,7 +1,7 @@
 import { RouteRecordRaw } from 'vue-router'
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
-import path from 'path'
+// import path from 'path'
 
 export const generateSearchPool = (
   routes: RouteRecordRaw[],
@@ -12,7 +12,8 @@ export const generateSearchPool = (
   for (const route of routes) {
     // 创建包含path和title的 item
     const data = {
-      path: path.resolve(basePath, route.path),
+      // path: path.resolve(basePath, route.path),
+      path: basePath + route.path,
       title: [...prefixTitle]
     }
 

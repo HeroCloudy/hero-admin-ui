@@ -8,8 +8,7 @@ const NAME = 'HaHeaderSearch'
 
 export default defineComponent({
   name: NAME,
-  setup (props, context) {
-    console.log(props, context)
+  setup () {
     // 控制 Search 显示隐藏
     const isShow = ref(false)
 
