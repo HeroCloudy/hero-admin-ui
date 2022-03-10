@@ -4,14 +4,37 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
     name: 'index',
+    meta: {
+      title: '首页',
+      icon: 'icon-user'
+    },
+    redirect: '/schema-gen',
     component: () => import('@/views/index.vue'),
-    children: []
+    children: [
+      {
+        path: '/schema-gen',
+        component: () => import('@/views/scheme-gen/index.vue'),
+        meta: {
+          title: 'schema生成器',
+          icon: 'icon-user'
+        }
+      }
+    ]
   },
   {
     path: '/demo',
     name: 'demo',
     component: () => import('@/views/demo.vue')
   },
+  // {
+  //   path: '/schema',
+  //   component: () => import('@/views/index.vue'),
+  //   redirect: '/user/manage',
+  //   meta: {
+  //     title: 'schema',
+  //     icon: 'icon-user'
+  //   }
+  // },
   {
     path: '/user',
     component: () => import('@/views/index.vue'),

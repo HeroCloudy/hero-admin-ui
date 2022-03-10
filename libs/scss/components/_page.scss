@@ -10,12 +10,16 @@
   display: flex;
   flex-direction: column;
 
-  @include e('wrapper') {
+  @include e('container') {
     flex: 1;
     overflow: hidden;
 
     .el-scrollbar__wrap {
       padding: $common-padding;
+
+      .HaPage__wrapper {
+        display: flex;
+      }
     }
   }
 

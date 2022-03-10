@@ -4,11 +4,17 @@
 @include b('HaSideBar') {
   height: 100%;
   overflow: hidden;
+  border-right: 1px solid #efefef;
+  box-sizing: border-box;
   @extend .f-c;
+
+  .el-menu {
+    border: none;
+  }
 
   @include m(menu) {
     @extend .f-1;
     overflow: hidden;
-    background-color: #0c8599;
+    //background-color: #0c8599;
   }
 }
