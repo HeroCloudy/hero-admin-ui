@@ -9,24 +9,18 @@
 <template>
   <ha-page flex-direction="row" class="schema-builder">
     <div class="left">
-      <prop-list :prop-list="propList"></prop-list>
+      <prop-list :prop-list="propList" @current-prop-change="onCurrentPropChange"></prop-list>
     </div>
     <div class="middle">
-<!--          <ha-form :schema="basicAttrSchema"-->
-<!--                   :model="innerBasicModel"-->
-<!--                   :ui-schema="basicAttrUiSchema"-->
-<!--                   @data-change="onBasicAttrChange"-->
-<!--                   :column="2"-->
-<!--          ></ha-form>-->
-      <attr-basic></attr-basic>
+      <attr-basic :current-prop="currentProp"></attr-basic>
       <attr-of></attr-of>
       <attr-style></attr-style>
     </div>
 
     <div class="right">
-      <preview-schema :prop-list="propList"></preview-schema>
+      <preview-schema :schema="schema"></preview-schema>
       <preview-ui></preview-ui>
-      <preview-model></preview-model>
+      <preview-model :prop-list="propList" :schema="schema"></preview-model>
     </div>
   </ha-page>
 </template>
@@ -39,13 +33,28 @@ import AttrStyle from '@/views/scheme-gen/component/attr-style.vue'
 import PreviewSchema from '@/views/scheme-gen/component/preview-schema.vue'
 import PreviewUi from '@/views/scheme-gen/component/preview-ui.vue'
 import PreviewModel from '@/views/scheme-gen/component/preview-model.vue'
-import { Prop } from '@/views/scheme-gen/common/basic-attr'
-import { ref } from 'vue'
+import { getSchemaByPropList, Prop } from '@/views/scheme-gen/common/basic-attr'
+import { ref, watch } from 'vue'
+import { Schema } from '../../../../libs/components/types'
 
 const propList = ref<Prop[]>([{ title: '属性0', key: 'prop0', type: 'string' }, { title: '属性1', key: 'prop1', type: 'string' }, { title: '属性2', key: 'prop2', type: 'string' }])
 
-// const innerModel = ref<CommonObject>({})
-//
+const currentProp = ref<Prop | null>(null)
+
+const schema = ref<Schema>({
+  required: [],
+  properties: {}
+})
+
+const onCurrentPropChange = (prop: Prop) => {
+  console.log('当前属性变化', prop)
+  currentProp.value = prop
+}
+
+watch(() => propList.value, () => {
+  schema.value = getSchemaByPropList(propList.value)
+}, { deep: true, immediate: true })
+
 // onMounted(() => {
 //   innerModel.value = buildSchemaDefaultModel(innerSchema.value)
 //   // onAddPropClick()
@@ -53,32 +62,6 @@ const propList = ref<Prop[]>([{ title: '属性0', key: 'prop0', type: 'string' }
 //
 // const innerBasicModel = reactive<BasicAttr>(getBasicAttrDefaultModel())
 //
-//
-//
-//
-//
-// watch(() => currentProp.value, (newVal: any) => {
-//   innerBasicModel.key = newVal.key
-//   innerBasicModel.title = newVal.title
-//   innerBasicModel.type = 'string'
-//   innerBasicModel.defaultValue = ''
-//   innerBasicModel.isRequired = false
-// }, { deep: true })
-//
-// watch(() => innerBasicModel, (newVal: any) => {
-//   if (currentProp.value) {
-//     currentProp.value!.title = newVal.title
-//     currentProp.value!.key = newVal.key
-//   }
-// }, { deep: true })
-//
-
-// const onBasicAttrChange = (key: string, value: any) => {
-//   if (key === 'type') {
-//     console.log(value)
-//   }
-// }
-
 </script>
 
 <style scoped lang="scss">

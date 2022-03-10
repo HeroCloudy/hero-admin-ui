@@ -6,6 +6,8 @@ import { buildOfItem, buildSchemaDefaultModel } from '@/views/scheme-gen/common/
  */
 export interface Prop extends PropItem {
   key: string,
+  defaultValue?: string | number | [] | null;
+  isRequired?: boolean;
 }
 
 export const basicAttrSchema: Schema = {
@@ -78,5 +80,25 @@ export const getBasicAttrDefaultModel = (): BasicAttr => {
   defaultModel.type = PropItemTypes.STRING
   defaultModel.isRequired = false
   defaultModel.ofItemType = 'none'
+  console.log(defaultModel)
   return defaultModel
+}
+
+export const getSchemaByPropList = (propList: Prop[]): Schema => {
+  const properties: { [key: string]: PropItem } = {}
+  const required: string[] = []
+  propList.forEach((ip: Prop) => {
+    properties[ip.key] = {
+      type: ip.type,
+      title: ip.title
+      // TODO schema item 其他属性
+    }
+    if (ip.isRequired) {
+      required.push(ip.key)
+    }
+  })
+  return {
+    properties,
+    required
+  }
 }

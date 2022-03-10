@@ -34,7 +34,7 @@
 
 <script lang="ts" setup>
 import Block from '@/views/scheme-gen/component/block.vue'
-import { defineProps, PropType, ref } from 'vue'
+import { defineEmits, defineProps, PropType, ref, watch } from 'vue'
 import { Prop } from '@/views/scheme-gen/common/basic-attr'
 import { PropItemTypes } from '../../../../libs/components/types'
 
@@ -45,15 +45,19 @@ const props = defineProps({
   }
 })
 
+const emits = defineEmits(['current-prop-change'])
+
 const innerCurrentProp = ref<Prop | null>()
 
 const onAddPropClick = () => {
   const { propList } = props
   const index = propList.length
-  const newItem = {
+  const newItem: Prop = {
     title: `属性${index}`,
     key: `prop${index}`,
-    type: PropItemTypes.STRING
+    type: PropItemTypes.STRING,
+    defaultValue: null,
+    isRequired: false
   }
   propList.push(newItem)
   innerCurrentProp.value = newItem
@@ -88,6 +92,10 @@ const onCopyClick = (index: number) => {
 const onLogClick = () => {
   console.log(JSON.stringify(props.propList))
 }
+
+watch(() => innerCurrentProp.value, () => {
+  emits('current-prop-change', innerCurrentProp.value)
+})
 </script>
 
 <style scoped lang="scss">
