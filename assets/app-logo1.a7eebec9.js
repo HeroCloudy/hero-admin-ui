@@ -1,0 +1,1 @@
+import{r as o,o as a,c as p,a as r}from"./app.a319b750.js";import{_ as n}from"./plugin-vue_export-helper.21dcd24c.js";const t={};function c(s,l){const e=o("ha-app-logo");return a(),p("div",null,[r(e,{"app-name":"HERO \u7EC4\u4EF6\u5E93",logo:"/images/logo.png","is-expand":!0,style:{width:"200px"}})])}var d=n(t,[["render",c]]);export{d as default};

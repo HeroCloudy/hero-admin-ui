@@ -1,0 +1,1 @@
+import{f as n,r as c,o as a,c as s,a as i}from"./app.a319b750.js";const m=n({setup(l){const o=e=>{console.log("\u70B9\u51FB item\uFF1A",e)};return(e,p)=>{const t=c("ha-icon-list");return a(),s("div",null,[i(t,{"on-item-click":o,"max-height":"300px"})])}}});export{m as default};

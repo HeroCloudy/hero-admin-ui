@@ -1,0 +1,1 @@
+import{r as o,o as c,c as n,a as r}from"./app.a319b750.js";import{_ as a}from"./plugin-vue_export-helper.21dcd24c.js";const s={};function t(_,p){const e=o("ha-svg-icon");return c(),n("div",null,[r(e,{color:"red",icon:"icon-screen-normal"})])}var m=a(s,[["render",t]]);export{m as default};
