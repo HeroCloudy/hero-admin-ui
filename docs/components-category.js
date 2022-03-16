@@ -13,7 +13,8 @@ module.exports = {
     '/components/card.md',
     '/components/form.md',
     '/components/table.md',
-    '/components/descriptions.md'
+    '/components/descriptions.md',
+    '/components/dialog.md'
   ],
   proCommon: [
     '/components/nav-bar.md',

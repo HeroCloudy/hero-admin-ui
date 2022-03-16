@@ -13,7 +13,7 @@
     </div>
     <div class="middle">
       <attr-basic :current-prop="currentProp"></attr-basic>
-      <attr-of></attr-of>
+      <attr-of v-if="currentProp && (currentProp?.ofItemType === 'oneOf' || currentProp?.ofItemType === 'anyOf')"></attr-of>
       <attr-style></attr-style>
     </div>
 
@@ -55,13 +55,6 @@ watch(() => propList.value, () => {
   schema.value = getSchemaByPropList(propList.value)
 }, { deep: true, immediate: true })
 
-// onMounted(() => {
-//   innerModel.value = buildSchemaDefaultModel(innerSchema.value)
-//   // onAddPropClick()
-// })
-//
-// const innerBasicModel = reactive<BasicAttr>(getBasicAttrDefaultModel())
-//
 </script>
 
 <style scoped lang="scss">

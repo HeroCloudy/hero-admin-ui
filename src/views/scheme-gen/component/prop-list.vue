@@ -57,7 +57,8 @@ const onAddPropClick = () => {
     key: `prop${index}`,
     type: PropItemTypes.STRING,
     defaultValue: null,
-    isRequired: false
+    isRequired: false,
+    ofItemType: 'anyOf'
   }
   propList.push(newItem)
   innerCurrentProp.value = newItem

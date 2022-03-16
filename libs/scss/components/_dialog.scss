@@ -1,0 +1,19 @@
+@import "../tools/sassMagic";
+@import "../acss/mp";
+@import "../base/var";
+
+@include b('HaDialog') {
+
+  .el-dialog__header {
+    background-color: $primary-color;
+
+    .el-dialog__close,
+    .el-dialog__title {
+      color: white;
+    }
+  }
+
+  .el-dialog__body {
+    padding: 20px;
+  }
+}

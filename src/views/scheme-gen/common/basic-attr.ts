@@ -8,6 +8,7 @@ export interface Prop extends PropItem {
   key: string,
   defaultValue?: string | number | [] | null;
   isRequired?: boolean;
+  ofItemType?: string;
 }
 
 export const basicAttrSchema: Schema = {
@@ -59,6 +60,7 @@ export const basicAttrUiSchema: UiSchema = {
     'ui:widget': 'radio'
   },
   ofItemType: {
+    'ui:column': 2,
     'ui:widget': 'radio'
   }
 }

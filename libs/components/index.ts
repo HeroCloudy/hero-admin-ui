@@ -1,3 +1,4 @@
+import HaDialog from './dialog'
 import HaResultCard from './result-card'
 import HaTableCard from './table-card'
 import HaDescriptions from './descriptions'
@@ -43,5 +44,6 @@ export default [
   HaTable,
   HaDescriptions,
   HaTableCard,
-  HaResultCard
+  HaResultCard,
+  HaDialog
 ] // end
