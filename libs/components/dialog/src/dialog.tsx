@@ -25,8 +25,8 @@ export default defineComponent({
     })
 
     const innerSlots = {
-      default: slots.default && slots.default(),
-      footer: slots.footer && slots.footer()
+      default: () => (slots.default && slots.default()) || null,
+      footer: () => (slots.footer && slots.footer()) || null
     }
 
     return () => (

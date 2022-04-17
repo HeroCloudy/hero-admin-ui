@@ -98,7 +98,7 @@ const routes: Array<RouteRecordRaw> = [
       },
       {
         path: '/yyg-admin/tag',
-        component: () => import('@/views/yyg-admin/category.vue'),
+        component: () => import('@/views/yyg-admin/tag.vue'),
         meta: {
           title: '标签管理',
           icon: 'icon-tag'

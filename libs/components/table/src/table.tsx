@@ -175,11 +175,21 @@ export default defineComponent({
       )
     }
 
+    const columns = ref<JSX.Element[]>([])
+
     watch(() => props.schema, () => {
       buildColumnSettings()
+      // setTimeout(() => {
+      columns.value = renderColumns()
+      // }, 1000)
     }, { deep: true })
 
+    const renderColumn = (prop: string, propertyItem: PropItem, uiItem: UiSchemaItem) => {
+      return renderColumnBySchema(prop, propertyItem, uiItem, slots)
+    }
+
     const renderColumns = () => {
+      console.log('~~~~~~~~ --------', columnSettings.value.length)
       const { properties } = props.schema || {}
       const tableColumns: JSX.Element[] = []
 
@@ -207,10 +217,6 @@ export default defineComponent({
         tableColumns.push(renderRowButtons())
       }
       return tableColumns
-    }
-
-    const renderColumn = (prop: string, propertyItem: PropItem, uiItem: UiSchemaItem) => {
-      return renderColumnBySchema(prop, propertyItem, uiItem, slots)
     }
 
     const innerCurrentPage = ref(props.currentPage <= 0 ? 1 : props.currentPage)
@@ -337,7 +343,7 @@ export default defineComponent({
             onCellClick={onCellClick}
             onSelectionChange={onSelectionChange}
           >
-            {renderColumns()}
+            {columns.value}
           </el-table>
 
           {['always', 'auto'].includes(props.showPagination) ? (

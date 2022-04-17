@@ -22,21 +22,12 @@ import { Schema } from '../../../libs/components/types'
 import request from '@/utils/request'
 
 const schema = ref<Schema | null>(null)
-// const schema = ref<Schema | null>({
-//   properties: {
-//     code: { type: 'string', title: '类别编码' },
-//     id: { type: 'string', title: 'ID 主键' },
-//     isDeleted: { type: 'integer', format: 'int32', title: '是否删除： 0-未删除；1-已删除' },
-//     name: { type: 'string', title: '类别名称' }
-//   }
-// })
 
 const searchMethod = (param: any) => {
   return request.get('/category', param || {})
 }
 onMounted(() => {
   setTimeout(() => {
-    console.log(111)
     schema.value = {
       properties: {
         code: { type: 'string', title: '类别编码' },
@@ -52,7 +43,7 @@ onMounted(() => {
         name: { type: 'string', title: '类别名称' }
       }
     }
-  }, 300)
+  }, 0)
 })
 const advanceSearchField = ref(['code', 'name', 'isDeleted'])
 const model = ref({})

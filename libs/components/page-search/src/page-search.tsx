@@ -1,7 +1,8 @@
 import { computed, defineComponent, onMounted, PropType, ref } from 'vue'
 import HaPage from '../../page'
-import { commonFormProps } from '../../utils/common-props'
-import { Schema } from '../../types'
+import { CI, commonFormProps, RowButton } from '../../utils/common-props'
+import { PropItem, PropItemTypes, Schema, UiSchema } from '../../types'
+import { ElMessage } from 'element-plus'
 
 const NAME = 'HaPageSearch'
 
@@ -28,9 +29,34 @@ export default defineComponent({
       type: Function as PropType<(param: any) => Promise<any>>,
       required: false,
       default: null
+    },
+    rowButtons: {
+      type: Function as PropType<(scope: CI<any>) => RowButton[]>,
+      required: false,
+      default: null
+    },
+    dialogTitle: {
+      type: String,
+      required: false,
+      default: ''
+    },
+    dialogField: {
+      type: Array as PropType<string[]>,
+      required: false,
+      default: null
+    },
+    dialogUiSchema: {
+      type: Object as PropType<UiSchema>,
+      required: false,
+      default: () => ({})
+    },
+    saveMethod: {
+      type: Function as PropType<(param: any) => Promise<any>>,
+      required: false,
+      default: null
     }
   },
-  setup (props, context) {
+  setup (props) {
     const dataList = ref<any>([])
 
     const onSearch = () => {
@@ -45,10 +71,91 @@ export default defineComponent({
       onSearch()
     })
 
+    const dialogVisible = ref<boolean>(false)
+
+    const innerDialogTitle = ref<string>(props.dialogTitle)
+
+    const innerDialogModel = ref<any>({})
+
+    const buildDefaultModel = () => {
+      const obj: any = {}
+      if (props.schema && props.schema.properties) {
+        Object.keys(props.schema.properties).forEach((k: string) => {
+          // const item: PropItem = props.schema.properties[k]
+          obj[k] = null
+        })
+      }
+      return obj
+    }
+
+    const onOptCreateClick = () => {
+      if (props.dialogField) {
+        innerDialogModel.value = buildDefaultModel()
+        console.log(JSON.stringify(innerDialogModel.value))
+        innerDialogTitle.value = '新增' + props.dialogTitle
+        setTimeout(() => {
+          dialogVisible.value = true
+        }, 10)
+      }
+    }
+
+    const innerDialogSchema = computed(() => {
+      const properties: { [k: string]: PropItem} = {}
+      if (props.dialogField && props.dialogField.length > 0) {
+        if (props.schema && props.schema.properties) {
+          props.dialogField.forEach((k: string) => {
+            const item = props.schema.properties[k]
+            if (item) {
+              properties[k] = item
+            }
+          })
+          return { properties }
+        }
+      }
+      return { properties: {} }
+    })
+
+    const closeDialog = () => {
+      if (innerDialogModel.value) {
+        Object.keys(innerDialogModel.value).forEach((k: string) => {
+          innerDialogModel.value[k] = null
+        })
+      }
+      dialogVisible.value = false
+    }
+
+    const innerSaveMethod = () => {
+      if (props.saveMethod) {
+        props.saveMethod(innerDialogModel.value).then(_ => {
+          ElMessage.success('保存成功')
+          closeDialog()
+          onSearch()
+        })
+      }
+    }
+
+    const renderDialogSlot = () => {
+      return {
+        default: () => (
+          <ha-form schema={innerDialogSchema.value}
+            model={innerDialogModel.value}
+            column={1}
+            ui-schema={props.dialogUiSchema}></ha-form>
+        ),
+        footer: () => (
+          <span>
+            <el-button onClick={closeDialog}>取消</el-button>
+            <el-button onClick={innerSaveMethod} type='primary'>保存</el-button>
+          </span>
+        )
+      }
+    }
+
     return () => {
       const { schema, advanceSearchField, tableField } = props
 
       const innerSchema: Schema = { properties: {} }
+
       if (advanceSearchField && advanceSearchField.length > 0) {
         advanceSearchField.forEach((key: string) => {
           if (schema && schema.properties && schema.properties[key]) {
@@ -74,10 +181,6 @@ export default defineComponent({
         return schema
       })
 
-      // setTimeout(() => {
-      //   dataList.value = [{ id: '1', name: '前端技术', code: 'fe', isDeleted: 0 }, { id: '2', name: '后端技术', code: 'be', isDeleted: 0 }, { id: '3', name: '阅读扯淡', code: 'read', isDeleted: 0 }]
-      // }, 2000)
-
       return (
         <HaPage class={NAME}>
           <ha-search-card
@@ -90,7 +193,14 @@ export default defineComponent({
             schema={innerTableSchema.value}
             uiSchema={props.uiSchema}
             data={dataList.value}
+            rowButtons={props.rowButtons}
+            onOptCreateClick={onOptCreateClick}
           ></ha-result-card>
+          <ha-dialog v-model={dialogVisible.value}
+            title={innerDialogTitle.value}
+            v-slots={renderDialogSlot()}
+            close-on-click-modal={false}>
+          </ha-dialog>
         </HaPage>
       )
     }
