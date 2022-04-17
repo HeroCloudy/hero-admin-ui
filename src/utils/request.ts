@@ -4,7 +4,8 @@ import { ElMessage } from 'element-plus'
 // import config from '@/config'
 
 const axiosInstance: AxiosInstance = axios.create({
-  timeout: 5000
+  timeout: 5000,
+  baseURL: 'http://localhost:10090'
 })
 
 axiosInstance.defaults.headers.post['Content-Type'] = 'application/json'

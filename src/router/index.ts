@@ -77,6 +77,50 @@ const routes: Array<RouteRecordRaw> = [
         }
       }
     ]
+  },
+  {
+    path: '/yyg-admin',
+    name: 'yyg-admin',
+    meta: {
+      title: '优雅哥后台',
+      icon: 'icon-admin'
+    },
+    redirect: '/yyg-admin/category',
+    component: () => import('@/views/index.vue'),
+    children: [
+      {
+        path: '/yyg-admin/category',
+        component: () => import('@/views/yyg-admin/category.vue'),
+        meta: {
+          title: '类别管理',
+          icon: 'icon-category'
+        }
+      },
+      {
+        path: '/yyg-admin/tag',
+        component: () => import('@/views/yyg-admin/category.vue'),
+        meta: {
+          title: '标签管理',
+          icon: 'icon-tag'
+        }
+      },
+      {
+        path: '/yyg-admin/article',
+        component: () => import('@/views/yyg-admin/category.vue'),
+        meta: {
+          title: '文章管理',
+          icon: 'icon-article'
+        }
+      },
+      {
+        path: '/yyg-admin/log',
+        component: () => import('@/views/yyg-admin/category.vue'),
+        meta: {
+          title: '日志管理',
+          icon: 'icon-log'
+        }
+      }
+    ]
   }
 ]
 

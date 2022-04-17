@@ -21,5 +21,6 @@ module.exports = [
   // '/components/descriptions.md',
   // '/components/table-card.md',
   // '/components/result-card.md'
-  '/components/demo.md'
+  '/components/demo.md',
+  '/components/page-search.md'
 ]
