@@ -35,6 +35,9 @@ export const renderFormItem = (
     if (slots[prop]) {
       return () => slots[prop]?.(form)
     }
+    const onEnterPress = (e: Event) => {
+      console.log('press enter', e)
+    }
     switch (type) {
       case PropItemTypes.STRING: {
         if (!oneOf && !format) {
@@ -55,6 +58,7 @@ export const renderFormItem = (
                 type="textarea"
                 onInput={(value: any) => onChange(prop, value)}
                 {...commonProps}
+                nativeOnKeydown={(e: Event) => onEnterPress(e)}
               />
             )
           } else {

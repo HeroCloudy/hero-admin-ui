@@ -5,7 +5,8 @@ import { TableColumnCtx } from 'element-plus/lib/components/table/src/table-colu
 export const commonFormProps = {
   schema: {
     type: Object as PropType<Schema>,
-    required: true
+    required: false,
+    default: () => ({ properties: {} })
   },
   uiSchema: {
     type: Object as PropType<UiSchema>,
@@ -53,7 +54,8 @@ export type ColumnSetting = {
 export const commonTableProps = {
   schema: {
     type: Object as PropType<Schema>,
-    required: true
+    required: false,
+    default: () => ({ properties: {} })
   },
   uiSchema: {
     type: Object as PropType<UiSchema>,

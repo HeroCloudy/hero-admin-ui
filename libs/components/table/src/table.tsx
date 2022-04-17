@@ -1,4 +1,4 @@
-import { computed, defineComponent, ref } from 'vue'
+import { computed, defineComponent, ref, watch } from 'vue'
 import { TableColumn } from 'element-plus/lib/components/table/src/table-column/defaults'
 import { PropItem, UI_HIDDEN, UiSchemaItem } from '../../types'
 import { ElDropdown, ElTableColumn } from 'element-plus'
@@ -45,7 +45,7 @@ export default defineComponent({
         columnSettings.value.push({ prop: 'index', type: 'index', title: '序号', hidden: false })
       }
 
-      const properties = schema.properties
+      const properties = (schema && schema.properties) || {}
       Object.keys(properties).forEach((prop: string) => {
         const title = properties[prop].title || ''
         const ui = uiSchema[prop]
@@ -55,10 +55,6 @@ export default defineComponent({
         }
       })
     }
-
-    buildColumnSettings()
-
-    console.log(columnSettings.value)
 
     const defaultIndexMethod = (index: number) => {
       const start = (innerCurrentPage.value - 1) * innerPageSize.value
@@ -179,8 +175,12 @@ export default defineComponent({
       )
     }
 
+    watch(() => props.schema, () => {
+      buildColumnSettings()
+    }, { deep: true })
+
     const renderColumns = () => {
-      const { properties } = props.schema
+      const { properties } = props.schema || {}
       const tableColumns: JSX.Element[] = []
 
       if (props.selectionType === 'checkbox') {
@@ -206,7 +206,6 @@ export default defineComponent({
       if (typeof props.rowButtons === 'function') {
         tableColumns.push(renderRowButtons())
       }
-
       return tableColumns
     }
 

@@ -22,7 +22,7 @@ const findTitleFromList = (value: any, list: OfItem[]) => {
 const buildOneOfFormatter = (propertyItem: PropItem) => {
   const oneOf = propertyItem.oneOf || []
   return (row: { [key: string]: any }, column: TableColumnCtx<any>, cellValue: any) => {
-    return findTitleFromList(cellValue, oneOf)
+    return findTitleFromList(`${cellValue}`, oneOf)
   }
 }
 

@@ -90,16 +90,26 @@ export default defineComponent({
       context.emit(EVENT_SEARCH, props.model)
     }
 
+    const renderExpandBtn = () => {
+      if (!props.schema.properties || Object.keys(props.schema.properties).length < props.column) {
+        return null
+      }
+
+      return (
+        <el-button type='text' size='small' onClick={() => { isSimpleSearch.value = !isSimpleSearch.value }}>
+          { isSimpleSearch.value ? (
+            <span>更多 <el-icon size={12}><el-icon-arrow-down-bold size={10} /></el-icon></span>
+          ) : (
+            <span>折叠 <el-icon size={12}><el-icon-arrow-up-bold /></el-icon></span>
+          ) }
+        </el-button>
+      )
+    }
+
     const optSlot = () => {
       return (
         <div class={`${NAME}__opt`}>
-          <el-button type='text' size='small' onClick={() => { isSimpleSearch.value = !isSimpleSearch.value }}>
-            { isSimpleSearch.value ? (
-              <span>更多 <el-icon size={12}><el-icon-arrow-down-bold size={10} /></el-icon></span>
-            ) : (
-              <span>折叠 <el-icon size={12}><el-icon-arrow-up-bold /></el-icon></span>
-            ) }
-          </el-button>
+          { renderExpandBtn() }
           <el-button type='default' size='small' onClick={onResetBtnClick}>重置</el-button>
           <el-button type='primary' size='small' onClick={onSearchBtnClick}>搜索</el-button>
         </div>

@@ -51,6 +51,7 @@ export default defineComponent({
     const innerUiSchema = computed(() => {
       return props.uiSchema
     })
+    const innerDataList = computed(() => props.data)
 
     const innerTableProps = { ...props }
 
@@ -108,20 +109,23 @@ export default defineComponent({
 
     const cardSlots = {
       opt: () => context.slots.opt && context.slots.opt(),
-      default: () => (
-        <ha-table
-          {...innerTableProps}
-          schema={innerSchema.value}
-          uiSchema={innerUiSchema.value}
-          onCurrentChange={onCurrentChange}
-          onSizeChange={onSizeChange}
-          onSelectionChange={onSelectionChange}
-          onCellClick={onCellClick}
-          onRowButtonsClick={onRowButtonClick}
-        >
-          {tableOptSlots}
-        </ha-table>
-      )
+      default: () => {
+        return (
+          <ha-table
+            {...innerTableProps}
+            schema={innerSchema.value}
+            uiSchema={innerUiSchema.value}
+            data={innerDataList.value}
+            onCurrentChange={onCurrentChange}
+            onSizeChange={onSizeChange}
+            onSelectionChange={onSelectionChange}
+            onCellClick={onCellClick}
+            onRowButtonsClick={onRowButtonClick}
+          >
+            {tableOptSlots}
+          </ha-table>
+        )
+      }
     }
     return () => (
       <div class={NAME}>
@@ -131,7 +135,9 @@ export default defineComponent({
           collapse={props.collapse}
           collapsable={props.collapsable}
         >
-          {cardSlots}
+          {
+            cardSlots
+          }
         </ha-card>
       </div>
     )

@@ -1,3 +1,4 @@
+import HaPageSearch from './page-search'
 import HaDialog from './dialog'
 import HaResultCard from './result-card'
 import HaTableCard from './table-card'
@@ -45,5 +46,6 @@ export default [
   HaDescriptions,
   HaTableCard,
   HaResultCard,
-  HaDialog
+  HaDialog,
+  HaPageSearch
 ] // end
