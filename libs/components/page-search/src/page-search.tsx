@@ -1,7 +1,7 @@
 import { computed, defineComponent, onMounted, PropType, ref } from 'vue'
 import HaPage from '../../page'
 import { CI, commonFormProps, RowButton } from '../../utils/common-props'
-import { PropItem, PropItemTypes, Schema, UiSchema } from '../../types'
+import { PropItem, Schema, UiSchema } from '../../types'
 import { ElMessage } from 'element-plus'
 
 const NAME = 'HaPageSearch'
@@ -58,11 +58,25 @@ export default defineComponent({
   },
   setup (props) {
     const dataList = ref<any>([])
+    const innerTotal = ref<number>(0)
+    const pageInfo = ref<any>(null)
 
     const onSearch = () => {
       if (props.searchMethod !== null) {
-        props.searchMethod(props.model).then(resp => {
-          dataList.value = resp
+        const param = { ...props.model } || {}
+        if (pageInfo.value) {
+          param.pageNo = pageInfo.value.currentPage
+          param.pageSize = pageInfo.value.pageSize
+        }
+        props.searchMethod(param).then((resp: any) => {
+          if (Object.prototype.hasOwnProperty.call(resp, 'list')) {
+            console.log('分页')
+            dataList.value = resp.list
+            innerTotal.value = resp.total
+          } else {
+            console.log('不分页')
+            dataList.value = resp
+          }
         })
       }
     }
@@ -81,7 +95,6 @@ export default defineComponent({
       const obj: any = {}
       if (props.schema && props.schema.properties) {
         Object.keys(props.schema.properties).forEach((k: string) => {
-          // const item: PropItem = props.schema.properties[k]
           obj[k] = null
         })
       }
@@ -122,6 +135,19 @@ export default defineComponent({
         })
       }
       dialogVisible.value = false
+    }
+
+    const onCurrentChange = (data: any) => {
+      console.log('onCurrentChange', data)
+      // {currentPage: 2, pageSize: 10}
+      pageInfo.value = data
+      onSearch()
+    }
+
+    const onSizeChange = (data: any) => {
+      console.log('onSizeChange', data)
+      pageInfo.value = data
+      onSearch()
     }
 
     const innerSaveMethod = () => {
@@ -195,6 +221,9 @@ export default defineComponent({
             data={dataList.value}
             rowButtons={props.rowButtons}
             onOptCreateClick={onOptCreateClick}
+            total={innerTotal.value}
+            onCurrentChange={onCurrentChange}
+            onSizeChange={onSizeChange}
           ></ha-result-card>
           <ha-dialog v-model={dialogVisible.value}
             title={innerDialogTitle.value}

@@ -114,7 +114,7 @@ const routes: Array<RouteRecordRaw> = [
       },
       {
         path: '/yyg-admin/log',
-        component: () => import('@/views/yyg-admin/category.vue'),
+        component: () => import('@/views/yyg-admin/log.vue'),
         meta: {
           title: '日志管理',
           icon: 'icon-log'

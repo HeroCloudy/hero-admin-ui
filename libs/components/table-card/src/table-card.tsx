@@ -53,8 +53,6 @@ export default defineComponent({
     })
     const innerDataList = computed(() => props.data)
 
-    const innerTableProps = { ...props }
-
     const onCurrentChange = (data: any) => {
       context.emit(EVENT_CURRENT_CHANGE, data)
     }
@@ -107,39 +105,44 @@ export default defineComponent({
       )
     }
 
-    const cardSlots = {
-      opt: () => context.slots.opt && context.slots.opt(),
-      default: () => {
-        return (
-          <ha-table
-            {...innerTableProps}
-            schema={innerSchema.value}
-            uiSchema={innerUiSchema.value}
-            data={innerDataList.value}
-            onCurrentChange={onCurrentChange}
-            onSizeChange={onSizeChange}
-            onSelectionChange={onSelectionChange}
-            onCellClick={onCellClick}
-            onRowButtonsClick={onRowButtonClick}
-          >
-            {tableOptSlots}
-          </ha-table>
-        )
+    return () => {
+      const innerTableProps = { ...props }
+
+      const cardSlots = {
+        opt: () => context.slots.opt && context.slots.opt(),
+        default: () => {
+          return (
+            <ha-table
+              {...innerTableProps}
+              schema={innerSchema.value}
+              uiSchema={innerUiSchema.value}
+              data={innerDataList.value}
+              onCurrentChange={onCurrentChange}
+              onSizeChange={onSizeChange}
+              onSelectionChange={onSelectionChange}
+              onCellClick={onCellClick}
+              onRowButtonsClick={onRowButtonClick}
+            >
+              {tableOptSlots}
+            </ha-table>
+          )
+        }
       }
+
+      return (
+        <div class={NAME}>
+          <ha-card
+            shadow="hover"
+            title={props.title}
+            collapse={props.collapse}
+            collapsable={props.collapsable}
+          >
+            {
+              cardSlots
+            }
+          </ha-card>
+        </div>
+      )
     }
-    return () => (
-      <div class={NAME}>
-        <ha-card
-          shadow="hover"
-          title={props.title}
-          collapse={props.collapse}
-          collapsable={props.collapsable}
-        >
-          {
-            cardSlots
-          }
-        </ha-card>
-      </div>
-    )
   }
 })

@@ -345,7 +345,6 @@ export default defineComponent({
           >
             {columns.value}
           </el-table>
-
           {['always', 'auto'].includes(props.showPagination) ? (
             <div class={`${NAME}__pager`}>
               <el-pagination
