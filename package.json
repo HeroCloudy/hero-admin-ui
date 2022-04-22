@@ -1,9 +1,9 @@
 {
   "name": "hero-admin-ui",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "private": false,
   "author": {
-    "name": "HeroCloudy<ha-side-bar></ha-side-bar>",
+    "name": "yygnb",
     "email": "hero_cloudy@126.com"
   },
   "description": "A admin UI framework base on vue3",
