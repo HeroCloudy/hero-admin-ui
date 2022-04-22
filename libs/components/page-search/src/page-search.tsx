@@ -1,6 +1,6 @@
 import { computed, defineComponent, onMounted, PropType, ref } from 'vue'
 import HaPage from '../../page'
-import { CI, commonFormProps, RowButton } from '../../utils/common-props'
+import { CI, commonFormProps, EVENT_OPT_CREATE_CLICK, RowButton } from '../../utils/common-props'
 import { PropItem, Schema, UiSchema } from '../../types'
 import { ElMessage } from 'element-plus'
 
@@ -56,7 +56,10 @@ export default defineComponent({
       default: null
     }
   },
-  setup (props) {
+  emits: [
+    EVENT_OPT_CREATE_CLICK
+  ],
+  setup (props, context) {
     const dataList = ref<any>([])
     const innerTotal = ref<number>(0)
     const pageInfo = ref<any>(null)
@@ -109,6 +112,8 @@ export default defineComponent({
         setTimeout(() => {
           dialogVisible.value = true
         }, 10)
+      } else {
+        context.emit(EVENT_OPT_CREATE_CLICK)
       }
     }
 

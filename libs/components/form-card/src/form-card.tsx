@@ -1,5 +1,7 @@
-import { computed, defineComponent } from 'vue'
+import { computed, defineComponent, PropType } from 'vue'
 import { cardProps, commonFormProps } from '../../utils/common-props'
+import { EVENT_DATA_CHANGE } from '../../utils/form-utils'
+import { Schema } from '../../types'
 
 const NAME = 'HaFormCard'
 
@@ -12,17 +14,40 @@ export default defineComponent({
       default: true
     },
     ...cardProps,
-    ...commonFormProps
+    ...commonFormProps,
+    formField: {
+      type: Array as PropType<string[]>,
+      required: false,
+      default: null
+    }
   },
+  emits: [
+    EVENT_DATA_CHANGE
+  ],
   setup (props, context) {
     const innerSchema = computed(() => {
-      return props.schema
+      if (!props.formField || props.formField.length <= 0) {
+        return props.schema
+      }
+      const tempSchema: Schema = { properties: {} }
+      props.formField.forEach((k: string) => {
+        if (props.schema && props.schema.properties && props.schema.properties[k]) {
+          tempSchema.properties[k] = props.schema.properties[k]
+        }
+      })
+      return tempSchema
     })
     const innerUiSchema = computed(() => {
       return props.uiSchema
     })
 
+    const onDataChange = (key: string, value: any): void => {
+      context.emit(EVENT_DATA_CHANGE, key, value, props.model)
+    }
+
     return () => {
+      const innerProps = { ...props }
+
       const cardSlots = {
         opt: () => context.slots.opt && context.slots.opt(),
         default: () => props.viewMode ? (
@@ -33,11 +58,13 @@ export default defineComponent({
           ></ha-descriptions>
         ) : (
           <ha-form
+            { ...innerProps }
             schema={innerSchema.value}
             uiSchema={innerUiSchema.value}
             model={props.model}
+            v-slots={context.slots}
+            onDataChange={onDataChange}
           >
-            {context.slots && context.slots}
           </ha-form>
         )
       }

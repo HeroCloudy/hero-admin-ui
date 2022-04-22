@@ -11,6 +11,8 @@ import {
 } from '../types'
 import { Slots } from 'vue'
 
+export const EVENT_DATA_CHANGE = 'data-change'
+
 export const renderFormItem = (
   form: { [key: string]: any },
   prop: string,

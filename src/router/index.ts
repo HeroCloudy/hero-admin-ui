@@ -106,11 +106,16 @@ const routes: Array<RouteRecordRaw> = [
       },
       {
         path: '/yyg-admin/article',
-        component: () => import('@/views/yyg-admin/category.vue'),
+        component: () => import('@/views/yyg-admin/article.vue'),
         meta: {
           title: '文章管理',
           icon: 'icon-article'
         }
+      },
+      {
+        path: '/yyg-admin/article-edit',
+        name: 'ArticleEdit',
+        component: () => import('@/views/yyg-admin/article-edit.vue')
       },
       {
         path: '/yyg-admin/log',

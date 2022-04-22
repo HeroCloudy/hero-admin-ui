@@ -47,6 +47,7 @@
     "element-plus": "^1.3.0-beta.9",
     "fuse.js": "^6.5.3",
     "lodash": "^4.17.21",
+    "md-editor-v3": "^1.11.10",
     "normalize.css": "^8.0.1",
     "screenfull": "5.2.0",
     "vue": "^3.0.0",

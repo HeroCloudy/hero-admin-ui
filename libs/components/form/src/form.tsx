@@ -1,10 +1,8 @@
 import { defineComponent, PropType, reactive } from 'vue'
 import { Schema, UiSchema } from '../../types'
-import { renderFormItem } from '../../utils/form-utils'
+import { EVENT_DATA_CHANGE, renderFormItem } from '../../utils/form-utils'
 
 const NAME = 'HaForm'
-
-const EVENT_DATA_CHANGE = 'data-change'
 
 export default defineComponent({
   name: NAME,
@@ -28,6 +26,9 @@ export default defineComponent({
       default: 3
     }
   } as const,
+  emits: [
+    EVENT_DATA_CHANGE
+  ],
   setup (props, { emit, slots }) {
     // const formRef = ref()
     const form = reactive(props.model)
