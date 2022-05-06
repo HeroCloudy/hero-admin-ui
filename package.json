@@ -37,9 +37,10 @@
     "lint": "vue-cli-service lint",
     "docs:dev": "vuepress dev docs --port 9090",
     "docs:build": "vuepress build docs --clean-temp --clean-cache",
-    "build:lib": "vue-cli-service build --target lib --name hero-admin-ui libs/index.ts",
+    "build:lib": "vue-cli-service build --target lib --dest dist --name hero-admin-ui libs/index.ts",
+    "build:types": "tsc -p tsconfig-lib.json",
     "gen:component": "node ./scripts/gen-component.js",
-    "prepublishOnly": "npm version patch && yarn build:lib"
+    "prepublishOnly": "npm version patch && yarn build:lib && yarn build:types"
   },
   "dependencies": {
     "@element-plus/icons-vue": "^0.2.6",
