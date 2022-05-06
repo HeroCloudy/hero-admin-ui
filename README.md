@@ -2,6 +2,13 @@
 
 # hero-admin-ui
 
+![Size](https://img.shields.io/bundlephobia/min/hero-admin-ui?style=flat-square)
+![License](https://img.shields.io/npm/l/hero-admin-ui?style=flat-square)
+![Version](https://img.shields.io/npm/v/hero-admin-ui?style=flat-square)
+![Downloads](https://img.shields.io/npm/dt/hero-admin-ui?style=flat-square)
+![Month Downloads](https://img.shields.io/npm/dm/hero-admin-ui?style=flat-square)
+![Dependencies](https://img.shields.io/depfu/dependencies/github/HeroCloudy/hero-admin-ui?style=flat-square)
+
 ## What
 
 `hero-admin-ui` 是一个基于 `vue3` 和 `Element Plus` 实现的 `PC 管理端` 的组件库。
