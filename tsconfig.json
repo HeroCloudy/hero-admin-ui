@@ -24,11 +24,17 @@
       "dom",
       "dom.iterable",
       "scripthost"
-    ]
+    ],
+    "noEmit": false,
+    "declaration": true,
+    "declarationDir": "dist/types",
+    "outDir": "dist"
   },
   "include": [
     "src/**/*.ts",
     "src/**/*.tsx",
+    "libs/components/**/*.ts",
+    "libs/components/**/*.tsx",
     "src/**/*.vue",
     "tests/**/*.ts",
     "tests/**/*.tsx"
