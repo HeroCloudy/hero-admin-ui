@@ -63,7 +63,7 @@ watch(() => innerBasicModel, (newVal: any) => {
 
 const onBasicAttrChange = (key: string, value: any, form: any) => {
   if (key === 'ofItemType') {
-    console.log(value)
+    console.log(value, form)
   }
 }
 

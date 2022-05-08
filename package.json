@@ -96,7 +96,9 @@
   },
   "peerDependencies": {
     "@element-plus/icons-vue": "^0.2.6",
-    "element-ui": "^2.15.6"
+    "element-ui": "^2.15.6",
+    "vxe-table": "^4.2.4-beta.0",
+    "xe-utils": "^3.5.4"
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"

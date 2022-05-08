@@ -22,7 +22,7 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, ComputedRef, onMounted, ref } from 'vue'
+import { onMounted, ref } from 'vue'
 import { OfItem, Schema } from '../../../libs/components/types'
 import request from '@/utils/request'
 

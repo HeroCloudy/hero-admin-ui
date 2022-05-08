@@ -14,15 +14,15 @@
 
 <script lang="ts" setup>
 import Block from '@/views/scheme-gen/component/block.vue'
-import { defineProps, PropType } from 'vue'
-import { Schema } from '../../../../libs/components/types'
+// import { defineProps, PropType } from 'vue'
+// import { Schema } from '../../../../libs/components/types'
 
-const props = defineProps({
-  schema: {
-    type: Object as PropType<Schema>,
-    required: true
-  }
-})
+// const props = defineProps({
+//   schema: {
+//     type: Object as PropType<Schema>,
+//     required: true
+//   }
+// })
 </script>
 
 <style scoped lang="scss">

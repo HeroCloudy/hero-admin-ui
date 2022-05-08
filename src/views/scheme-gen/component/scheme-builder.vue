@@ -26,7 +26,7 @@
 </template>
 
 <script lang="ts" setup>
-import PropList from '@/views/scheme-gen/component/prop-list.vue'
+// import PropList from '@/views/scheme-gen/component/prop-list.vue'
 import AttrBasic from '@/views/scheme-gen/component/attr-basic.vue'
 import AttrOf from '@/views/scheme-gen/component/attr-of.vue'
 import AttrStyle from '@/views/scheme-gen/component/attr-style.vue'

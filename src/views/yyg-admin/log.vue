@@ -30,9 +30,9 @@ const searchMethod = (param: any) => {
   return request.get('/visit-log', param || {})
 }
 
-const onRowButtonsClick = (key: any, scope: any) => {
-  console.log(key, scope)
-}
+// const onRowButtonsClick = (key: any, scope: any) => {
+//   console.log(key, scope)
+// }
 
 onMounted(() => {
   setTimeout(() => {

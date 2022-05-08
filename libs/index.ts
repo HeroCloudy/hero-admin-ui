@@ -21,6 +21,10 @@ export {
   install
 }
 
+export {
+  components
+}
+
 export default {
   install
 }

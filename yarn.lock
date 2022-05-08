@@ -10453,6 +10453,11 @@ vuex@^4.0.0-0:
   dependencies:
     "@vue/devtools-api" "^6.0.0-beta.11"
 
+vxe-table@^4.2.4-beta.0:
+  version "4.2.4-beta.0"
+  resolved "https://registry.yarnpkg.com/vxe-table/-/vxe-table-4.2.4-beta.0.tgz#cd5e2c835de9235257881db8fae6141f0fc1d27c"
+  integrity sha512-FM9xVyU1mkdzpQmGmrJVmCa+TUmGNlE3SpSPfoVM8gT+xXwknwda2VPIJsD7JvlS8r9Ghk9fAFeTR1+L89hCJw==
+
 watchpack-chokidar2@^2.0.1:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/watchpack-chokidar2/-/watchpack-chokidar2-2.0.1.tgz#38500072ee6ece66f3769936950ea1771be1c957"
@@ -10730,6 +10735,11 @@ ws@^6.0.0, ws@^6.2.1:
   integrity sha512-zmhltoSR8u1cnDsD43TX59mzoMZsLKqUweyYBAIvTngR3shc0W6aOZylZmq/7hqyVxPdi+5Ud2QInblgyE72fw==
   dependencies:
     async-limiter "~1.0.0"
+
+xe-utils@^3.5.4:
+  version "3.5.4"
+  resolved "https://registry.yarnpkg.com/xe-utils/-/xe-utils-3.5.4.tgz#d4335633fede280c68c1c0c9a4c8f3a533cfd831"
+  integrity sha512-oH7VOgvHv34pn198dhKPVKnuEHV22Q06YpCTVnAS3JuutylmZj/rtJGvn0BxxWQ37w2LgCknoebLA4uIGXwFtw==
 
 xtend@^4.0.0, xtend@~4.0.1:
   version "4.0.2"
