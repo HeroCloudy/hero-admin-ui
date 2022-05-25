@@ -46,7 +46,13 @@ export default defineComponent({
       <div class={NAME}>
         {imgPath.value ? (
           <div class="img-wrapper">
-            <img src={imgPath.value}/>
+            {/* <img src={imgPath.value}/> */}
+            <el-image
+              class="img"
+              src={imgPath.value}
+              preview-src-list={[imgPath.value]}
+              initial-index={0}
+              fit="cover" />
           </div>
         ) : null}
 
