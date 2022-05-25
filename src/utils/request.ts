@@ -5,7 +5,7 @@ import { ElMessage } from 'element-plus'
 
 const axiosInstance: AxiosInstance = axios.create({
   timeout: 5000,
-  baseURL: 'http://localhost:10090'
+  baseURL: 'http://124.220.8.69:10090'
 })
 
 axiosInstance.defaults.headers.post['Content-Type'] = 'application/json'
@@ -81,10 +81,16 @@ const del = (url: string, data?: any, config?: AxiosRequestConfig) => axiosInsta
   data: data,
   ...config
 })
+const upload = (url: string, data?: any) => axiosInstance.post(url, data, {
+  headers: {
+    'Content-Type': 'multipart/form-data'
+  }
+})
 
 export default {
   get,
   post,
   put,
-  del
+  del,
+  upload
 }

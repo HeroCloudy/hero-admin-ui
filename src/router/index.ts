@@ -8,9 +8,17 @@ const routes: Array<RouteRecordRaw> = [
       title: '首页',
       icon: 'icon-user'
     },
-    redirect: '/schema-gen',
+    redirect: '/example',
     component: () => import('@/views/index.vue'),
     children: [
+      {
+        path: '/example',
+        component: () => import('@/views/test/example.vue'),
+        meta: {
+          title: 'example',
+          icon: 'icon-user'
+        }
+      },
       {
         path: '/schema-gen',
         component: () => import('@/views/scheme-gen/index.vue'),

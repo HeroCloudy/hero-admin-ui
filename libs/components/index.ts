@@ -1,3 +1,4 @@
+import HaInputImg from './input-img'
 import HaPageSearch from './page-search'
 import HaDialog from './dialog'
 import HaResultCard from './result-card'
@@ -47,5 +48,6 @@ export default [
   HaTableCard,
   HaResultCard,
   HaDialog,
-  HaPageSearch
+  HaPageSearch,
+  HaInputImg
 ] // end
