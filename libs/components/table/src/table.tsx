@@ -46,6 +46,7 @@ export default defineComponent({
       }
 
       const properties = (schema && schema.properties) || {}
+      console.log('aaaaaaaaaaaaaa ----------- ', properties)
       Object.keys(properties).forEach((prop: string) => {
         const title = properties[prop].title || ''
         const ui = uiSchema[prop]
@@ -178,6 +179,7 @@ export default defineComponent({
     const columns = ref<JSX.Element[]>([])
 
     watch(() => props.schema, () => {
+      console.log('00 aaaaaaaaaaaaaa ----------- ', props.schema)
       buildColumnSettings()
       // setTimeout(() => {
       columns.value = renderColumns()

@@ -1,4 +1,4 @@
-import { defineComponent, PropType, reactive } from 'vue'
+import { defineComponent, PropType, reactive, watchEffect } from 'vue'
 import { Schema, UiSchema } from '../../types'
 import { EVENT_DATA_CHANGE, renderFormItem } from '../../utils/form-utils'
 
@@ -31,7 +31,11 @@ export default defineComponent({
   ],
   setup (props, { emit, slots }) {
     // const formRef = ref()
-    const form = reactive(props.model)
+    let form = reactive(props.model)
+
+    watchEffect(() => {
+      form = reactive(props.model)
+    })
 
     const defaultSpan = 24 / props.column
 

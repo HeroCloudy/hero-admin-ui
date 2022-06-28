@@ -20,6 +20,14 @@ const routes: Array<RouteRecordRaw> = [
         }
       },
       {
+        path: '/schema-gen-new',
+        component: () => import('@/views/schema-gen-new/index.vue'),
+        meta: {
+          title: '新版schema生成器',
+          icon: 'icon-user'
+        }
+      },
+      {
         path: '/schema-gen',
         component: () => import('@/views/scheme-gen/index.vue'),
         meta: {
