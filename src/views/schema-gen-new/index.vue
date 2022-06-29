@@ -15,6 +15,10 @@
 
     <!--  中间：属性值 attr 列表  -->
     <div class="center">
+      <div class="top">
+        <div style="flex: 1"></div>
+        <tool-preview :prop-list="list"></tool-preview>
+      </div>
       <attr-list v-if="currentProp" :current-prop="currentProp"></attr-list>
     </div>
 
@@ -28,10 +32,10 @@
 <script lang="ts" setup>
 import PropList from './component/prop-list.vue'
 import { ref } from 'vue'
-import { Prop } from '@/views/scheme-gen/common/basic-attr'
 import PreviewList from '@/views/schema-gen-new/component/preview-list.vue'
 import AttrList from '@/views/schema-gen-new/component/attr-list.vue'
-import { buildPropItem } from '@/views/schema-gen-new/common/commons'
+import { buildPropItem, Prop } from '@/views/schema-gen-new/common/commons'
+import ToolPreview from '@/views/schema-gen-new/component/tool-preview.vue'
 
 const currentProp = ref<Prop>()
 
@@ -43,6 +47,8 @@ const onCurrentPropChange = (prop: Prop) => {
 </script>
 
 <style scoped lang="scss">
+$bg: #f0fcdc;
+
 .schema-gen {
   width: 100%;
   min-height: 100%;
@@ -57,6 +63,13 @@ const onCurrentPropChange = (prop: Prop) => {
 
   .center {
     flex: 1;
+    margin: 0 10px;
+
+    .top {
+      background-color: $bg;
+      padding: 10px;
+      display: flex;
+    }
   }
 
   //.open {
@@ -73,7 +86,7 @@ const onCurrentPropChange = (prop: Prop) => {
   // 可删除 BEGIN
   .left,
   .right {
-    background-color: #f0fcdc;
+    background-color: $bg;
   }
 
   // 可删除 END
