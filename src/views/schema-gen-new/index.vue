@@ -19,7 +19,7 @@
         <div style="flex: 1"></div>
         <tool-preview :prop-list="list"></tool-preview>
       </div>
-      <attr-list v-if="currentProp" :current-prop="currentProp"></attr-list>
+      <attr-list style="flex: 1;" v-if="currentProp" :current-prop="currentProp"></attr-list>
     </div>
 
     <!--  左侧：预览 preview 列表  -->
@@ -51,7 +51,7 @@ $bg: #f0fcdc;
 
 .schema-gen {
   width: 100%;
-  min-height: 100%;
+  height: 100%;
 
   .left {
     width: 300px;
@@ -64,12 +64,14 @@ $bg: #f0fcdc;
   .center {
     flex: 1;
     margin: 0 10px;
+    display: flex;
+    flex-direction: column;
 
-    .top {
-      background-color: $bg;
-      padding: 10px;
-      display: flex;
-    }
+    //.top {
+    //  background-color: $bg;
+    //  padding: 10px;
+    //  display: flex;
+    //}
   }
 
   //.open {

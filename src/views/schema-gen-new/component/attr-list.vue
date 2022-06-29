@@ -7,7 +7,7 @@
  * 2022/6/27 15:40   dscloudy    Create File.
  -->
 <template>
-  <div>
+  <div class="attr-container">
     <block title="基本属性">
       <ha-form :schema="basicAttrSchema"
                :model="innerCurrentProp"
@@ -17,7 +17,7 @@
     </block>
 
     <block v-if="innerCurrentProp.ofItemType === 'oneOf' || innerCurrentProp.ofItemType === 'anyOf'"
-           height="200px"
+           style="flex: 1"
            :title="innerCurrentProp.ofItemType === 'oneOf' ? 'OneOf' : 'AnyOf'">
       <template #opt>
         <el-button type="text" @click="onShowOfItemDialogBtn">添加</el-button>
@@ -146,4 +146,8 @@ const onOfItemSaveBtn = () => {
 </script>
 
 <style scoped lang="scss">
+.attr-container {
+  display: flex;
+  flex-direction: column;
+}
 </style>
