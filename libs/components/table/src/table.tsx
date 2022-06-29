@@ -37,6 +37,8 @@ export default defineComponent({
   setup (props, { attrs, emit, slots }) {
     const tableRef = ref()
 
+    console.log('table schema : ---', props.schema)
+
     const columnSettings = ref<ColumnSetting[]>([])
 
     const buildColumnSettings = () => {
@@ -46,7 +48,6 @@ export default defineComponent({
       }
 
       const properties = (schema && schema.properties) || {}
-      console.log('aaaaaaaaaaaaaa ----------- ', properties)
       Object.keys(properties).forEach((prop: string) => {
         const title = properties[prop].title || ''
         const ui = uiSchema[prop]
@@ -119,9 +120,10 @@ export default defineComponent({
     )
 
     const renderOptSlots = (scope: CI<any>) => {
+      const { rowButtonMaxNum } = props
       const rowButtons = props.rowButtons(scope)
       // 小于等于2个按钮时，直接展示
-      if (rowButtons.length <= 2) {
+      if (rowButtons.length <= rowButtonMaxNum) {
         return rowButtons.map((rowButton: RowButton) => (
           <el-button size="small" type="text"
             onClick={(e: any) => onRowButtonClick(e, rowButton.key, scope)}
@@ -130,7 +132,9 @@ export default defineComponent({
       }
 
       const els: JSX.Element[] = []
-      els.push(buildRowButtonItem(rowButtons[0], scope)) // 先添加第一个按钮
+      for (let i = 0; i < rowButtonMaxNum - 1; i++) {
+        els.push(buildRowButtonItem(rowButtons[i], scope)) // 先添加 max-1 个按钮
+      }
 
       const dropDownSlot = {
         default: () => (
@@ -143,7 +147,7 @@ export default defineComponent({
         dropdown: () => (
           <el-dropdown-menu>
             { rowButtons.map((btn: RowButton, index: number) => {
-              if (index === 0) {
+              if (index < rowButtonMaxNum - 1) {
                 return null
               }
               return (
@@ -165,10 +169,11 @@ export default defineComponent({
     }
 
     const renderRowButtons = () => {
+      const width = props.rowButtonMaxNum * 50
       return (
         <ElTableColumn
           label="操作"
-          width="120"
+          width={width}
           fixed="right"
           align="center">
           {{ default: (scope: CI<any>) => renderOptSlots(scope) }}
@@ -179,11 +184,7 @@ export default defineComponent({
     const columns = ref<JSX.Element[]>([])
 
     watch(() => props.schema, () => {
-      console.log('00 aaaaaaaaaaaaaa ----------- ', props.schema)
-      buildColumnSettings()
-      // setTimeout(() => {
       columns.value = renderColumns()
-      // }, 1000)
     }, { deep: true })
 
     const renderColumn = (prop: string, propertyItem: PropItem, uiItem: UiSchemaItem) => {
@@ -191,6 +192,8 @@ export default defineComponent({
     }
 
     const renderColumns = () => {
+      buildColumnSettings()
+
       console.log('~~~~~~~~ --------', columnSettings.value.length)
       const { properties } = props.schema || {}
       const tableColumns: JSX.Element[] = []
@@ -326,6 +329,8 @@ export default defineComponent({
         {slots.opt && slots.opt()}
       </div>
     )
+
+    columns.value = renderColumns()
 
     return () => {
       return (

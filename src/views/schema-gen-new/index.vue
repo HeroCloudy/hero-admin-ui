@@ -7,7 +7,7 @@
  * 2022/6/27 14:37   dscloudy    Create File.
  -->
 <template>
-  <div class="schema-gen">
+  <ha-page flex-direction="row" class="schema-gen">
     <!--  左侧：属性 prop 列表  -->
     <div class="left">
       <prop-list :prop-list="list" @current-prop-change="onCurrentPropChange"></prop-list>
@@ -22,7 +22,7 @@
     <div class="right">
       <preview-list :prop-list="list"></preview-list>
     </div>
-  </div>
+  </ha-page>
 </template>
 
 <script lang="ts" setup>
@@ -44,7 +44,6 @@ const onCurrentPropChange = (prop: Prop) => {
 
 <style scoped lang="scss">
 .schema-gen {
-  display: flex;
   width: 100%;
   min-height: 100%;
 

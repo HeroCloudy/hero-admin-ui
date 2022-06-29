@@ -10,7 +10,7 @@
   <block title="组件列表" min-height="400px" class="prop-list">
     <template #opt>
       <el-button type="text" size="small" @click="onAddPropClick">添加属性</el-button>
-      <el-button type="text" size="small" @click="onLogClick">log</el-button>
+<!--      <el-button type="text" size="small" @click="onLogClick">log</el-button>-->
     </template>
 
     <div>
@@ -36,8 +36,8 @@
 <script lang="ts" setup>
 import Block from './block.vue'
 import { defineEmits, defineProps, onMounted, PropType, ref } from 'vue'
-import { Prop } from '../common/basic-attr'
-import { buildPropItem, EVENT_CURRENT_PROP_CHANGE, setDefaultTitle } from '../common/commons'
+import { Prop, buildPropItem, EVENT_CURRENT_PROP_CHANGE, setDefaultTitle } from '../common/commons'
+import _ from 'lodash'
 
 const props = defineProps({
   propList: {
@@ -109,15 +109,13 @@ const onDeleteClick = (index: number) => {
 
 const onCopyClick = (index: number) => {
   const { propList } = props
-  const newItem = { ...(propList[index]) }
+  // const newItem = { ...(propList[index]) }
+  const newItem = _.cloneDeep(propList[index])
   setDefaultTitle(propList.length, newItem)
   propList.splice(index + 1, 0, newItem)
   selectPropItem(newItem)
 }
 
-const onLogClick = () => {
-  console.log(JSON.stringify(props.propList))
-}
 </script>
 
 <style scoped lang="scss">

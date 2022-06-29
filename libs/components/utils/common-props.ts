@@ -129,6 +129,11 @@ export const commonTableProps = {
     type: Boolean,
     required: false,
     default: true
+  },
+  rowButtonMaxNum: {
+    type: Number,
+    required: false,
+    default: 2
   }
 } as const
 

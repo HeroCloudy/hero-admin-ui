@@ -26,14 +26,6 @@ const routes: Array<RouteRecordRaw> = [
           title: '新版schema生成器',
           icon: 'icon-user'
         }
-      },
-      {
-        path: '/schema-gen',
-        component: () => import('@/views/scheme-gen/index.vue'),
-        meta: {
-          title: 'schema生成器',
-          icon: 'icon-user'
-        }
       }
     ]
   },
