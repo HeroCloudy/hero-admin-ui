@@ -22,8 +22,33 @@ export default defineComponent({
     },
     column: {
       type: Number,
-      require: false,
+      required: false,
       default: 3
+    },
+    labelPosition: {
+      type: String,
+      required: false,
+      default: 'right'
+    },
+    labelWidth: {
+      type: String,
+      required: false,
+      default: 'auto'
+    },
+    labelSuffix: {
+      type: String,
+      required: false,
+      default: ': '
+    },
+    size: {
+      type: String,
+      required: false,
+      default: 'small'
+    },
+    disabled: {
+      type: Boolean,
+      required: false,
+      default: false
     }
   } as const,
   emits: [
@@ -59,7 +84,8 @@ export default defineComponent({
 
     return () => (
       <div class={NAME}>
-        <el-form ref="formRef" model={form} labelWidth="auto" size="default">
+        <el-form ref="formRef" model={form} labelWidth={props.labelWidth} size={props.size}
+          label-position={props.labelPosition} label-suffix={props.labelSuffix} disabled={props.disabled}>
           <el-row gutter={5}>
             {renderForm()}
           </el-row>
