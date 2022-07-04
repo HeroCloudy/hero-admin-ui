@@ -58,11 +58,12 @@ export default defineComponent({
     // const formRef = ref()
     let form = reactive(props.model)
 
+    let defaultSpan = 24 / props.column
+
     watchEffect(() => {
       form = reactive(props.model)
+      defaultSpan = 24 / props.column
     })
-
-    const defaultSpan = 24 / props.column
 
     const onChange = (key: string, value: any): void => {
       emit(EVENT_DATA_CHANGE, key, value, form)
