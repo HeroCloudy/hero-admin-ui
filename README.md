@@ -24,6 +24,8 @@
 
 - 组件库文档地址： [https://herocloudy.github.io/hero-admin-ui/](https://herocloudy.github.io/hero-admin-ui/)
 - 组件库demo演示： [待完善]
+- HERO Schema 生成器： [https://herocloudy.github.io/hero-low-code-frontend/#/schema-gen](https://herocloudy.github.io/hero-low-code-frontend/#/schema-gen)
+- HERO 表单生成器： [https://herocloudy.github.io/hero-low-code-frontend/#/form-gen](https://herocloudy.github.io/hero-low-code-frontend/#/form-gen)
 
 
 ## Why
