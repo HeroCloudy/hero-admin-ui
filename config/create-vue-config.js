@@ -12,9 +12,7 @@ function createVueConfig (customConfig = {}) {
     },
     devServer: {
       // 前端开发服务器端口号
-      port: 7001,
-      // 远程服务代理设置
-      proxy: {}
+      port: 7001
     },
     chainWebpack: config => {
       const svgRule = config.module.rule('svg')
