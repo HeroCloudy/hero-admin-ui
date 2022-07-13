@@ -1,7 +1,7 @@
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const _ = require('lodash')
-// // eslint-disable-next-line @typescript-eslint/no-var-requires
-// const path = require('path')
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const path = require('path')
 
 function createVueConfig (customConfig = {}) {
   console.log('this is create Vue Config')
@@ -15,6 +15,21 @@ function createVueConfig (customConfig = {}) {
       port: 7001,
       // 远程服务代理设置
       proxy: {}
+    },
+    chainWebpack: config => {
+      const svgRule = config.module.rule('svg')
+      svgRule.uses.clear()
+      svgRule.test(/\.svg$/)
+        .include
+        .add(path.resolve('libs/components/svg-icon/icons'))
+        .add(path.resolve('src/icons/svg'))
+        .end()
+        .use('svg-sprite-loader')
+        .loader('svg-sprite-loader')
+        .options({
+          symbolId: '[name]'
+        })
+        .end()
     }
   }, customConfig)
 }
