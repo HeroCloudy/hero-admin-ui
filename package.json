@@ -18,7 +18,8 @@
   "types": "./types/index.d.ts",
   "files": [
     "dist",
-    "types"
+    "types",
+    "libs/config"
   ],
   "keywords": [
     "vue3",
