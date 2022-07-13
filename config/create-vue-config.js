@@ -1,16 +1,13 @@
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const _ = require('lodash')
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const path = require('path')
+// // eslint-disable-next-line @typescript-eslint/no-var-requires
+// const path = require('path')
 
-function createVueConfig (env, customConfig = {}) {
+function createVueConfig (customConfig = {}) {
   console.log('this is create Vue Config')
   return _.merge({
     lintOnSave: true,
     productionSourceMap: false,
-    pages: {
-      index: env.VUE_APP_ENTRY_PAGE_FILE || 'src/main.js'
-    },
     configureWebpack: {
     },
     devServer: {
