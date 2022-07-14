@@ -13,15 +13,13 @@
       "import": "./dist/hero-admin-ui.umd.js",
       "require": "./dist/hero-admin-ui.umd.js"
     },
-    "./create-vue-config": "./config/create-vue-config.js",
-    "./core-module": "./store/index.ts"
+    "./create-vue-config": "./config/create-vue-config.js"
   },
   "types": "./types/index.d.ts",
   "files": [
     "dist",
     "types",
-    "config",
-    "store"
+    "config"
   ],
   "keywords": [
     "vue3",

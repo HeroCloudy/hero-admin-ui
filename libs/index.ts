@@ -6,6 +6,7 @@ import { App } from 'vue'
 import components from './components'
 import './scss/index.scss'
 import { registerElIcons } from './components/icon-list/src/icon-util'
+import { registerDefaultModules } from './store'
 
 const install: (app: App) => void = (app: App) => {
   // 全局注册 element-plus 全部图标
@@ -18,7 +19,8 @@ const install: (app: App) => void = (app: App) => {
 }
 
 export {
-  install
+  install,
+  registerDefaultModules
 }
 
 export {

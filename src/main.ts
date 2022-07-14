@@ -7,12 +7,11 @@ import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
 import '@/assets/index.scss'
 
-import HeroAdminUi from '../libs'
-import coreModule from '../store'
+import HeroAdminUi, { registerDefaultModules } from '../libs'
 
 const app = createApp(App)
 
-store.registerModule('core', coreModule)
+registerDefaultModules(store)
 
 app.use(ElementPlus)
 app.use(HeroAdminUi)

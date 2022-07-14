@@ -19,10 +19,8 @@ const core = {
       context.commit('setStr', str)
     }
   },
-  modules: {
+  getters: {
+    str: (state: CoreDefine) => state.testStr
   }
-  // getters: {
-  //   str: state => state.core.testStr
-  // }
 }
 export default core

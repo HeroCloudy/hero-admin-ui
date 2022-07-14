@@ -62,10 +62,11 @@ export default defineComponent({
   setup (props, { slots }) {
     const store = useStore()
     const testClick1 = () => {
-      console.log(store.state.core.testStr)
+      console.log(store.state.hero_core.testStr)
+      console.log(store.getters['hero_core/str'])
     }
     const testClick2 = () => {
-      store.dispatch('core/setStr', 'asdasdasd')
+      store.dispatch('hero_core/setStr', 'asdasdasd')
     }
 
     const baseClassName = NAME + ' full-screen '
