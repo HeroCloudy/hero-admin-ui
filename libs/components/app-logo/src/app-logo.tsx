@@ -13,6 +13,10 @@ export default defineComponent({
       type: String,
       required: false
     },
+    expandLogo: {
+      type: String,
+      required: false
+    },
     isExpand: {
       type: Boolean,
       required: false,
@@ -20,18 +24,22 @@ export default defineComponent({
     }
   },
   setup (props) {
+    const innerIsExpand = computed(() => props.isExpand)
+
     const renderLogo = () => {
-      if (props.logo) {
+      let logo = props.logo
+      if (innerIsExpand.value && props.expandLogo) {
+        logo = props.expandLogo
+      }
+      if (logo) {
         return (
           <div class={`${NAME}--logo`}>
-            <img src={`${props.logo}`} />
+            <img src={`${logo}`} />
           </div>
         )
       }
       return null
     }
-
-    const innerIsExpand = computed(() => props.isExpand)
 
     const renderName = () => {
       if (innerIsExpand.value) {

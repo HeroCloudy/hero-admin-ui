@@ -16,6 +16,11 @@ export default defineComponent({
       required: false,
       default: ''
     },
+    expandLogo: {
+      type: String,
+      required: false,
+      default: ''
+    },
     appName: {
       type: String,
       required: false,
@@ -29,8 +34,9 @@ export default defineComponent({
 
     const renderSiteInfo = () => {
       const logoRef = computed(() => props.logo)
+      const expandLogoRef = computed(() => props.expandLogo)
       const appNameRef = computed(() => props.appName)
-      return useRenderSiteInfo(logoRef.value, appNameRef.value, layoutValues.layoutTypeRef.value, isExpendRef.value, 'left')
+      return useRenderSiteInfo(logoRef.value, expandLogoRef.value, appNameRef.value, layoutValues.layoutTypeRef.value, isExpendRef.value, 'left')
     }
 
     const router = useRouter()
