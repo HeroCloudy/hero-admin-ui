@@ -28,5 +28,6 @@ export {
 }
 
 export default {
-  install
+  install,
+  registerDefaultModules
 }
