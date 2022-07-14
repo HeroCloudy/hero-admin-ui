@@ -4,7 +4,7 @@
 
 @include b('HaNavBar') {
 
-  background-color: rgba($color: $primary-color, $alpha: 0.9);
+  //background-color: rgba($color: $primary-color, $alpha: 0.9);
   height: 100%;
   color: white;
   overflow: hidden;
@@ -40,9 +40,9 @@
       }
     }
 
-    .active {
-      background-color: rgba($color: $primary-color, $alpha: 0.9);
-    }
+    //.active {
+    //  //background-color: rgba($color: $primary-color, $alpha: 0.9);
+    //}
   }
 
   @include m(opt-list) {

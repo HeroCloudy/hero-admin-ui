@@ -1,4 +1,5 @@
 import { computed, defineComponent } from 'vue'
+import scssVar from '../../../scss/base/_var.scss'
 
 const NAME = 'HaAppLogo'
 
@@ -52,7 +53,7 @@ export default defineComponent({
       return null
     }
     return () => (
-      <div class={NAME}>
+      <div class={NAME} style={{ backgroundColor: scssVar.primaryColor }}>
         { renderLogo() }
         { renderName() }
       </div>

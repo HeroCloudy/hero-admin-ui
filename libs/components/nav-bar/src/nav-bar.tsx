@@ -4,6 +4,8 @@ import { useRenderSiteInfo } from '../../hooks/use-render-site-info'
 import { LayoutType } from '../../layout/src/constants'
 import emitter, { EVENT_EXPAND_SIDE_BAR } from '../../utils/emitter'
 import { NavItem, UserDropdownItem } from '../../types/component-types/base'
+import scssVar from '../../../scss/base/_var.scss'
+import { getOpacityColor } from '../../utils/color-utils'
 
 const NAME = 'HaNavBar'
 
@@ -136,8 +138,9 @@ export default defineComponent({
     }
 
     return () => {
+      const bgColor = getOpacityColor(scssVar.primaryColor, '0.7')
       return (
-        <div class={NAME}>
+        <div class={NAME} style={{ backgroundColor: bgColor }}>
           {renderSiteInfo()}
 
           <div class={`${NAME}--left`}>
@@ -150,9 +153,11 @@ export default defineComponent({
           <div class={`${NAME}--menu-list`}>
             {
               props.navList.map((item) => {
-                const className = item.code === innerActiveNavRef.value ? 'menu-item active' : 'menu-item'
+                // const className = item.code === innerActiveNavRef.value ? 'menu-item active' : 'menu-item'
                 return (
-                  <div class={className} onClick={() => onNavItemClick(item)}>{item.name}</div>
+                  <div class='menu-item'
+                    style={{ backgroundColor: item.code === innerActiveNavRef.value ? scssVar.primaryColor : 'transparent' }}
+                    onClick={() => onNavItemClick(item)}>{item.name}</div>
                 )
               })
             }

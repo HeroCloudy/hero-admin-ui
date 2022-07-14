@@ -17,7 +17,7 @@
   display: flex;
   justify-content: space-around;
   align-items: center;
-  background-color: rgba($color: $primary-color, $alpha: 1);
+  //background-color: rgba($color: $primary-color, $alpha: 1);
 
   @include m('logo') {
     max-width: 100px;
