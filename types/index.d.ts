@@ -3,9 +3,10 @@ import { Store } from 'vuex'
 // import { Schema, PropItem, PropItemTypes } from '../libs/components/types'
 
 declare const _default: {
-  install(app: App): void,
-  registerDefaultModules(store: Store<any>): void
+  install(app: App): void
 }
+
+export declare function registerDefaultModules(store: Store<any>): void
 
 export * from '../libs/components/types'
 // export {
