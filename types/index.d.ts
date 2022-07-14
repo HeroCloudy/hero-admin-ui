@@ -7,9 +7,10 @@ declare const _default: {
   registerDefaultModules(store: Store<any>): void
 }
 
+export * from '../libs/components/types'
+
 export declare function registerDefaultModules(store: Store<any>): void
 
-export * from '../libs/components/types'
 // export {
 //   Schema, PropItem, PropItemTypes
 // }
