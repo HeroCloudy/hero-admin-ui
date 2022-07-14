@@ -8,8 +8,11 @@ import 'element-plus/dist/index.css'
 import '@/assets/index.scss'
 
 import HeroAdminUi from '../libs'
+import coreModule from '../libs/store/index'
 
 const app = createApp(App)
+
+store.registerModule('core', coreModule)
 
 app.use(ElementPlus)
 app.use(HeroAdminUi)

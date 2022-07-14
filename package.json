@@ -13,7 +13,8 @@
       "import": "./dist/hero-admin-ui.umd.js",
       "require": "./dist/hero-admin-ui.umd.js"
     },
-    "./create-vue-config": "./config/create-vue-config.js"
+    "./create-vue-config": "./config/create-vue-config.js",
+    "./core-module": "./libs/store/index.ts"
   },
   "types": "./types/index.d.ts",
   "files": [
