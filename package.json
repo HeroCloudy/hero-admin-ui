@@ -14,14 +14,14 @@
       "require": "./dist/hero-admin-ui.umd.js"
     },
     "./create-vue-config": "./config/create-vue-config.js",
-    "./core-module": "./libs/store/index.ts"
+    "./core-module": "./store/index.ts"
   },
   "types": "./types/index.d.ts",
   "files": [
     "dist",
     "types",
     "config",
-    "libs/store"
+    "store"
   ],
   "keywords": [
     "vue3",

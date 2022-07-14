@@ -8,7 +8,7 @@ import 'element-plus/dist/index.css'
 import '@/assets/index.scss'
 
 import HeroAdminUi from '../libs'
-import coreModule from '../libs/store/index'
+import coreModule from '../store'
 
 const app = createApp(App)
 
