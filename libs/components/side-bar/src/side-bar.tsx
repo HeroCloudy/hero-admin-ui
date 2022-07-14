@@ -5,6 +5,7 @@ import { useRoute, useRouter } from 'vue-router'
 import { filterRouters, generateMenus } from '../../utils/route-utils'
 import SideBarItem from './side-bar-item.vue'
 import emitter, { EVENT_EXPAND_SIDE_BAR } from '../../utils/emitter'
+import scssVar from '../../../scss/base/_var.scss'
 
 const NAME = 'HaSideBar'
 
@@ -25,8 +26,7 @@ export default defineComponent({
       type: String,
       required: false,
       default: ''
-    },
-    menuList: {}
+    }
   },
   setup (props) {
     const layoutValues = useLayoutValues()
@@ -66,6 +66,7 @@ export default defineComponent({
         <div class={`${NAME}--menu`}>
           <el-scrollbar>
             <el-menu router collapse={innerCollapse.value}
+              active-text-color={scssVar.primaryColor}
               default-active={activeMenu.value}>
               {
                 routes.value.map(item => (
