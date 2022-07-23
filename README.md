@@ -1,4 +1,4 @@
-![hero admin ui](./docs/.vuepress/public/images/logo-hau.png)
+![hero admin ui](http://www.yygnb.com/logo-hau.png)
 
 # hero-admin-ui
 
@@ -90,7 +90,8 @@ Hero admin ui 提供的组件包括三大类：
 - Author： Hero Cloudy
 - Email： hero_cloudy@126.com
 
-hero_admin_ui 组件的开发教程会在公众号发布，欢迎关注：sunshine_talk
+hero_admin_ui 组件的开发教程会在公众号发布，欢迎关注：
 
+**程序员优雅哥（youyacoder）**
 
-![sunshine_talk](./docs/.vuepress/public/images/qrcode.jpg)
+![sunshine_talk](http://www.yygnb.com/qrcode.jpg)

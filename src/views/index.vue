@@ -22,6 +22,9 @@
     <template #left>
       <ha-side-bar></ha-side-bar>
     </template>
+<!--    <template #main>-->
+<!--      <router-view></router-view>-->
+<!--    </template>-->
     <!--
     <template #main>
       <el-icon-video-camera-filled color="red"></el-icon-video-camera-filled>

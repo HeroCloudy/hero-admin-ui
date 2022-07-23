@@ -10,7 +10,6 @@ import {
 } from './constants'
 import emitter, { EVENT_EXPAND_SIDE_BAR } from '../../utils/emitter'
 import { TabItem } from '../../types'
-import { useStore } from 'vuex'
 
 const NAME = 'HaLayout'
 
@@ -60,15 +59,6 @@ export default defineComponent({
     }
   } as const,
   setup (props, { slots }) {
-    const store = useStore()
-    const testClick1 = () => {
-      console.log(store.state.hero_core.testStr)
-      console.log(store.getters['hero_core/str'])
-    }
-    const testClick2 = () => {
-      store.dispatch('hero_core/setStr', 'asdasdasd')
-    }
-
     const baseClassName = NAME + ' full-screen '
 
     const isExpandByChild = ref<boolean>(props.isExpand)
@@ -100,9 +90,8 @@ export default defineComponent({
       return (
         <div class='full-screen f-c'>
           { props.isShowTabBar ? <ha-tab-bar tagList={props.tabList}></ha-tab-bar> : null}
+
           <div class='f-1 oy-h'>
-            <el-button onClick={testClick1}>ceshi1</el-button>
-            <el-button onClick={testClick2}>ceshi2</el-button>
             {slots.main ? <ha-page>{slots.main()}</ha-page> : <router-view/>}
           </div>
         </div>
