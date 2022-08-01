@@ -1,0 +1,1 @@
+import{_ as r,o as a,c,b as o,r as n}from"./app.7ceb393b.js";const s={};function _(t,h){const e=n("ha-header-search");return a(),c("div",null,[o(e)])}var l=r(s,[["render",_],["__file","header-search1.vue"]]);export{l as default};

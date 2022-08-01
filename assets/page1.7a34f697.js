@@ -1,0 +1,1 @@
+import{_ as a,o,c,b as n,r}from"./app.7ceb393b.js";const t={};function _(s,p){const e=r("ha-page");return o(),c("div",null,[n(e)])}var f=a(t,[["render",_],["__file","page1.vue"]]);export{f as default};

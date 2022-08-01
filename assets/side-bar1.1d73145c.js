@@ -1,0 +1,1 @@
+import{_ as r,o as a,c as o,b as s,r as c}from"./app.7ceb393b.js";const n={};function _(t,d){const e=c("ha-side-bar");return a(),o("div",null,[s(e)])}var l=r(n,[["render",_],["__file","side-bar1.vue"]]);export{l as default};

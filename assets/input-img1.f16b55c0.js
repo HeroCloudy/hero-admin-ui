@@ -1,1 +1,0 @@
-import{_ as n,o as t,c as o,b as c,r}from"./app.b575a985.js";const _={};function a(i,s){const e=r("ha-input-img");return t(),o("div",null,[c(e)])}var p=n(_,[["render",a],["__file","input-img1.vue"]]);export{p as default};

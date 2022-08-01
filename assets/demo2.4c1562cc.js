@@ -1,0 +1,1 @@
+import{_ as o,o as r,q as _,r as c}from"./app.7ceb393b.js";const n={};function s(t,a){const e=c("ha-demo");return r(),_(e,{msg:"First demo"})}var d=o(n,[["render",s],["__file","demo2.vue"]]);export{d as default};
