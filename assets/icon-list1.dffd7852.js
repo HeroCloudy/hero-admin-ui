@@ -1,0 +1,1 @@
+import{_ as n,f as c,o as s,c as i,b as a,r as _}from"./app.b575a985.js";const l=c({__name:"icon-list1",setup(r){const o=e=>{console.log("\u70B9\u51FB item\uFF1A",e)};return(e,m)=>{const t=_("ha-icon-list");return s(),i("div",null,[a(t,{"on-item-click":o,"max-height":"300px"})])}}});var u=n(l,[["__file","icon-list1.vue"]]);export{u as default};

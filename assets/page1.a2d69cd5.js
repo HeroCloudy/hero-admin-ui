@@ -1,1 +1,0 @@
-import{r as a,o,c as r,a as c}from"./app.a319b750.js";import{_ as n}from"./plugin-vue_export-helper.21dcd24c.js";const t={};function p(s,_){const e=a("ha-page");return o(),r("div",null,[c(e)])}var d=n(t,[["render",p]]);export{d as default};

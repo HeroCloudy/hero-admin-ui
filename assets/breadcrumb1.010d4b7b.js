@@ -1,0 +1,1 @@
+import{_ as r,o as c,c as a,b as o,r as n}from"./app.b575a985.js";const t={};function _(s,m){const e=n("ha-breadcrumb");return c(),a("div",null,[o(e)])}var d=r(t,[["render",_],["__file","breadcrumb1.vue"]]);export{d as default};

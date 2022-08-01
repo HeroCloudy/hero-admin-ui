@@ -1,1 +1,0 @@
-const e={key:"v-96f5eae0",path:"/quick-start.html",title:"\u5FEB\u901F\u5F00\u59CB",lang:"zh-CN",frontmatter:{},excerpt:"",headers:[{level:2,title:"\u5B89\u88C5",slug:"\u5B89\u88C5",children:[]},{level:2,title:"\u5F15\u5165",slug:"\u5F15\u5165",children:[]}],filePathRelative:"quick-start.md"};export{e as data};

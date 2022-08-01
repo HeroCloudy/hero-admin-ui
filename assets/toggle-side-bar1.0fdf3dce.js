@@ -1,1 +1,0 @@
-import{r as o,o as r,c as a,a as t}from"./app.a319b750.js";import{_ as c}from"./plugin-vue_export-helper.21dcd24c.js";const n={};function s(_,l){const e=o("ha-toggle-side-bar");return r(),a("div",null,[t(e)])}var i=c(n,[["render",s]]);export{i as default};

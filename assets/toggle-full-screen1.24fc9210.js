@@ -1,1 +1,0 @@
-import{r as o,o as r,c,a as n}from"./app.a319b750.js";import{_ as t}from"./plugin-vue_export-helper.21dcd24c.js";const l={};function a(s,_){const e=o("ha-toggle-full-screen");return r(),c("div",null,[n(e)])}var u=t(l,[["render",a]]);export{u as default};

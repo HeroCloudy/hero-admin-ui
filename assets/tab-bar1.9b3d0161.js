@@ -1,0 +1,1 @@
+import{_ as a,o as r,c as t,b as o,r as c}from"./app.b575a985.js";const n={};function _(s,b){const e=c("ha-tab-bar");return r(),t("div",null,[o(e)])}var f=a(n,[["render",_],["__file","tab-bar1.vue"]]);export{f as default};

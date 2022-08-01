@@ -1,1 +1,0 @@
-import{r as o,o as r,e as c}from"./app.a319b750.js";import{_ as s}from"./plugin-vue_export-helper.21dcd24c.js";const t={};function a(n,_){const e=o("ha-demo");return r(),c(e,{msg:"First demo"})}var d=s(t,[["render",a]]);export{d as default};

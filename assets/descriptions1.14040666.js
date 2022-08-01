@@ -1,1 +1,0 @@
-import{f as n,h as e,r as t,o as r,c as d,a as i,u as o}from"./app.a319b750.js";import{d as p,a as h,b as l}from"./demo-json-schema.7bc49e82.js";const j=n({setup(u){const s=e(p),a=e(h),c=e(l);return(f,_)=>{const m=t("ha-descriptions");return r(),d("div",null,[i(m,{schema:o(s),model:o(a),"ui-schema":o(c)},null,8,["schema","model","ui-schema"])])}}});export{j as default};
