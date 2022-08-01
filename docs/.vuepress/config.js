@@ -1,6 +1,10 @@
 const path = require('path')
+const {defaultTheme} = require('vuepress')
 const vueJsx = require('@vitejs/plugin-vue-jsx').default
 const viteSvgIcons = require('vite-plugin-svg-icons').default
+const {viteBundler} = require('vuepress')
+const {backToTopPlugin} = require('@vuepress/plugin-back-to-top')
+const blockDemo = require('./plugins/demo-block')
 
 const basePath = '/hero-admin-ui/'
 const allComponents = require('../components-category')
@@ -14,8 +18,8 @@ module.exports = {
   head: [['link', {rel: 'icon', href: `${basePath}images/logo.png`}]],
 
   // 主题和它的配置
-  theme: '@vuepress/theme-default',
-  themeConfig: {
+  // theme: '@vuepress/theme-default',
+  theme: defaultTheme({
     logo: `/images/logo.png`,
     home: '/',
     navbar: [
@@ -60,18 +64,24 @@ module.exports = {
     },
     sidebarDepth: 0,
     toggleSidebar: 'toggle Sidebar'
-  },
+  }),
   plugins: [
-    '@vuepress/back-to-top',
-    [
-      require('./src'),
-      {
-        componentsDir: path.resolve(__dirname, './../demos')
-      }
-    ]
+    backToTopPlugin(),
+    blockDemo({
+      path: __dirname,
+    })
+    // demoContainer({
+    //   componentsDir: path.resolve(__dirname, './../demos')
+    // })
+    // [
+    //   require('./src'),
+    //   {
+    //     componentsDir: path.resolve(__dirname, './../demos')
+    //   }
+    // ]
   ],
-  bundler: '@vuepress/bundler-vite',
-  bundlerConfig: {
+  // bundler: '@vuepress/bundler-vite',
+  bundler: viteBundler({
     viteOptions: {
       plugins: [
         vueJsx({}),
@@ -81,5 +91,5 @@ module.exports = {
         })
       ]
     }
-  }
+  })
 }
