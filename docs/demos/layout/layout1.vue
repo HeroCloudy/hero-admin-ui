@@ -26,15 +26,15 @@ const layoutType = ref('lr')
   margin-bottom: 20px;
 }
 :deep(.left) {
-  background-color: #0c8599;
+  background-color: #c1f0fa;
 }
 :deep(.right) {
-  background-color: #5f3dc4;
+  background-color: #e4dbff;
 }
 :deep(.top) {
-  background-color: #2b8a3e;
+  background-color: #e6ec9f;
 }
 :deep(.bottom) {
-  background-color: #72c3fc;
+  background-color: #d1e7f8;
 }
 </style>

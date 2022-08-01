@@ -46,7 +46,7 @@ module.exports = {
         '/components/README.md',
         {
           text: '基础通用组件',
-          children: allComponents.baseCommon
+          children: [...allComponents.baseCommon]
         },
         {
           text: '高级通用组件',
