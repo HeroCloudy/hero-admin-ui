@@ -23,7 +23,7 @@ export default defineComponent({
       e.stopPropagation()
     }
 
-    // const { TransitionGroup } = Vue
+    // const { TransitionGroup } = vue
 
     return () => (
       <div class={NAME}>
@@ -33,12 +33,12 @@ export default defineComponent({
               breadcrumbData.value.map((item: any, index: number) => {
                 // 最后一项，不可点击
                 if (index === breadcrumbData.value.length - 1) {
-                  return <el-breadcrumb-item key={index}>
+                  return <el-breadcrumb-item key={item.meta.title}>
                     <span class="no-redirect">{item.meta.title}</span>
                   </el-breadcrumb-item>
                 }
                 // 其他项可点击
-                return <el-breadcrumb-item key={index}>
+                return <el-breadcrumb-item key={item.meta.title}>
                   <a class="redirect" onClick={(e: any) => onLinkClick(e, item)}>{item.meta.title}</a>
                 </el-breadcrumb-item>
               })
