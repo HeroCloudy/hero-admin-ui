@@ -170,7 +170,7 @@ export default defineComponent({
     }
 
     const renderRowButtons = () => {
-      const width = props.rowButtonMaxNum * 50
+      const width = props.rowButtonMaxNum * 80
       return (
         <ElTableColumn
           label="操作"

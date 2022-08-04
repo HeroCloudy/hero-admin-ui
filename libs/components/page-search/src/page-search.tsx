@@ -1,6 +1,12 @@
 import { computed, defineComponent, onMounted, PropType, ref } from 'vue'
 import HaPage from '../../page'
-import { CI, commonFormProps, EVENT_OPT_CREATE_CLICK, RowButton } from '../../utils/common-props'
+import {
+  CI,
+  commonFormProps,
+  EVENT_OPT_CREATE_CLICK,
+  EVENT_ROW_BUTTON_CLICK,
+  RowButton
+} from '../../utils/common-props'
 import { PropItem, Schema, UiSchema } from '../../types'
 import { ElMessage } from 'element-plus'
 
@@ -72,7 +78,8 @@ export default defineComponent({
     }
   },
   emits: [
-    EVENT_OPT_CREATE_CLICK
+    EVENT_OPT_CREATE_CLICK,
+    EVENT_ROW_BUTTON_CLICK
   ],
   setup (props, context) {
     const dataList = ref<any>([])
@@ -201,6 +208,11 @@ export default defineComponent({
       }
     }
 
+    const onRowButtonClick = (key: symbol, scope: CI<any>) => {
+      console.log(key, scope.column.id)
+      context.emit(EVENT_ROW_BUTTON_CLICK, key, scope)
+    }
+
     return () => {
       const { schema, advanceSearchField, tableField } = props
 
@@ -245,6 +257,7 @@ export default defineComponent({
             uiSchema={props.uiSchema}
             data={dataList.value}
             rowButtons={props.rowButtons}
+            onRowButtonsClick={onRowButtonClick}
             onOptCreateClick={onOptCreateClick}
             total={innerTotal.value}
             onCurrentChange={onCurrentChange}

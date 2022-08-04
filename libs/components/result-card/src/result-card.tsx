@@ -29,7 +29,6 @@ export default defineComponent({
       return props.data
     })
     const onRowButtonClick = (key: symbol, scope: CI<any>) => {
-      console.log(key, scope.column.id)
       context.emit(EVENT_ROW_BUTTON_CLICK, key, scope)
     }
     const onOptCreateClick = () => {
