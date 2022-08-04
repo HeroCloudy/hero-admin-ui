@@ -13,6 +13,7 @@
                   :ui-schema="uiSchema"
                   :model="model"
                   :search-method="searchMethod"
+                  :show-index="true"
   ></ha-page-search>
 </template>
 

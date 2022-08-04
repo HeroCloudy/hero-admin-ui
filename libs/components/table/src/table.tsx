@@ -42,6 +42,7 @@ export default defineComponent({
     const columnSettings = ref<ColumnSetting[]>([])
 
     const buildColumnSettings = () => {
+      columnSettings.value.splice(0, columnSettings.value.length)
       const { schema, uiSchema, showIndex } = props
       if (showIndex) {
         columnSettings.value.push({ prop: 'index', type: 'index', title: '序号', hidden: false })
