@@ -64,6 +64,11 @@ export default defineComponent({
       type: Function as PropType<(index: number) => number>,
       required: false,
       default: null
+    },
+    rowButtonMaxNum: {
+      type: Number,
+      required: false,
+      default: 2
     }
   },
   emits: [
@@ -246,6 +251,7 @@ export default defineComponent({
             onSizeChange={onSizeChange}
             indexMethod={props.indexMethod}
             showIndex={props.showIndex}
+            rowButtonMaxNum={props.rowButtonMaxNum}
           ></ha-result-card>
           <ha-dialog v-model={dialogVisible.value}
             title={innerDialogTitle.value}
