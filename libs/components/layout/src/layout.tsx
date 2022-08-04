@@ -51,11 +51,6 @@ export default defineComponent({
       type: Boolean,
       required: false,
       default: false
-    },
-    tabList: {
-      type: Array as PropType<TabItem[]>,
-      required: false,
-      default: () => ([])
     }
   } as const,
   setup (props, { slots }) {
@@ -89,7 +84,7 @@ export default defineComponent({
     const buildMain = () => {
       return (
         <div class='full-screen f-c'>
-          { props.isShowTabBar ? <ha-tab-bar tagList={props.tabList}></ha-tab-bar> : null}
+          { props.isShowTabBar ? <ha-tab-bar></ha-tab-bar> : null}
 
           <div class='f-1 oy-h'>
             {slots.main ? <ha-page>{slots.main()}</ha-page> : <router-view/>}

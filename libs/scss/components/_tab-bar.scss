@@ -1,5 +1,6 @@
 @import "../tools/sassMagic";
 @import "../acss/mp";
+@import "../base/var";
 
 @include b('HaTabBar') {
   height: 34px;
@@ -33,7 +34,7 @@
 
     &.active {
       color: #fff;
-      background-color: #0c8599;
+      background-color: $primary-color;
 
       &::before {
         content: '';
