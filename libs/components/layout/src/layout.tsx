@@ -1,4 +1,4 @@
-import { computed, defineComponent, onMounted, onUnmounted, PropType, provide, ref } from 'vue'
+import { computed, defineComponent, onMounted, onUnmounted, provide, ref, Transition } from 'vue'
 import {
   defaultLayoutType,
   defaultLeftWidth,
@@ -9,7 +9,6 @@ import {
   LayoutValuesKey
 } from './constants'
 import emitter, { EVENT_EXPAND_SIDE_BAR } from '../../utils/emitter'
-import { TabItem } from '../../types'
 
 const NAME = 'HaLayout'
 
@@ -87,7 +86,19 @@ export default defineComponent({
           { props.isShowTabBar ? <ha-tab-bar></ha-tab-bar> : null}
 
           <div class='f-1 oy-h'>
-            {slots.main ? <ha-page>{slots.main()}</ha-page> : <router-view/>}
+            {/* {slots.main ? <ha-page>{slots.main()}</ha-page> : <router-view/>} */}
+            {slots.main ? <ha-page>{slots.main()}</ha-page> : (
+              <router-view>
+                {{
+                  default: (val: any) => (
+                    <Transition name="fade-transform" mode="out-in">
+                      {/* <div key={val.route.path}>1{val.route.path}1</div> */}
+                      <val.Component key={val.route.path}></val.Component>
+                    </Transition>
+                  )
+                }}
+              </router-view>
+            )}
           </div>
         </div>
       )
