@@ -62,7 +62,10 @@ export default defineComponent({
   setup (props, context) {
     const dataList = ref<any>([])
     const innerTotal = ref<number>(0)
-    const pageInfo = ref<any>(null)
+    const pageInfo = ref<any>({
+      currentPage: 1,
+      pageSize: 10
+    })
 
     const onSearch = () => {
       if (props.searchMethod !== null) {
@@ -72,6 +75,7 @@ export default defineComponent({
           param.pageSize = pageInfo.value.pageSize
         }
         props.searchMethod(param).then((resp: any) => {
+          console.log('------', resp)
           if (Object.prototype.hasOwnProperty.call(resp, 'list')) {
             console.log('分页')
             dataList.value = resp.list
