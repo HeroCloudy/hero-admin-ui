@@ -54,6 +54,16 @@ export default defineComponent({
       type: Function as PropType<(param: any) => Promise<any>>,
       required: false,
       default: null
+    },
+    showIndex: {
+      type: Boolean,
+      required: false,
+      default: false
+    },
+    indexMethod: {
+      type: Function as PropType<(index: number) => number>,
+      required: false,
+      default: null
     }
   },
   emits: [
@@ -234,6 +244,8 @@ export default defineComponent({
             total={innerTotal.value}
             onCurrentChange={onCurrentChange}
             onSizeChange={onSizeChange}
+            indexMethod={props.indexMethod}
+            showIndex={props.showIndex}
           ></ha-result-card>
           <ha-dialog v-model={dialogVisible.value}
             title={innerDialogTitle.value}
