@@ -43,7 +43,7 @@ export default defineComponent({
     size: {
       type: String,
       required: false,
-      default: 'small'
+      default: 'default'
     },
     disabled: {
       type: Boolean,

@@ -126,6 +126,7 @@ export default defineComponent({
             schema={innerSchema.value}
             uiSchema={innerUiSchema.value}
             model={props.model}
+            size={props.size}
           >
             {slots}
           </ha-form>

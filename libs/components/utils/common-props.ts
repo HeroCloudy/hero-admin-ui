@@ -21,6 +21,11 @@ export const commonFormProps = {
     type: Number,
     require: false,
     default: 3
+  },
+  size: {
+    type: String,
+    required: false,
+    default: 'default'
   }
 } as const
 

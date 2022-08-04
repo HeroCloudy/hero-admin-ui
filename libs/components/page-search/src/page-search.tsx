@@ -223,6 +223,7 @@ export default defineComponent({
             uiSchema={props.uiSchema}
             model={props.model}
             onSearch={onSearch}
+            size={props.size}
           ></ha-search-card>
           <ha-result-card
             schema={innerTableSchema.value}
