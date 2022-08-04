@@ -172,7 +172,7 @@ export default defineComponent({
             {props.userName ? <div class='full-name'>{props.userName} </div> : null}
             {/* 渲染用户下拉菜单 */}
             {props.isShowUserDropdown ? <ha-user-dropdown user-image={props.userImage} items={props.userDropdownItems}></ha-user-dropdown> : null}
-            {props.isShowExitBtn ? <el-button type="text" class='exit-btn' onClick={onExit}>退出</el-button> : null}
+            {props.isShowExitBtn ? <el-button type="primary" link class='exit-btn' onClick={onExit}>退出</el-button> : null}
           </div>
         </div>
       )

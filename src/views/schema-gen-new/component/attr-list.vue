@@ -20,7 +20,7 @@
            style="flex: 1"
            :title="innerCurrentProp.ofItemType === 'oneOf' ? 'OneOf' : 'AnyOf'">
       <template #opt>
-        <el-button type="text" @click="onShowOfItemDialogBtn">添加</el-button>
+        <el-button type="primary" link @click="onShowOfItemDialogBtn">添加</el-button>
       </template>
       <ha-table :schema="ofSchema"
                 :ui-schema="ofUiSchema"
@@ -36,7 +36,7 @@
                  :close-on-click-modal="false">
         <ha-form :schema="ofSchema" :ui-schema="ofUiSchema" :model="ofItem" :column="1"></ha-form>
         <template #footer>
-          <el-button size="small" type="text" @click="ofItemDialogVisible = false">取消</el-button>
+          <el-button size="small" type="primary" link @click="ofItemDialogVisible = false">取消</el-button>
           <el-button size="small" type="primary" @click="onOfItemSaveBtn">保存</el-button>
         </template>
       </ha-dialog>

@@ -96,7 +96,7 @@ export default defineComponent({
       }
 
       return (
-        <el-button type='text' size='small' onClick={() => { isSimpleSearch.value = !isSimpleSearch.value }}>
+        <el-button type='primary' link size='small' onClick={() => { isSimpleSearch.value = !isSimpleSearch.value }}>
           { isSimpleSearch.value ? (
             <span>更多 <el-icon size={12}><el-icon-arrow-down-bold size={10} /></el-icon></span>
           ) : (

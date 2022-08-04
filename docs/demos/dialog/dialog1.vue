@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-button type="text" @click="dialogVisible = true">打开对话框</el-button>
+    <el-button type="primary" link @click="dialogVisible = true">打开对话框</el-button>
     {{dialogVisible}}
     <ha-dialog v-model="dialogVisible" title="Demo弹窗" :close-on-click-modal="false">
       <div>Hello World</div>

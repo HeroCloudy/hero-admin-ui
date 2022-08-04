@@ -2,7 +2,7 @@
   <div>
     <ha-card title="测试卡片" :collapse="false">
       <template #opt>
-        <el-button type="text">测试按钮</el-button>
+        <el-button type="primary" link>测试按钮</el-button>
       </template>
       <div>Hello world，测试卡片</div>
     </ha-card>

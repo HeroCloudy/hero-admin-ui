@@ -9,7 +9,7 @@
 <template>
   <block title="组件列表" min-height="400px" class="prop-list">
     <template #opt>
-      <el-button type="text" size="small" @click="onAddPropClick">添加属性</el-button>
+      <el-button type="primary" link size="small" @click="onAddPropClick">添加属性</el-button>
 <!--      <el-button type="text" size="small" @click="onLogClick">log</el-button>-->
     </template>
 
