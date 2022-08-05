@@ -91,12 +91,12 @@ export default defineComponent({
       ) : (
         <>
           {props.showOptCreate ? (
-            <el-button type="primary" link size="small"
+            <el-button type="primary" link size={props.size}
               onClick={onOptCreateClick}>新增</el-button>
           ) : null}
 
           {props.showOptBatchDelete && props.selectionType ? (
-            <el-button type="primary" link size="small"
+            <el-button type="primary" link size={props.size}
               onClick={onOptBatchDeleteClick}
               disabled={selectionList.value.length <= 0}>批量删除</el-button>
           ) : null}

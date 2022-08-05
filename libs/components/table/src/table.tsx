@@ -115,7 +115,7 @@ export default defineComponent({
     }
 
     const buildRowButtonItem = (rowButton: RowButton, scope: CI<any>) => (
-      <el-button size="small" type="primary" link
+      <el-button size={props.size} type="primary" link
         onClick={(e: any) => onRowButtonClick(e, rowButton.key, scope)}
       >{rowButton.label}</el-button>
     )
@@ -126,7 +126,7 @@ export default defineComponent({
       // 小于等于2个按钮时，直接展示
       if (rowButtons.length <= rowButtonMaxNum) {
         return rowButtons.map((rowButton: RowButton) => (
-          <el-button size="small" type="primary" link
+          <el-button size={props.size} type="primary" link
             onClick={(e: any) => onRowButtonClick(e, rowButton.key, scope)}
           >{rowButton.label}</el-button>
         ))
@@ -139,8 +139,8 @@ export default defineComponent({
 
       const dropDownSlot = {
         default: () => (
-          <el-button type="primary" link size="small">更多
-            <el-icon size={14}>
+          <el-button type="primary" link size={props.size} style={{ marginTop: '1px' }}>更多
+            <el-icon size={12}>
               <el-icon-arrow-down/>
             </el-icon>
           </el-button>
@@ -162,7 +162,7 @@ export default defineComponent({
       }
       // 添加dropdown
       els.push((
-        <ElDropdown size="small">
+        <ElDropdown size={props.size}>
           {dropDownSlot}
         </ElDropdown>
       ))
@@ -300,17 +300,17 @@ export default defineComponent({
             <el-popover width="120" trigger="hover">
               {{
                 reference: () => (
-                  <el-button type="primary" link size="small">
+                  <el-button type="primary" link size={props.size}>
                     <el-icon size={14}><Setting/></el-icon>
                     &nbsp;列设置
                   </el-button>
                 ),
                 default: () => (
                   <div>
-                    <el-button type="primary" link size="small" onClick={onResetColumnSettingsClick}>重置</el-button>
+                    <el-button type="primary" link size={props.size} onClick={onResetColumnSettingsClick}>重置</el-button>
                     {columnSettings.value.map(columnSetting => (
                       <div>
-                        <el-checkbox checked={!columnSetting.hidden} size="small"
+                        <el-checkbox checked={!columnSetting.hidden} size={props.size}
                           onChange={(checked: boolean) => onColumnSettingsCheckChange(checked, columnSetting)}
                         >{columnSetting.title}</el-checkbox>
                       </div>

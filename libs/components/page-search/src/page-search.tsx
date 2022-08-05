@@ -1,4 +1,4 @@
-import { computed, defineComponent, defineExpose, onMounted, PropType, ref } from 'vue'
+import { computed, defineComponent, onMounted, PropType, ref } from 'vue'
 import HaPage from '../../page'
 import {
   CI,
@@ -8,20 +8,21 @@ import {
   RowButton
 } from '../../utils/common-props'
 import { PropItem, Schema, UiSchema } from '../../types'
-import { ElMessage } from 'element-plus'
+import { ElMessage, ElMessageBox } from 'element-plus'
 
 const NAME = 'HaPageSearch'
+
+const DEFAULT_KEY_BTN_DELETE = 'BTN_DELETE'
+const DEFAULT_KEY_BTN_MODIFY = 'BTN_MODIFY'
+
+const DIALOG_OPT_CREATE = 'CREATE'
+const DIALOG_OPT_MODIFY = 'MODIFY'
 
 export default defineComponent({
   name: NAME,
   props: {
     ...commonFormProps,
     advanceSearchField: {
-      type: Array as PropType<string[]>,
-      required: false,
-      default: null
-    },
-    simpleSearchField: {
       type: Array as PropType<string[]>,
       required: false,
       default: null
@@ -75,6 +76,21 @@ export default defineComponent({
       type: Number,
       required: false,
       default: 2
+    },
+    deleteMethod: {
+      type: Function as PropType<(param: any) => Promise<any>>,
+      required: false,
+      default: null
+    },
+    modifyMethod: {
+      type: Function as PropType<(param: any) => Promise<any>>,
+      required: false,
+      default: null
+    },
+    deleteHint: {
+      type: String,
+      required: false,
+      default: '是否确定删除？'
     }
   },
   emits: [
@@ -134,11 +150,15 @@ export default defineComponent({
       return obj
     }
 
+    const dialogOpt = ref('')
+    let dialogScope: any = null
+
     const onOptCreateClick = () => {
       if (props.dialogField) {
         innerDialogModel.value = buildDefaultModel()
         console.log(JSON.stringify(innerDialogModel.value))
         innerDialogTitle.value = '新增' + props.dialogTitle
+        dialogOpt.value = DIALOG_OPT_CREATE
         setTimeout(() => {
           dialogVisible.value = true
         }, 10)
@@ -186,9 +206,15 @@ export default defineComponent({
     }
 
     const innerSaveMethod = () => {
-      if (props.saveMethod) {
+      if (dialogOpt.value === DIALOG_OPT_CREATE && props.saveMethod) {
         props.saveMethod(innerDialogModel.value).then(() => {
           ElMessage.success('保存成功')
+          closeDialog()
+          onSearch()
+        })
+      } else if (dialogOpt.value === DIALOG_OPT_MODIFY && props.modifyMethod) {
+        props.modifyMethod(innerDialogModel.value).then(() => {
+          ElMessage.success('修改成功')
           closeDialog()
           onSearch()
         })
@@ -212,9 +238,48 @@ export default defineComponent({
       }
     }
 
-    const onRowButtonClick = (key: symbol, scope: CI<any>) => {
-      console.log(key, scope.column.id)
-      context.emit(EVENT_ROW_BUTTON_CLICK, key, scope)
+    const deleteHintReg = /\{(.*?)\}/gi
+    const onRowButtonClick = (key: string, scope: any) => {
+      const { deleteMethod, modifyMethod } = props
+      if (key === DEFAULT_KEY_BTN_DELETE && deleteMethod) {
+        let hint = props.deleteHint
+        const tmp = hint.match(deleteHintReg)
+        if (tmp) {
+          for (let i = 0; i < tmp.length; i++) {
+            // tmp[i] 带花括号；tmp[i].replace(reg, '$1') 不带花括号
+            const field = tmp[i].replace(deleteHintReg, '$1')
+            const value = scope.row[field] || ''
+            hint = hint.replace(tmp[i], value)
+          }
+        }
+        ElMessageBox.confirm(hint, '删除提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(async () => {
+          await deleteMethod(innerDialogModel.value)
+          ElMessage.success('删除成功')
+          closeDialog()
+          onSearch()
+
+          context.emit(EVENT_ROW_BUTTON_CLICK, key, scope)
+        }).catch(() => {
+          console.log('cancel delete')
+        })
+      } else if (key === DEFAULT_KEY_BTN_MODIFY && modifyMethod) {
+        innerDialogModel.value = { ...scope.row }
+
+        // innerDialogModel.value = buildDefaultModel()
+        // console.log(JSON.stringify(innerDialogModel.value))
+        innerDialogTitle.value = '修改' + props.dialogTitle
+        dialogOpt.value = DIALOG_OPT_MODIFY
+        dialogScope = scope
+        setTimeout(() => {
+          dialogVisible.value = true
+        }, 10)
+      } else {
+        context.emit(EVENT_ROW_BUTTON_CLICK, key, scope)
+      }
     }
 
     return () => {
@@ -269,6 +334,7 @@ export default defineComponent({
             indexMethod={props.indexMethod}
             showIndex={props.showIndex}
             rowButtonMaxNum={props.rowButtonMaxNum}
+            size={props.size}
           ></ha-result-card>
           <ha-dialog v-model={dialogVisible.value}
             title={innerDialogTitle.value}

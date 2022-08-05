@@ -16,6 +16,14 @@
                   :show-index="true"
                   @opt-create-click="onOptCreateClick"
                   ref="pageSearchRef"
+                  :rowButtons="rowButtons"
+                  @row-buttons-click="onRowButtonsClick"
+                  :dialog-field="['code', 'name']"
+                  :save-method="onSaveMethod"
+                  :delete-method="onSaveMethod"
+                  :modify-method="onSaveMethod"
+                  dialog-title="类别"
+                  delete-hint="是否确认删除【{code} - {name}】?"
   ></ha-page-search>
 </template>
 
@@ -27,6 +35,33 @@ import request from '@/utils/request'
 const schema = ref<Schema | null>(null)
 
 const pageSearchRef = ref()
+
+const rowButtons = () => {
+  return [
+    { key: 'BTN_MODIFY', label: '修改' },
+    { key: 'BTN_DELETE', label: '删除' },
+    { key: 'btn_rules', label: '设置规则' }
+  ]
+}
+
+const onRowButtonsClick = (key: any, scope: any) => {
+  // console.log(key, scope)
+  console.log('aaaaa', scope.row)
+  // if (key === 'btn_del') {
+  //   deleteByCode(scope.row.code)
+  // } else {
+  //   console.log(((pageSearchRef.value as any).onSearch()))
+  // }
+}
+
+const onSaveMethod = (param: any) => {
+  console.log(param)
+  return new Promise(resolve => {
+    setTimeout(() => {
+      resolve(param)
+    }, 3000)
+  })
+}
 
 const searchMethod = (param: any) => {
   return request.get('/category', param || {})

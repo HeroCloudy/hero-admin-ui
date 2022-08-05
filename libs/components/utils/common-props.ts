@@ -139,6 +139,11 @@ export const commonTableProps = {
     type: Number,
     required: false,
     default: 2
+  },
+  size: {
+    type: String,
+    required: false,
+    default: 'default'
   }
 } as const
 
