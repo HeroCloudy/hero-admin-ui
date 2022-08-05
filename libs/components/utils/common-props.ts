@@ -48,7 +48,7 @@ export const cardProps = {
 } as const
 
 export type CI<T> = { column: TableColumnCtx<T>; $index: number }
-export type RowButton = { key: symbol, label: string }
+export type RowButton = { key: string, label: string, type?: string }
 export type ColumnSetting = {
   prop: string;
   type?: string;

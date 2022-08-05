@@ -39,7 +39,7 @@ const pageSearchRef = ref()
 const rowButtons = () => {
   return [
     { key: 'BTN_MODIFY', label: '修改' },
-    { key: 'BTN_DELETE', label: '删除' },
+    { key: 'BTN_DELETE', label: '删除', type: 'danger' },
     { key: 'btn_rules', label: '设置规则' }
   ]
 }

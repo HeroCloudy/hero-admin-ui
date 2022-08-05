@@ -109,13 +109,13 @@ export default defineComponent({
       )
     }
 
-    const onRowButtonClick = (e: any, key: symbol, scope: CI<any>) => {
+    const onRowButtonClick = (e: any, key: string, scope: CI<any>) => {
       emit(EVENT_ROW_BUTTON_CLICK, key, scope)
       e.stopPropagation()
     }
 
     const buildRowButtonItem = (rowButton: RowButton, scope: CI<any>) => (
-      <el-button size={props.size} type="primary" link
+      <el-button size={props.size} type={rowButton.type || 'primary'} link
         onClick={(e: any) => onRowButtonClick(e, rowButton.key, scope)}
       >{rowButton.label}</el-button>
     )
@@ -126,7 +126,7 @@ export default defineComponent({
       // 小于等于2个按钮时，直接展示
       if (rowButtons.length <= rowButtonMaxNum) {
         return rowButtons.map((rowButton: RowButton) => (
-          <el-button size={props.size} type="primary" link
+          <el-button size={props.size} type={rowButton.type || 'primary'} link
             onClick={(e: any) => onRowButtonClick(e, rowButton.key, scope)}
           >{rowButton.label}</el-button>
         ))
