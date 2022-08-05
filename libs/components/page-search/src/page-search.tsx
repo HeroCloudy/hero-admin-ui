@@ -239,6 +239,7 @@ export default defineComponent({
     }
 
     const deleteHintReg = /\{(.*?)\}/gi
+
     const onRowButtonClick = (key: string, scope: any) => {
       const { deleteMethod, modifyMethod } = props
       if (key === DEFAULT_KEY_BTN_DELETE && deleteMethod) {
@@ -257,7 +258,7 @@ export default defineComponent({
           cancelButtonText: '取消',
           type: 'warning'
         }).then(async () => {
-          await deleteMethod(innerDialogModel.value)
+          await deleteMethod(scope.row)
           ElMessage.success('删除成功')
           closeDialog()
           onSearch()
