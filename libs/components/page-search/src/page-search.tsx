@@ -81,9 +81,6 @@ export default defineComponent({
     EVENT_OPT_CREATE_CLICK,
     EVENT_ROW_BUTTON_CLICK
   ],
-  // expose: [
-  // 'onSearch'
-  // ],
   setup (props, context) {
     const dataList = ref<any>([])
     const innerTotal = ref<number>(0)
