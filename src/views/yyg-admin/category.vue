@@ -19,20 +19,25 @@
                   :rowButtons="rowButtons"
                   @row-buttons-click="onRowButtonsClick"
                   :dialog-field="['code', 'name']"
+                  :dialog-ui-schema="dialogUiSchema"
                   :save-method="onSaveMethod"
                   :delete-method="onSaveMethod"
                   :modify-method="onSaveMethod"
+                  :before-modify-method="beforeModifyMethod"
+                  :before-save-method="beforeSaveMethod"
                   dialog-title="类别"
                   delete-hint="是否确认删除【{code} - {name}】?"
+                  dialog-width="30%"
   ></ha-page-search>
 </template>
 
 <script lang="ts" setup>
 import { onMounted, ref } from 'vue'
-import { Schema } from '../../../libs/components/types'
+import { Schema, UiSchema } from '../../../libs/components/types'
 import request from '@/utils/request'
 
 const schema = ref<Schema | null>(null)
+const dialogUiSchema = ref<UiSchema>({})
 
 const pageSearchRef = ref()
 
@@ -52,6 +57,27 @@ const onRowButtonsClick = (key: any, scope: any) => {
   // } else {
   //   console.log(((pageSearchRef.value as any).onSearch()))
   // }
+}
+
+const beforeModifyMethod = (param: any) => {
+  dialogUiSchema.value.code = {
+    'ui:disabled': true
+  }
+  return new Promise(resolve => {
+    resolve({
+      ...param,
+      name: param.name + ' hello world'
+    })
+  })
+}
+
+const beforeSaveMethod = (param: any) => {
+  dialogUiSchema.value.code = {
+    'ui:disabled': false
+  }
+  return new Promise(resolve => {
+    resolve(param)
+  })
 }
 
 const onSaveMethod = (param: any) => {

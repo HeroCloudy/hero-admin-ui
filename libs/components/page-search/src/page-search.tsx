@@ -57,6 +57,16 @@ export default defineComponent({
       required: false,
       default: () => ({})
     },
+    dialogWidth: {
+      type: String || Number,
+      required: false,
+      default: '50%'
+    },
+    beforeSaveMethod: {
+      type: Function as PropType<(param: any) => Promise<any>>,
+      required: false,
+      default: null
+    },
     saveMethod: {
       type: Function as PropType<(param: any) => Promise<any>>,
       required: false,
@@ -83,6 +93,11 @@ export default defineComponent({
       default: null
     },
     modifyMethod: {
+      type: Function as PropType<(param: any) => Promise<any>>,
+      required: false,
+      default: null
+    },
+    beforeModifyMethod: {
       type: Function as PropType<(param: any) => Promise<any>>,
       required: false,
       default: null
@@ -153,8 +168,14 @@ export default defineComponent({
     const dialogOpt = ref('')
     let dialogScope: any = null
 
-    const onOptCreateClick = () => {
+    const onOptCreateClick = async () => {
       if (props.dialogField) {
+        const defaultModel = buildDefaultModel()
+        if (typeof props.beforeSaveMethod === 'function') {
+          innerDialogModel.value = { ...(await props.beforeSaveMethod(defaultModel)) }
+        } else {
+          innerDialogModel.value = defaultModel
+        }
         innerDialogModel.value = buildDefaultModel()
         console.log(JSON.stringify(innerDialogModel.value))
         innerDialogTitle.value = '新增' + props.dialogTitle
@@ -240,7 +261,7 @@ export default defineComponent({
 
     const deleteHintReg = /\{(.*?)\}/gi
 
-    const onRowButtonClick = (key: string, scope: any) => {
+    const onRowButtonClick = async (key: string, scope: any) => {
       const { deleteMethod, modifyMethod } = props
       if (key === DEFAULT_KEY_BTN_DELETE && deleteMethod) {
         let hint = props.deleteHint
@@ -268,7 +289,11 @@ export default defineComponent({
           console.log('cancel delete')
         })
       } else if (key === DEFAULT_KEY_BTN_MODIFY && modifyMethod) {
-        innerDialogModel.value = { ...scope.row }
+        if (typeof props.beforeModifyMethod === 'function') {
+          innerDialogModel.value = { ...(await props.beforeModifyMethod(scope.row)) }
+        } else {
+          innerDialogModel.value = { ...scope.row }
+        }
 
         // innerDialogModel.value = buildDefaultModel()
         // console.log(JSON.stringify(innerDialogModel.value))
@@ -340,7 +365,8 @@ export default defineComponent({
           <ha-dialog v-model={dialogVisible.value}
             title={innerDialogTitle.value}
             v-slots={renderDialogSlot()}
-            close-on-click-modal={false}>
+            close-on-click-modal={false}
+            width={props.dialogWidth}>
           </ha-dialog>
         </HaPage>
       )
