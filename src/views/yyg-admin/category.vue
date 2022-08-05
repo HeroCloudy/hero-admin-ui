@@ -14,6 +14,8 @@
                   :model="model"
                   :search-method="searchMethod"
                   :show-index="true"
+                  @opt-create-click="onOptCreateClick"
+                  ref="pageSearchRef"
   ></ha-page-search>
 </template>
 
@@ -23,6 +25,8 @@ import { Schema } from '../../../libs/components/types'
 import request from '@/utils/request'
 
 const schema = ref<Schema | null>(null)
+
+const pageSearchRef = ref()
 
 const searchMethod = (param: any) => {
   return request.get('/category', param || {})
@@ -50,6 +54,10 @@ const advanceSearchField = ref(['code', 'name', 'isDeleted'])
 const model = ref({})
 const uiSchema = ref({})
 const tableField = ref(['id', 'code', 'name', 'isDeleted'])
+const onOptCreateClick = () => {
+  console.log(pageSearchRef.value, pageSearchRef.value.onSearch)
+  pageSearchRef.value.onSearch()
+}
 </script>
 
 <style scoped lang="scss">

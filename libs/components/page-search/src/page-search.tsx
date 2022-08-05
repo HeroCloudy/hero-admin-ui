@@ -1,4 +1,4 @@
-import { computed, defineComponent, onMounted, PropType, ref } from 'vue'
+import { computed, defineComponent, defineExpose, onMounted, PropType, ref } from 'vue'
 import HaPage from '../../page'
 import {
   CI,
@@ -81,9 +81,9 @@ export default defineComponent({
     EVENT_OPT_CREATE_CLICK,
     EVENT_ROW_BUTTON_CLICK
   ],
-  expose: [
-    'onSearch'
-  ],
+  // expose: [
+  // 'onSearch'
+  // ],
   setup (props, context) {
     const dataList = ref<any>([])
     const innerTotal = ref<number>(0)
@@ -112,6 +112,10 @@ export default defineComponent({
         })
       }
     }
+
+    context.expose({
+      onSearch
+    })
 
     onMounted(() => {
       onSearch()
