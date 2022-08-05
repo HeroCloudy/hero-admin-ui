@@ -81,6 +81,9 @@ export default defineComponent({
     EVENT_OPT_CREATE_CLICK,
     EVENT_ROW_BUTTON_CLICK
   ],
+  expose: [
+    'onSearch'
+  ],
   setup (props, context) {
     const dataList = ref<any>([])
     const innerTotal = ref<number>(0)
@@ -183,7 +186,7 @@ export default defineComponent({
 
     const innerSaveMethod = () => {
       if (props.saveMethod) {
-        props.saveMethod(innerDialogModel.value).then(_ => {
+        props.saveMethod(innerDialogModel.value).then(() => {
           ElMessage.success('保存成功')
           closeDialog()
           onSearch()

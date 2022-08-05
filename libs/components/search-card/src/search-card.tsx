@@ -110,8 +110,8 @@ export default defineComponent({
       return (
         <div class={`${NAME}__opt`}>
           { renderExpandBtn() }
-          <el-button type='default' size='small' onClick={onResetBtnClick}>重置</el-button>
-          <el-button type='primary' size='small' onClick={onSearchBtnClick}>搜索</el-button>
+          <el-button type='default' size={props.size} onClick={onResetBtnClick}>重置</el-button>
+          <el-button type='primary' size={props.size} onClick={onSearchBtnClick}>搜索</el-button>
         </div>
       )
     }
