@@ -3,25 +3,20 @@ import HaPage from '../../page'
 import {
   CI,
   commonFormProps,
+  commonTableOptProps,
   EVENT_OPT_CREATE_CLICK,
   EVENT_ROW_BUTTON_CLICK,
   RowButton
 } from '../../utils/common-props'
-import { PropItem, Schema, UiSchema } from '../../types'
-import { ElMessage, ElMessageBox } from 'element-plus'
+import { Schema } from '../../types'
 
 const NAME = 'HaPageSearch'
-
-const DEFAULT_KEY_BTN_DELETE = 'BTN_DELETE'
-const DEFAULT_KEY_BTN_MODIFY = 'BTN_MODIFY'
-
-const DIALOG_OPT_CREATE = 'CREATE'
-const DIALOG_OPT_MODIFY = 'MODIFY'
 
 export default defineComponent({
   name: NAME,
   props: {
     ...commonFormProps,
+    ...commonTableOptProps,
     advanceSearchField: {
       type: Array as PropType<string[]>,
       required: false,
@@ -42,36 +37,7 @@ export default defineComponent({
       required: false,
       default: null
     },
-    dialogTitle: {
-      type: String,
-      required: false,
-      default: ''
-    },
-    dialogField: {
-      type: Array as PropType<string[]>,
-      required: false,
-      default: null
-    },
-    dialogUiSchema: {
-      type: Object as PropType<UiSchema>,
-      required: false,
-      default: () => ({})
-    },
-    dialogWidth: {
-      type: String || Number,
-      required: false,
-      default: '50%'
-    },
-    beforeSaveMethod: {
-      type: Function as PropType<(param: any) => Promise<any>>,
-      required: false,
-      default: null
-    },
-    saveMethod: {
-      type: Function as PropType<(param: any) => Promise<any>>,
-      required: false,
-      default: null
-    },
+
     showIndex: {
       type: Boolean,
       required: false,
@@ -86,26 +52,6 @@ export default defineComponent({
       type: Number,
       required: false,
       default: 2
-    },
-    deleteMethod: {
-      type: Function as PropType<(param: any) => Promise<any>>,
-      required: false,
-      default: null
-    },
-    modifyMethod: {
-      type: Function as PropType<(param: any) => Promise<any>>,
-      required: false,
-      default: null
-    },
-    beforeModifyMethod: {
-      type: Function as PropType<(param: any) => Promise<any>>,
-      required: false,
-      default: null
-    },
-    deleteHint: {
-      type: String,
-      required: false,
-      default: '是否确定删除？'
     }
   },
   emits: [
@@ -128,13 +74,10 @@ export default defineComponent({
           param.pageSize = pageInfo.value.pageSize
         }
         props.searchMethod(param).then((resp: any) => {
-          console.log('------', resp)
           if (Object.prototype.hasOwnProperty.call(resp, 'list')) {
-            console.log('分页')
             dataList.value = resp.list
             innerTotal.value = resp.total
           } else {
-            console.log('不分页')
             dataList.value = resp
           }
         })
@@ -149,73 +92,12 @@ export default defineComponent({
       onSearch()
     })
 
-    const dialogVisible = ref<boolean>(false)
-
-    const innerDialogTitle = ref<string>(props.dialogTitle)
-
-    const innerDialogModel = ref<any>({})
-
-    const buildDefaultModel = () => {
-      const obj: any = {}
-      if (props.schema && props.schema.properties) {
-        Object.keys(props.schema.properties).forEach((k: string) => {
-          obj[k] = null
-        })
-      }
-      return obj
-    }
-
-    const dialogOpt = ref('')
-    let dialogScope: any = null
-
     const onOptCreateClick = async () => {
-      if (props.dialogField) {
-        const defaultModel = buildDefaultModel()
-        if (typeof props.beforeSaveMethod === 'function') {
-          innerDialogModel.value = { ...(await props.beforeSaveMethod(defaultModel)) }
-        } else {
-          innerDialogModel.value = defaultModel
-        }
-        innerDialogModel.value = buildDefaultModel()
-        console.log(JSON.stringify(innerDialogModel.value))
-        innerDialogTitle.value = '新增' + props.dialogTitle
-        dialogOpt.value = DIALOG_OPT_CREATE
-        setTimeout(() => {
-          dialogVisible.value = true
-        }, 10)
-      } else {
-        context.emit(EVENT_OPT_CREATE_CLICK)
-      }
-    }
-
-    const innerDialogSchema = computed(() => {
-      const properties: { [k: string]: PropItem} = {}
-      if (props.dialogField && props.dialogField.length > 0) {
-        if (props.schema && props.schema.properties) {
-          props.dialogField.forEach((k: string) => {
-            const item = props.schema.properties[k]
-            if (item) {
-              properties[k] = item
-            }
-          })
-          return { properties }
-        }
-      }
-      return { properties: {} }
-    })
-
-    const closeDialog = () => {
-      if (innerDialogModel.value) {
-        Object.keys(innerDialogModel.value).forEach((k: string) => {
-          innerDialogModel.value[k] = null
-        })
-      }
-      dialogVisible.value = false
+      context.emit(EVENT_OPT_CREATE_CLICK)
     }
 
     const onCurrentChange = (data: any) => {
       console.log('onCurrentChange', data)
-      // {currentPage: 2, pageSize: 10}
       pageInfo.value = data
       onSearch()
     }
@@ -226,86 +108,13 @@ export default defineComponent({
       onSearch()
     }
 
-    const innerSaveMethod = () => {
-      if (dialogOpt.value === DIALOG_OPT_CREATE && props.saveMethod) {
-        props.saveMethod(innerDialogModel.value).then(() => {
-          ElMessage.success('保存成功')
-          closeDialog()
-          onSearch()
-        })
-      } else if (dialogOpt.value === DIALOG_OPT_MODIFY && props.modifyMethod) {
-        props.modifyMethod(innerDialogModel.value).then(() => {
-          ElMessage.success('修改成功')
-          closeDialog()
-          onSearch()
-        })
-      }
+    const onDialogOptSuccess = (dialogOptType: string) => {
+      console.log(dialogOptType)
+      onSearch()
     }
 
-    const renderDialogSlot = () => {
-      return {
-        default: () => (
-          <ha-form schema={innerDialogSchema.value}
-            model={innerDialogModel.value}
-            column={1}
-            ui-schema={props.dialogUiSchema}></ha-form>
-        ),
-        footer: () => (
-          <span>
-            <el-button onClick={closeDialog}>取消</el-button>
-            <el-button onClick={innerSaveMethod} type='primary'>保存</el-button>
-          </span>
-        )
-      }
-    }
-
-    const deleteHintReg = /\{(.*?)\}/gi
-
-    const onRowButtonClick = async (key: string, scope: any) => {
-      const { deleteMethod, modifyMethod } = props
-      if (key === DEFAULT_KEY_BTN_DELETE && deleteMethod) {
-        let hint = props.deleteHint
-        const tmp = hint.match(deleteHintReg)
-        if (tmp) {
-          for (let i = 0; i < tmp.length; i++) {
-            // tmp[i] 带花括号；tmp[i].replace(reg, '$1') 不带花括号
-            const field = tmp[i].replace(deleteHintReg, '$1')
-            const value = scope.row[field] || ''
-            hint = hint.replace(tmp[i], value)
-          }
-        }
-        ElMessageBox.confirm(hint, '删除提示', {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
-          type: 'warning'
-        }).then(async () => {
-          await deleteMethod(scope.row)
-          ElMessage.success('删除成功')
-          closeDialog()
-          onSearch()
-
-          context.emit(EVENT_ROW_BUTTON_CLICK, key, scope)
-        }).catch(() => {
-          console.log('cancel delete')
-        })
-      } else if (key === DEFAULT_KEY_BTN_MODIFY && modifyMethod) {
-        if (typeof props.beforeModifyMethod === 'function') {
-          innerDialogModel.value = { ...(await props.beforeModifyMethod(scope.row)) }
-        } else {
-          innerDialogModel.value = { ...scope.row }
-        }
-
-        // innerDialogModel.value = buildDefaultModel()
-        // console.log(JSON.stringify(innerDialogModel.value))
-        innerDialogTitle.value = '修改' + props.dialogTitle
-        dialogOpt.value = DIALOG_OPT_MODIFY
-        dialogScope = scope
-        setTimeout(() => {
-          dialogVisible.value = true
-        }, 10)
-      } else {
-        context.emit(EVENT_ROW_BUTTON_CLICK, key, scope)
-      }
+    const onRowButtonClick = (key: string, scope: any) => {
+      context.emit(EVENT_ROW_BUTTON_CLICK, key, scope)
     }
 
     return () => {
@@ -338,6 +147,7 @@ export default defineComponent({
         return schema
       })
 
+      const innerProps = { ...props }
       return (
         <HaPage class={NAME}>
           <ha-search-card
@@ -348,6 +158,7 @@ export default defineComponent({
             size={props.size}
           ></ha-search-card>
           <ha-result-card
+            {...innerProps}
             schema={innerTableSchema.value}
             uiSchema={props.uiSchema}
             data={dataList.value}
@@ -361,13 +172,8 @@ export default defineComponent({
             showIndex={props.showIndex}
             rowButtonMaxNum={props.rowButtonMaxNum}
             size={props.size}
+            onDialogOptSuccess={onDialogOptSuccess}
           ></ha-result-card>
-          <ha-dialog v-model={dialogVisible.value}
-            title={innerDialogTitle.value}
-            v-slots={renderDialogSlot()}
-            close-on-click-modal={false}
-            width={props.dialogWidth}>
-          </ha-dialog>
         </HaPage>
       )
     }

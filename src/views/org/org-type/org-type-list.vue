@@ -46,7 +46,7 @@ const uiSchema = ref<UiSchema>({
 const searchModel = ref<any>({})
 const advanceSearchField = ref(['code', 'name'])
 const dialogField = ref(['id', 'code', 'name'])
-const dialogUiSchema = ref({
+const dialogUiSchema = ref<UiSchema>({
   id: {
     'ui:hidden': true
   }
@@ -76,6 +76,27 @@ const onRowButtonsClick = (key: any, scope: any) => {
     router.push('/org/org-type-rule/' + scope.row.code)
   }
 }
+
+// const beforeModifyMethod = (param: any) => {
+//   dialogUiSchema.value.code = {
+//     'ui:disabled': true
+//   }
+//   return new Promise(resolve => {
+//     resolve({
+//       ...param,
+//       name: param.name + ' hello world'
+//     })
+//   })
+// }
+//
+// const beforeSaveMethod = (param: any) => {
+//   dialogUiSchema.value.code = {
+//     'ui:disabled': false
+//   }
+//   return new Promise(resolve => {
+//     resolve(param)
+//   })
+// }
 
 const saveMethod = (param: any) => {
   return create(param)

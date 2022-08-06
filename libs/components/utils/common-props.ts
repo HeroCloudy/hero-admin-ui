@@ -147,6 +147,63 @@ export const commonTableProps = {
   }
 } as const
 
+/**
+ * 列表增删改弹窗快捷操作属性
+ * （列表卡片、搜索页面）
+ */
+export const commonTableOptProps = {
+  dialogTitle: {
+    type: String,
+    required: false,
+    default: ''
+  },
+  dialogField: {
+    type: Array as PropType<string[]>,
+    required: false,
+    default: null
+  },
+  dialogUiSchema: {
+    type: Object as PropType<UiSchema>,
+    required: false,
+    default: () => ({})
+  },
+  dialogWidth: {
+    type: String || Number,
+    required: false,
+    default: '50%'
+  },
+  beforeSaveMethod: {
+    type: Function as PropType<(param: any) => Promise<any>>,
+    required: false,
+    default: null
+  },
+  saveMethod: {
+    type: Function as PropType<(param: any) => Promise<any>>,
+    required: false,
+    default: null
+  },
+  deleteMethod: {
+    type: Function as PropType<(param: any) => Promise<any>>,
+    required: false,
+    default: null
+  },
+  modifyMethod: {
+    type: Function as PropType<(param: any) => Promise<any>>,
+    required: false,
+    default: null
+  },
+  beforeModifyMethod: {
+    type: Function as PropType<(param: any) => Promise<any>>,
+    required: false,
+    default: null
+  },
+  deleteHint: {
+    type: String,
+    required: false,
+    default: '是否确定删除？'
+  }
+} as const
+
 export const EVENT_CURRENT_CHANGE = 'current-change'
 export const EVENT_SIZE_CHANGE = 'size-change'
 export const EVENT_CELL_CLICK = 'cell-click'
@@ -154,3 +211,5 @@ export const EVENT_SELECTION_CHANGE = 'selection-change'
 export const EVENT_ROW_BUTTON_CLICK = 'row-buttons-click'
 export const EVENT_OPT_CREATE_CLICK = 'opt-create-click'
 export const EVENT_OPT_BATCH_DELETE_CLICK = 'opt-batch-delete-click'
+
+export const EVENT_DIALOG_OPT_SUCCESS = 'dialog-opt-success'

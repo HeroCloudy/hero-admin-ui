@@ -1,10 +1,12 @@
 import { computed, defineComponent } from 'vue'
 import {
-  CI,
+  commonTableOptProps,
   commonTableProps,
   EVENT_CURRENT_CHANGE,
+  EVENT_DIALOG_OPT_SUCCESS,
   EVENT_OPT_CREATE_CLICK,
-  EVENT_ROW_BUTTON_CLICK, EVENT_SIZE_CHANGE
+  EVENT_ROW_BUTTON_CLICK,
+  EVENT_SIZE_CHANGE
 } from '../../utils/common-props'
 
 const NAME = 'HaResultCard'
@@ -12,13 +14,15 @@ const NAME = 'HaResultCard'
 export default defineComponent({
   name: NAME,
   props: {
-    ...commonTableProps
+    ...commonTableProps,
+    ...commonTableOptProps
   },
   emits: [
     EVENT_ROW_BUTTON_CLICK,
     EVENT_OPT_CREATE_CLICK,
     EVENT_CURRENT_CHANGE,
-    EVENT_SIZE_CHANGE
+    EVENT_SIZE_CHANGE,
+    EVENT_DIALOG_OPT_SUCCESS
   ],
   setup (props, context) {
     const innerSchema = computed(() => {
@@ -28,18 +32,25 @@ export default defineComponent({
     const innerDataList = computed(() => {
       return props.data
     })
-    const onRowButtonClick = (key: symbol, scope: CI<any>) => {
-      context.emit(EVENT_ROW_BUTTON_CLICK, key, scope)
-    }
-    const onOptCreateClick = () => {
-      context.emit(EVENT_OPT_CREATE_CLICK)
-    }
+
     const onCurrentChange = (data: any) => {
       context.emit(EVENT_CURRENT_CHANGE, data)
     }
 
     const onSizeChange = (data: any) => {
       context.emit(EVENT_SIZE_CHANGE, data)
+    }
+
+    const onOptCreateClick = () => {
+      context.emit(EVENT_OPT_CREATE_CLICK)
+    }
+
+    const onRowButtonClick = async (key: string, scope: any) => {
+      context.emit(EVENT_ROW_BUTTON_CLICK, key, scope)
+    }
+
+    const onDialogOptSuccess = (dialogOptType: string) => {
+      context.emit(EVENT_DIALOG_OPT_SUCCESS, dialogOptType)
     }
 
     return () => {
@@ -57,6 +68,7 @@ export default defineComponent({
           onOptCreateClick={onOptCreateClick}
           onCurrentChange={onCurrentChange}
           onSizeChange={onSizeChange}
+          onDialogOptSuccess={onDialogOptSuccess}
         ></ha-table-card>
       )
 

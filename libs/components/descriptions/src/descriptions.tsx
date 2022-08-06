@@ -32,6 +32,7 @@ export default defineComponent({
 
     const renderItem = (field: string, jsonItem: PropItem, uiItem: UiSchemaItem) => {
       if (!jsonItem) {
+        console.log(uiItem)
         return
       }
       const label = jsonItem.title || ''

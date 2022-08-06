@@ -23,6 +23,8 @@
                    :table-field="['childCode', 'childName', 'num']"
                    :view-mode="false"
                    :data="ruleList"
+                   title="组织机构类型规则"
+                   :collapsable="false"
     ></ha-table-card>
   </ha-page>
 </template>

@@ -1,9 +1,11 @@
 import { computed, defineComponent, PropType, ref } from 'vue'
 import {
-  cardProps, CI,
+  cardProps,
+  commonTableOptProps,
   commonTableProps,
   EVENT_CELL_CLICK,
   EVENT_CURRENT_CHANGE,
+  EVENT_DIALOG_OPT_SUCCESS,
   EVENT_OPT_BATCH_DELETE_CLICK,
   EVENT_OPT_CREATE_CLICK,
   EVENT_ROW_BUTTON_CLICK,
@@ -12,8 +14,16 @@ import {
 } from '../../utils/common-props'
 import { TableColumn } from 'element-plus/lib/components/table/src/table-column/defaults'
 import { PropItem } from '../../types'
+import { ElMessage, ElMessageBox } from 'element-plus'
 
 const NAME = 'HaTableCard'
+
+const DEFAULT_KEY_BTN_DELETE = 'BTN_DELETE'
+const DEFAULT_KEY_BTN_MODIFY = 'BTN_MODIFY'
+
+const DIALOG_OPT_CREATE = 'CREATE'
+const DIALOG_OPT_MODIFY = 'MODIFY'
+const DIALOG_OPT_DELETE = 'DELETE'
 
 export default defineComponent({
   name: NAME,
@@ -25,6 +35,7 @@ export default defineComponent({
     },
     ...cardProps,
     ...commonTableProps,
+    ...commonTableOptProps,
     showOptCreate: {
       type: Boolean,
       required: false,
@@ -48,7 +59,8 @@ export default defineComponent({
     EVENT_SELECTION_CHANGE,
     EVENT_ROW_BUTTON_CLICK,
     EVENT_OPT_CREATE_CLICK,
-    EVENT_OPT_BATCH_DELETE_CLICK
+    EVENT_OPT_BATCH_DELETE_CLICK,
+    EVENT_DIALOG_OPT_SUCCESS
   ],
   setup (props, context) {
     const innerSchema = computed(() => {
@@ -91,13 +103,6 @@ export default defineComponent({
       context.emit(EVENT_SELECTION_CHANGE, selection)
     }
 
-    const onRowButtonClick = (key: symbol, scope: CI<any>) => {
-      context.emit(EVENT_ROW_BUTTON_CLICK, key, scope)
-    }
-
-    const onOptCreateClick = () => {
-      context.emit(EVENT_OPT_CREATE_CLICK)
-    }
     const onOptBatchDeleteClick = () => {
       context.emit(EVENT_OPT_BATCH_DELETE_CLICK, selectionList.value)
     }
@@ -123,6 +128,156 @@ export default defineComponent({
         </>
       )
     }
+
+    /* CRUD 弹窗 快捷操作 BEGIN */
+    const innerDialogModel = ref<any>({})
+
+    const dialogVisible = ref<boolean>(false)
+
+    const innerDialogTitle = ref<string>(props.dialogTitle)
+
+    const innerDialogSchema = computed(() => {
+      const properties: { [k: string]: PropItem} = {}
+      if (props.dialogField && props.dialogField.length > 0) {
+        if (props.schema && props.schema.properties) {
+          props.dialogField.forEach((k: string) => {
+            const item = props.schema.properties[k]
+            if (item) {
+              properties[k] = item
+            }
+          })
+          return { properties }
+        }
+      }
+      return { properties: {} }
+    })
+
+    const closeDialog = () => {
+      if (innerDialogModel.value) {
+        Object.keys(innerDialogModel.value).forEach((k: string) => {
+          innerDialogModel.value[k] = null
+        })
+      }
+      dialogVisible.value = false
+    }
+
+    const dialogOpt = ref('')
+    let dialogScope: any = null
+
+    const buildDefaultDialogModel = () => {
+      const obj: any = {}
+      if (props.schema && props.schema.properties) {
+        Object.keys(props.schema.properties).forEach((k: string) => {
+          obj[k] = null
+        })
+      }
+      return obj
+    }
+
+    const onOptCreateClick = async () => {
+      if (props.dialogField) {
+        const defaultModel = buildDefaultDialogModel()
+        if (typeof props.beforeSaveMethod === 'function') {
+          innerDialogModel.value = { ...(await props.beforeSaveMethod(defaultModel)) }
+        } else {
+          innerDialogModel.value = defaultModel
+        }
+        innerDialogModel.value = buildDefaultDialogModel()
+        console.log(JSON.stringify(innerDialogModel.value))
+        innerDialogTitle.value = '新增' + props.dialogTitle
+        dialogOpt.value = DIALOG_OPT_CREATE
+        setTimeout(() => {
+          dialogVisible.value = true
+        }, 10)
+      } else {
+        context.emit(EVENT_OPT_CREATE_CLICK)
+      }
+    }
+
+    const onRowButtonClick = async (key: string, scope: any) => {
+      const { deleteMethod, modifyMethod } = props
+      if (key === DEFAULT_KEY_BTN_DELETE && deleteMethod) {
+        let hint = props.deleteHint
+        const tmp = hint.match(deleteHintReg)
+        if (tmp) {
+          for (let i = 0; i < tmp.length; i++) {
+            // tmp[i] 带花括号；tmp[i].replace(reg, '$1') 不带花括号
+            const field = tmp[i].replace(deleteHintReg, '$1')
+            const value = scope.row[field] || ''
+            hint = hint.replace(tmp[i], value)
+          }
+        }
+        ElMessageBox.confirm(hint, '删除提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(async () => {
+          await deleteMethod(scope.row)
+          ElMessage.success('删除成功')
+          closeDialog()
+          // onSearch()
+          context.emit(EVENT_DIALOG_OPT_SUCCESS, DIALOG_OPT_DELETE)
+
+          context.emit(EVENT_ROW_BUTTON_CLICK, key, scope)
+        }).catch(() => {
+          console.log('cancel delete')
+        })
+      } else if (key === DEFAULT_KEY_BTN_MODIFY && modifyMethod) {
+        if (typeof props.beforeModifyMethod === 'function') {
+          innerDialogModel.value = { ...(await props.beforeModifyMethod(scope.row)) }
+        } else {
+          innerDialogModel.value = { ...scope.row }
+        }
+
+        innerDialogTitle.value = '修改' + props.dialogTitle
+        dialogOpt.value = DIALOG_OPT_MODIFY
+        dialogScope = scope
+        setTimeout(() => {
+          dialogVisible.value = true
+        }, 10)
+      } else {
+        context.emit(EVENT_ROW_BUTTON_CLICK, key, scope)
+      }
+    }
+
+    const innerSaveMethod = () => {
+      if (dialogOpt.value === DIALOG_OPT_CREATE && props.saveMethod) {
+        props.saveMethod(innerDialogModel.value).then(() => {
+          ElMessage.success('保存成功')
+          closeDialog()
+          context.emit(EVENT_DIALOG_OPT_SUCCESS, DIALOG_OPT_CREATE)
+        })
+      } else if (dialogOpt.value === DIALOG_OPT_MODIFY && props.modifyMethod) {
+        props.modifyMethod(innerDialogModel.value).then(() => {
+          ElMessage.success('修改成功')
+          closeDialog()
+          context.emit(EVENT_DIALOG_OPT_SUCCESS, DIALOG_OPT_MODIFY)
+          context.emit(EVENT_ROW_BUTTON_CLICK, DEFAULT_KEY_BTN_MODIFY, dialogScope)
+        })
+      }
+    }
+
+    const deleteHintReg = /\{(.*?)\}/gi
+
+    const renderDialogSlot = () => {
+      return {
+        default: () => (
+          <ha-form
+            schema={innerDialogSchema.value}
+            model={innerDialogModel.value}
+            column={1}
+            ui-schema={props.dialogUiSchema}
+          ></ha-form>
+        ),
+        footer: () => (
+          <span>
+            <el-button onClick={closeDialog}>取消</el-button>
+            <el-button onClick={innerSaveMethod} type='primary'>保存</el-button>
+          </span>
+        )
+      }
+    }
+    /* CRUD 弹窗 快捷操作 END */
 
     return () => {
       const innerTableProps = { ...props }
@@ -160,6 +315,14 @@ export default defineComponent({
               cardSlots
             }
           </ha-card>
+
+          <ha-dialog
+            v-model={dialogVisible.value}
+            title={innerDialogTitle.value}
+            v-slots={renderDialogSlot()}
+            close-on-click-modal={false}
+            width={props.dialogWidth}>
+          </ha-dialog>
         </div>
       )
     }
