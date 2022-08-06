@@ -23,5 +23,22 @@ module.exports = {
         symbolId: '[name]'
       })
       .end()
+  },
+  devServer: {
+    port: 8080,
+    contentBase: './hero-admin-pro',
+    headers: {
+      'Access-Control-Allow-Origin': '*'
+    },
+    proxy: { // 设置代理
+      '/api': {
+        target: 'http://localhost:9099',
+        ws: true,
+        changOrigin: true,
+        pathRewrite: {
+          '^/api': '/'
+        }
+      }
+    }
   }
 }

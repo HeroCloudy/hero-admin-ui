@@ -19,6 +19,11 @@ export default defineComponent({
       type: Array as PropType<string[]>,
       required: false,
       default: null
+    },
+    border: {
+      type: Boolean,
+      required: false,
+      default: true
     }
   },
   emits: [
@@ -52,6 +57,7 @@ export default defineComponent({
         opt: () => context.slots.opt && context.slots.opt(),
         default: () => props.viewMode ? (
           <ha-descriptions
+            { ...innerProps }
             schema={innerSchema.value}
             uiSchema={innerUiSchema.value}
             model={props.model}

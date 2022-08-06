@@ -1,4 +1,4 @@
-import { computed, defineComponent, ref } from 'vue'
+import { computed, defineComponent, PropType, ref } from 'vue'
 import {
   cardProps, CI,
   commonTableProps,
@@ -11,6 +11,7 @@ import {
   EVENT_SIZE_CHANGE
 } from '../../utils/common-props'
 import { TableColumn } from 'element-plus/lib/components/table/src/table-column/defaults'
+import { PropItem } from '../../types'
 
 const NAME = 'HaTableCard'
 
@@ -33,6 +34,11 @@ export default defineComponent({
       type: Boolean,
       required: false,
       default: true
+    },
+    tableField: {
+      type: Array as PropType<string[]>,
+      required: false,
+      default: null
     }
   },
   emits: [
@@ -46,7 +52,20 @@ export default defineComponent({
   ],
   setup (props, context) {
     const innerSchema = computed(() => {
-      return props.schema
+      const { schema, tableField } = props
+      if (!tableField || tableField.length <= 0) {
+        return props.schema
+      }
+      const properties: {[k: string]: PropItem} = {}
+      tableField.forEach(k => {
+        if (schema.properties[k]) {
+          properties[k] = schema.properties[k]
+        }
+      })
+      return {
+        ...schema,
+        properties
+      }
     })
     const innerUiSchema = computed(() => {
       return props.uiSchema

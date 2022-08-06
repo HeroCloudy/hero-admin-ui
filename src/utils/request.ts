@@ -1,96 +1,87 @@
-import axios, { AxiosInstance, AxiosRequestConfig } from 'axios'
+import axios, { AxiosRequestConfig, AxiosResponse } from 'axios'
+import store from '@/store'
 import { ElMessage } from 'element-plus'
-// import LoadingUtils from '@/common/LoadingUtils'
-// import config from '@/config'
 
-const axiosInstance: AxiosInstance = axios.create({
+const defaultConfig = {
   timeout: 5000,
-  baseURL: 'http://124.220.8.69:10090'
-})
-
-axiosInstance.defaults.headers.post['Content-Type'] = 'application/json'
-
-// 显示错误信息
-const showError = (msg: string) => ElMessage.error({
-  message: msg,
-  type: 'error',
-  duration: 3 * 1000
-})
-
-// 请求拦截器
-axiosInstance.interceptors.request.use(
-  config => {
-    // TODO 后面需要设置 token
-    // LoadingUtils.showLoading()
-    return config
-  },
-  error => {
-    console.error(error)
-    // LoadingUtils.closeLoading()
-    showError('发送请求失败')
-    return Promise.reject(error)
-  }
-)
-
-// 响应拦截器
-axiosInstance.interceptors.response.use(
-  response => {
-    // LoadingUtils.closeLoading()
-    // HTTP 状态码为 200 表示成功，其他情况均为失败
-    if (response.status === 200) {
-      return Promise.resolve(response.data)
-    }
-    const respData = response.data
-    ElMessage.error(`${respData.msg}(${respData.code})`)
-    return Promise.reject(response.data)
-  },
-  error => {
-    console.error(error)
-    // LoadingUtils.closeLoading()
-    const {
-      code,
-      message
-    } = error
-    if (message.indexOf('status code 404') > -1) {
-      showError(`请求路径不存在（${error.config.method}: ${error.config.url}）`)
-      console.log(JSON.stringify(error))
-      return Promise.reject(error)
-    }
-    if (code === 'ECONNABORTED' || message === 'Network Error') { // 请求超时
-      showError('请求超时')
-      return Promise.reject(error)
-    }
-    if (error.response) {
-      if (error.response.status === 401) {
-        // 针对无权限的处理
-      } else {
-        showError(`${error.response.data.msg}(${error.response.data.code})`)
-      }
-    }
-    return Promise.reject(error)
-  }
-)
-
-const get = (url: string, params?: any, config?: AxiosRequestConfig) => axiosInstance.get(url, {
-  params: params,
-  ...config
-})
-const post = (url: string, data?: any, config?: AxiosRequestConfig) => axiosInstance.post(url, data, config)
-const put = (url: string, data?: any, config?: AxiosRequestConfig) => axiosInstance.put(url, data, config)
-const del = (url: string, data?: any, config?: AxiosRequestConfig) => axiosInstance.delete(url, {
-  data: data,
-  ...config
-})
-const upload = (url: string, data?: any) => axiosInstance.post(url, data, {
-  headers: {
-    'Content-Type': 'multipart/form-data'
-  }
-})
-
-export default {
-  get,
-  post,
-  put,
-  del,
-  upload
+  baseURL: '/api'
 }
+
+class Request {
+  private static axiosInstance = axios.create(defaultConfig)
+
+  constructor () {
+    this.httpInterceptorsRequest()
+    this.httpInterceptorsResponse()
+  }
+
+  // 请求拦截
+  private httpInterceptorsRequest () {
+    Request.axiosInstance.interceptors.request.use((config: AxiosRequestConfig) => {
+      if (store.getters.token) {
+        if (!config.headers) {
+          config.headers = {}
+        }
+        config.headers.Authorization = `Bearer ${store.getters.token}`
+      }
+      return config
+    }, err => {
+      return Promise.reject(err)
+    })
+  }
+
+  // 响应拦截
+  private httpInterceptorsResponse () {
+    Request.axiosInstance.interceptors.response.use((response: AxiosResponse) => {
+      console.log('hello', response)
+      if (response.status === 200) {
+        return response
+      }
+      if (response.status === 401) {
+        store.dispatch('sys/logout')
+        return Promise.reject(new Error())
+      }
+    }, err => {
+      console.log(JSON.stringify(err.response))
+      console.log(err.response.data)
+      const errorResult = err.response.data || {}
+      this.showError(errorResult.msg + ' (' + errorResult.code + ')')
+      return Promise.reject(err)
+    })
+  }
+
+  // 显示错误信息
+  private showError (msg: string) {
+    ElMessage.error({
+      message: msg,
+      type: 'error',
+      duration: 3 * 1000
+    })
+  }
+
+  // get 请求
+  public get<T> (url: string, params?: AxiosRequestConfig, config?: AxiosRequestConfig): Promise<T> {
+    return Request.axiosInstance.get(url, {
+      params: params,
+      ...config
+    }).then(resp => resp.data).catch()
+  }
+
+  // post 请求
+  public post<T> (url: string, data?: any, config?: AxiosRequestConfig): Promise<T> {
+    return Request.axiosInstance.post(url, data, config).then(resp => resp.data).catch()
+  }
+
+  public put<T> (url: string, data?: any, config?: AxiosRequestConfig): Promise<T> {
+    return Request.axiosInstance.put(url, data, config).then(resp => resp.data).catch()
+  }
+
+  public del<T> (url: string, data?: any, config?: AxiosRequestConfig): Promise<T> {
+    return Request.axiosInstance.delete(url, {
+      data: data,
+      ...config
+    })
+  }
+}
+
+export const request = new Request()

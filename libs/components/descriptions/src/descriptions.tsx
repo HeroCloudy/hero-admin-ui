@@ -1,4 +1,4 @@
-import { defineComponent } from 'vue'
+import { computed, defineComponent } from 'vue'
 import { commonFormProps } from '../../utils/common-props'
 import { OfItem, PropItem, UI_HIDDEN, UiSchemaItem } from '../../types'
 
@@ -12,21 +12,18 @@ export default defineComponent({
       type: Boolean,
       required: false,
       default: true
-    },
-    column: {
-      type: Number,
-      required: false,
-      default: 3
     }
   } as const,
   setup (props, context) {
     console.log(props, context)
-    const fields = Object.keys(props.schema.properties).filter(key => {
-      const uiItem = props.uiSchema[key]
-      if (uiItem && uiItem[UI_HIDDEN]) {
-        return false
-      }
-      return true
+    const fields = computed(() => {
+      return Object.keys(props.schema.properties).filter(key => {
+        const uiItem = props.uiSchema[key]
+        if (uiItem && uiItem[UI_HIDDEN]) {
+          return false
+        }
+        return true
+      })
     })
 
     const findItemValueFromOfList = (list: OfItem[], v: string): string => {
@@ -47,12 +44,12 @@ export default defineComponent({
         }
       }
       return (
-        <el-descriptions-item label={label}>{value}</el-descriptions-item>
+        <el-descriptions-item label={label} width="80px" label-align="right">{value}</el-descriptions-item>
       )
     }
 
     const renderItems = () => {
-      return fields.map(field => {
+      return fields.value.map(field => {
         return renderItem(field, props.schema.properties[field], props.uiSchema[field])
       })
     }
