@@ -162,6 +162,11 @@ export const commonTableOptProps = {
     required: false,
     default: null
   },
+  dialogSchema: {
+    type: Object as PropType<Schema>,
+    required: false,
+    default: null
+  },
   dialogUiSchema: {
     type: Object as PropType<UiSchema>,
     required: false,

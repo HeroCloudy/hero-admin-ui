@@ -137,11 +137,14 @@ export default defineComponent({
     const innerDialogTitle = ref<string>(props.dialogTitle)
 
     const innerDialogSchema = computed(() => {
+      const { dialogSchema, schema } = props
+      const tempSchema = dialogSchema || schema
+
       const properties: { [k: string]: PropItem} = {}
       if (props.dialogField && props.dialogField.length > 0) {
-        if (props.schema && props.schema.properties) {
+        if (tempSchema && tempSchema.properties) {
           props.dialogField.forEach((k: string) => {
-            const item = props.schema.properties[k]
+            const item = tempSchema.properties[k]
             if (item) {
               properties[k] = item
             }
@@ -179,10 +182,11 @@ export default defineComponent({
         const defaultModel = buildDefaultDialogModel()
         if (typeof props.beforeSaveMethod === 'function') {
           innerDialogModel.value = { ...(await props.beforeSaveMethod(defaultModel)) }
+          // console.log('------', innerDialogModel.value)
         } else {
           innerDialogModel.value = defaultModel
         }
-        innerDialogModel.value = buildDefaultDialogModel()
+        // innerDialogModel.value = buildDefaultDialogModel()
         console.log(JSON.stringify(innerDialogModel.value))
         innerDialogTitle.value = '新增' + props.dialogTitle
         dialogOpt.value = DIALOG_OPT_CREATE

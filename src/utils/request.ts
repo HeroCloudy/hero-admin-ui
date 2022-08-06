@@ -60,7 +60,7 @@ class Request {
   }
 
   // get 请求
-  public get<T> (url: string, params?: AxiosRequestConfig, config?: AxiosRequestConfig): Promise<T> {
+  public get<T> (url: string, params?: any, config?: AxiosRequestConfig): Promise<T> {
     return Request.axiosInstance.get(url, {
       params: params,
       ...config
