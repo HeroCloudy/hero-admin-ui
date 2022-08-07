@@ -53,6 +53,14 @@ const routes: Array<RouteRecordRaw> = [
           title: '组织机构类型规则'
           // icon: 'personnel-manage'
         }
+      },
+      {
+        path: '/org/org',
+        component: () => import('@/views/org/org/org-list.vue'),
+        meta: {
+          title: '组织机构管理',
+          icon: 'personnel-manage'
+        }
       }
     ]
   }

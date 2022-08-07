@@ -23,5 +23,6 @@ module.exports = [
   // '/components/result-card.md'
   '/components/demo.md',
   '/components/page-search.md',
-  '/components/input-img.md'
+  '/components/input-img.md',
+  '/components/page-resizable.md'
 ]

@@ -1,3 +1,4 @@
+import HaPageResizable from './page-resizable'
 import HaInputImg from './input-img'
 import HaPageSearch from './page-search'
 import HaDialog from './dialog'
@@ -49,5 +50,6 @@ export default [
   HaResultCard,
   HaDialog,
   HaPageSearch,
-  HaInputImg
+  HaInputImg,
+  HaPageResizable
 ] // end
