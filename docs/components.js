@@ -24,5 +24,6 @@ module.exports = [
   '/components/demo.md',
   '/components/page-search.md',
   '/components/input-img.md',
-  '/components/page-resizable.md'
+  '/components/page-resizable.md',
+  '/components/tree-card.md'
 ]

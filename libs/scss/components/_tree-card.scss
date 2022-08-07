@@ -1,0 +1,31 @@
+@import "../tools/sassMagic";
+@import "../acss/mp";
+@import "../base/var";
+
+@include b('HaTreeCard') {
+
+  margin: $common-padding;
+  height: 95%;
+
+  @include e(tree) {
+    height: 98%;
+    overflow-y: scroll;
+
+    .el-tree--highlight-current .el-tree-node.is-current > .el-tree-node__content {
+      background-color: rgba($primary-color, 0.7);
+      color: white;
+    }
+  }
+
+  .el-card__body {
+    height: 95%;
+    >:first-child {
+      height: 100%;
+
+      .HaCard__content {
+        height: 100%;
+        overflow-y: hidden;
+      }
+    }
+  }
+}

@@ -17,6 +17,11 @@ export default defineComponent({
   props: {
     ...commonFormProps,
     ...commonTableOptProps,
+    searchSchema: {
+      type: Object as PropType<Schema>,
+      required: false,
+      default: null
+    },
     advanceSearchField: {
       type: Array as PropType<string[]>,
       required: false,
@@ -52,6 +57,11 @@ export default defineComponent({
       type: Number,
       required: false,
       default: 2
+    },
+    lazyLoad: {
+      type: Boolean,
+      required: false,
+      default: false
     }
   },
   emits: [
@@ -89,7 +99,9 @@ export default defineComponent({
     })
 
     onMounted(() => {
-      onSearch()
+      if (!props.lazyLoad) {
+        onSearch()
+      }
     })
 
     const onOptCreateClick = async () => {
@@ -118,19 +130,23 @@ export default defineComponent({
     }
 
     return () => {
-      const { schema, advanceSearchField, tableField } = props
+      const { schema, advanceSearchField, tableField, searchSchema } = props
 
-      const innerSchema: Schema = { properties: {} }
+      const innerSearchSchema = computed(() => {
+        const innerSchema: Schema = { properties: {} }
+        const tempSchema = searchSchema || schema
 
-      if (advanceSearchField && advanceSearchField.length > 0) {
-        advanceSearchField.forEach((key: string) => {
-          if (schema && schema.properties && schema.properties[key]) {
-            innerSchema.properties[key] = schema.properties[key]
-          }
-        })
-      } else {
-        innerSchema.properties = schema.properties
-      }
+        if (advanceSearchField && advanceSearchField.length > 0) {
+          advanceSearchField.forEach((key: string) => {
+            if (tempSchema && tempSchema.properties && tempSchema.properties[key]) {
+              innerSchema.properties[key] = schema.properties[key]
+            }
+          })
+        } else {
+          innerSchema.properties = tempSchema.properties
+        }
+        return innerSchema
+      })
 
       const innerTableSchema = computed(() => {
         if (tableField && tableField.length > 0) {
@@ -151,11 +167,12 @@ export default defineComponent({
       return (
         <HaPage class={NAME}>
           <ha-search-card
-            schema={innerSchema}
+            schema={innerSearchSchema.value}
             uiSchema={props.uiSchema}
             model={props.model}
             onSearch={onSearch}
             size={props.size}
+            column={props.column}
           ></ha-search-card>
           <ha-result-card
             {...innerProps}
