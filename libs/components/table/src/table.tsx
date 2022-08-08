@@ -170,7 +170,11 @@ export default defineComponent({
     }
 
     const renderRowButtons = () => {
-      const width = props.rowButtonMaxNum * 90
+      const optUiSchema = props.uiSchema.opt
+      let width = props.rowButtonMaxNum * 90
+      if (optUiSchema && optUiSchema['ui:width']) {
+        width = optUiSchema['ui:width']
+      }
       return (
         <ElTableColumn
           label="操作"
