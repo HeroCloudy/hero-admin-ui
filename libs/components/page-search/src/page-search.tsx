@@ -173,6 +173,7 @@ export default defineComponent({
             onSearch={onSearch}
             size={props.size}
             column={props.column}
+            onEnterUp={onSearch}
           ></ha-search-card>
           <ha-result-card
             {...innerProps}

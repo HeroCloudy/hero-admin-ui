@@ -12,6 +12,7 @@ import {
 import { Slots } from 'vue'
 
 export const EVENT_DATA_CHANGE = 'data-change'
+export const EVENT_ENTER_UP = 'enter-up'
 
 export const renderFormItem = (
   form: { [key: string]: any },
@@ -20,7 +21,8 @@ export const renderFormItem = (
   uiItem: UiSchemaItem = {},
   defaultSpan: number,
   onChange: (key: string, value: any) => void,
-  slots: Slots
+  slots: Slots,
+  onEnterUp: (e: KeyboardEvent) => void
 ): JSX.Element | null => {
   if (uiItem[UI_HIDDEN]) {
     return null
@@ -37,8 +39,10 @@ export const renderFormItem = (
     if (slots[prop]) {
       return () => slots[prop]?.(form)
     }
-    const onEnterPress = (e: Event) => {
-      console.log('press enter', e)
+    const onKeyup = (e: KeyboardEvent) => {
+      if (e.key === 'Enter') {
+        onEnterUp(e)
+      }
     }
     switch (type) {
       case PropItemTypes.STRING: {
@@ -49,6 +53,7 @@ export const renderFormItem = (
               <el-input
                 v-model={form[prop]}
                 onInput={(value: any) => onChange(prop, value)}
+                onKeyup={onKeyup}
                 {...commonProps}
               />
             )
@@ -60,7 +65,6 @@ export const renderFormItem = (
                 type="textarea"
                 onInput={(value: any) => onChange(prop, value)}
                 {...commonProps}
-                nativeOnKeydown={(e: Event) => onEnterPress(e)}
               />
             )
           } else {

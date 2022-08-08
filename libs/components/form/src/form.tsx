@@ -1,6 +1,6 @@
-import { defineComponent, PropType, reactive, watchEffect } from 'vue'
+import { defineComponent, PropType, reactive, ref, watchEffect } from 'vue'
 import { Schema, UiSchema } from '../../types'
-import { EVENT_DATA_CHANGE, renderFormItem } from '../../utils/form-utils'
+import { EVENT_DATA_CHANGE, EVENT_ENTER_UP, renderFormItem } from '../../utils/form-utils'
 
 const NAME = 'HaForm'
 
@@ -52,10 +52,20 @@ export default defineComponent({
     }
   } as const,
   emits: [
-    EVENT_DATA_CHANGE
+    EVENT_DATA_CHANGE,
+    EVENT_ENTER_UP
   ],
-  setup (props, { emit, slots }) {
-    // const formRef = ref()
+  setup (props, { emit, slots, expose }) {
+    const formRef = ref()
+
+    const reset = () => {
+      formRef.value && formRef.value.resetFields()
+    }
+
+    expose({
+      reset
+    })
+
     let form = reactive(props.model)
 
     let defaultSpan = 24 / props.column
@@ -69,13 +79,17 @@ export default defineComponent({
       emit(EVENT_DATA_CHANGE, key, value, form)
     }
 
+    const onEnterUp = (e: KeyboardEvent): void => {
+      emit(EVENT_ENTER_UP, e)
+    }
+
     const renderForm = () => {
       const properties = props.schema.properties
       const formItems: JSX.Element[] = []
       Object.keys(properties).forEach((prop: string) => {
         const item = properties[prop]
         const uiItem = props.uiSchema[prop]
-        const formItem = renderFormItem(form, prop, item, uiItem, defaultSpan, onChange, slots)
+        const formItem = renderFormItem(form, prop, item, uiItem, defaultSpan, onChange, slots, onEnterUp)
         if (formItem) {
           formItems.push(formItem)
         }
@@ -85,7 +99,7 @@ export default defineComponent({
 
     return () => (
       <div class={NAME}>
-        <el-form ref="formRef" model={form} labelWidth={props.labelWidth} size={props.size}
+        <el-form ref={formRef} model={form} labelWidth={props.labelWidth} size={props.size}
           label-position={props.labelPosition} label-suffix={props.labelSuffix} disabled={props.disabled}>
           <el-row gutter={5}>
             {renderForm()}

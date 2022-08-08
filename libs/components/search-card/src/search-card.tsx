@@ -1,6 +1,7 @@
 import { computed, defineComponent, PropType, ref } from 'vue'
 import { commonFormProps } from '../../utils/common-props'
 import { PropItem, UI_COLUMN } from '../../types'
+import { EVENT_ENTER_UP } from '../../utils/form-utils'
 
 const NAME = 'HaSearchCard'
 
@@ -21,6 +22,8 @@ export default defineComponent({
   },
   setup (props, context) {
     const isSimpleSearch = ref(true)
+
+    const formRef = ref()
 
     const innerSimpleSearchField = computed<string[]>(() => {
       const { schema, simpleSearchField, column } = props
@@ -83,11 +86,15 @@ export default defineComponent({
 
     const onResetBtnClick = () => {
       console.log('点击重置按钮')
+      formRef.value.reset()
       context.emit(EVENT_RESET)
     }
     const onSearchBtnClick = () => {
       console.log('点击搜索按钮', props.model)
       context.emit(EVENT_SEARCH, props.model)
+    }
+    const onEnterUp = (e: KeyboardEvent) => {
+      context.emit(EVENT_ENTER_UP, e)
     }
 
     const renderExpandBtn = () => {
@@ -123,11 +130,13 @@ export default defineComponent({
       <div class={NAME}>
         <ha-card shadow="hover" title='搜索条件'>
           <ha-form
+            ref={formRef}
             schema={innerSchema.value}
             uiSchema={innerUiSchema.value}
             model={props.model}
             size={props.size}
             column={props.column}
+            onEnterUp={onEnterUp}
           >
             {slots}
           </ha-form>
