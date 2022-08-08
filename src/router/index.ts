@@ -61,6 +61,14 @@ const routes: Array<RouteRecordRaw> = [
           title: '组织机构管理',
           icon: 'personnel-manage'
         }
+      },
+      {
+        path: '/org/position',
+        component: () => import('@/views/org/position/position-list.vue'),
+        meta: {
+          title: '岗位管理',
+          icon: 'personnel-manage'
+        }
       }
     ]
   }
